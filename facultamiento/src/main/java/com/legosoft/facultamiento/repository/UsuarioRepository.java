@@ -24,8 +24,8 @@ public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 	List<Usuario> findByNombre(String nombre, @Depth int dept);
 	
 	
-	@Query("MATCH (u:Usuario)-[:HAS_PERFIL]-> (p:Perfil)-[:HAS_FACULTAD]-> (f:Facultad) where u.nombre={nombre} RETURN u,p,f")
-	@Depth(value = 5)
+	@Query("MATCH (u:Usuario)-[rp:HAS_PERFIL]-> (p:Perfil)-[rf:HAS_FACULTAD]-> (f:Facultad) where u.nombre={nombre} RETURN u,rp,p,rf,f")
 	List<Usuario> getInfoUsuario(@Param("nombre") String nombre);
+
 	
 }

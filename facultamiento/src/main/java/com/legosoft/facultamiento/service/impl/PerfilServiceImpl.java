@@ -19,7 +19,7 @@ public class PerfilServiceImpl implements PerfilService{
 	
 	public List<Perfil> findAllPerfiles(){
 		
-		List<Perfil> result = (List<Perfil>) perfilRepository.findAll();
+		List<Perfil> result = (List<Perfil>) perfilRepository.findAll(4);
 		
 		return result;
 		

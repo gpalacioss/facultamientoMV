@@ -18,13 +18,12 @@ public class FacultamientoApplicationTests {
 	
 	@Autowired
 	private UsuarioService usuarioService;
-
+/**
 	@Test
 	public void contextLoads() {
 	}
 
-	/**
-	 * 
+
 	
 	@Test
 	public void getPerfil() {
@@ -32,7 +31,7 @@ public class FacultamientoApplicationTests {
 		System.out.println("Nombre Perfil:: " + result.getNombre());
 	}
 	
-	
+	**/
 	
 	
 	@Test
@@ -43,15 +42,18 @@ public class FacultamientoApplicationTests {
 			u.getPerfiles().forEach(p -> {
 				System.out.println("========Perfiles==============");
 				System.out.println(p.getNombre());
+				p.getFacultades().forEach(f -> {
+					System.out.println("facultades de cada perfil:: " + f.getNombre());
+				});
 			});
 		});
 	}
 	
-	 */
+
 	
 	
 
-	 @Test
+/**@Test
 		public void getUsuarios() {
 			
 			List<Usuario> result = usuarioService.findUsuarioBynombre("Teresa Toledo Jimenez");
@@ -68,7 +70,7 @@ public class FacultamientoApplicationTests {
 			});
 	 }
 	
-			
+	**/		
 		
 
 }

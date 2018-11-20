@@ -8,6 +8,7 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.legosoft.facultamiento.models.nuevo.Rol;
 import com.legosoft.facultamiento.models.old.Perfil;
 import com.legosoft.facultamiento.models.old.Usuario;
 import com.legosoft.facultamiento.repository.PerfilRepository;
@@ -41,6 +42,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public List<Usuario> findUsuarioBynombre(String nombre) {
 		List<Usuario> result = repository.findByNombre(nombre, 3);
 		return result;
+	}
+	
+	public void save(Usuario usuario) {
+		repository.save(usuario);
 	}
 
 }

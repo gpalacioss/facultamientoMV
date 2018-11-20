@@ -27,7 +27,5 @@ public class PerfilNM implements Serializable {
 	
 	private Boolean isActivo;
 	
-	@Relationship(type = "HAS_FACULTAD", direction = Relationship.OUTGOING)
-	private Set<FacultadNM> facultades = new HashSet<>();	
 
 }
