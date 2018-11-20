@@ -1,0 +1,27 @@
+<div class="container margen">
+ <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>IdUsuario</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Telefono</th>
+        <th>Activo</th>
+        <th>Interno</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of userLis">
+        <td>{{u.idUsuario}}</td>
+        <td>{{u.nombre}}</td>
+        <td>{{u.email}}</td>
+        <td>{{u.telefono}}</td>
+        <td>{{u.isActivo}}</td>
+        <td>{{u.isInterno}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group" >
+    <!--<button type="button" class="btn btn-success" (click) = "getUsuarios()" data-toggle="tooltip" >Aceptar</button>-->
+  </div>
+</div>
