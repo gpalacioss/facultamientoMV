@@ -1,4 +1,6 @@
+import { RolService } from './../../service/rol/rol.service';
 import { Component, OnInit } from '@angular/core';
+import { Rol } from 'src/app/models/rol';
 
 @Component({
   selector: 'app-rol',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RolComponent implements OnInit {
 
-  constructor() { }
+  private lstRol: Array<Rol>;
+
+  constructor(private rolService: RolService) { }
 
   ngOnInit() {
+    this.getAllRoles();
   }
 
+
+  private getAllRoles(): void {
+
+    this.rolService.getAllRoles().subscribe(result => {
+      this.lstRol = result;
+    });
+
+  }
 }

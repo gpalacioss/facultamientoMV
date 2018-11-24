@@ -1,3 +1,5 @@
+import { Facultad } from './../../models/facultad';
+import { FacultadService } from './../../service/facultad/facultad.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FacultadComponent implements OnInit {
 
-  constructor() { }
+  private lstFacultades: Array<Facultad>;
+
+  constructor(private facultadService: FacultadService) { }
 
   ngOnInit() {
+    this.getFacultades();
+  }
+
+  public getFacultades(): void {
+
+    this.facultadService.getFacultades().subscribe(result => {
+
+      this.lstFacultades = result;
+
+    });
+
   }
 
 }

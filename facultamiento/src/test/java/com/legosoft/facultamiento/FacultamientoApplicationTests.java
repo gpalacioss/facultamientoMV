@@ -1,6 +1,7 @@
 package com.legosoft.facultamiento;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,13 +43,26 @@ public class FacultamientoApplicationTests {
 			u.getPerfiles().forEach(p -> {
 				System.out.println("========Perfiles==============");
 				System.out.println(p.getNombre());
-				p.getFacultades().forEach(f -> {
-					System.out.println("facultades de cada perfil:: " + f.getNombre());
-				});
+//				p.getFacultades().forEach(f -> {
+//					System.out.println("facultades de cada perfil:: " + f.getNombre());
+//				});
 			});
 		});
 	}
-	
+
+
+	@Test
+	public void getAllUsuarios(){
+//		List<Usuario> result = usuarioService.getAllUsuarios();
+//
+//		result.forEach(u -> {
+//			System.out.println("id del nodo:: " + u.getId());
+//		});
+
+		Optional<Usuario> u = usuarioService.findUsuarioById(0L);
+		u.ifPresent(us -> System.out.println("id del nodo:: " + us.getNombre()));
+
+	}
 
 	
 	
@@ -70,7 +84,9 @@ public class FacultamientoApplicationTests {
 			});
 	 }
 	
-	**/		
+	**/
+
+
 		
 
 }

@@ -2,6 +2,7 @@ package com.legosoft.facultamiento.models.old;
 
 import java.io.Serializable;
 
+import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -23,6 +24,8 @@ public class Facultad implements Serializable{
 	private String idFacultad;
 	
 	private String nombre;
+
+	private String descripcion;
 	
 	private String horaInicio;
 	
@@ -107,7 +110,12 @@ public class Facultad implements Serializable{
 	public void setActivo(Boolean isActivo) {
 		this.isActivo = isActivo;
 	}
-	
-	
-	
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 }

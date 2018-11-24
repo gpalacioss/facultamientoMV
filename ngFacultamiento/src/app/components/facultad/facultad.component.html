@@ -1,3 +1,26 @@
-<p>
-  facultad works!
-</p>
+<div class="container margen">
+  <table class="table">
+     <thead class="thead-dark">
+       <tr>
+         <th>idFacultad</th>
+         <th>Nombre</th>
+         <th>Descripcion</th>
+         <th>fecha de Modificacion</th>
+         <th>Activo</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr *ngFor="let f of lstFacultades">
+         <td>{{f.idFacultad}}</td>
+         <td>{{f.nombre}}</td>
+         <!--<td>{{f.descripcion}}</td>-->
+         <td>{{f.fechaModificacion}}</td>
+         <td>{{f.isActivo}}</td>
+       </tr>
+     </tbody>
+   </table>
+   <div class="form-group" >
+     <!--<button type="button" class="btn btn-success" (click) = "getUsuarios()" data-toggle="tooltip" >Aceptar</button>-->
+   </div>
+ </div>
+ 

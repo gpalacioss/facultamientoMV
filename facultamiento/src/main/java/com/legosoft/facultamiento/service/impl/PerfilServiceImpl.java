@@ -3,6 +3,8 @@ package com.legosoft.facultamiento.service.impl;
 
 import java.util.List;
 
+import com.legosoft.facultamiento.models.nuevo.PerfilNM;
+import com.legosoft.facultamiento.repository.PerfilNMRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class PerfilServiceImpl implements PerfilService{
 	
 	@Autowired
 	private PerfilRepository perfilRepository;
+
+	@Autowired
+	private PerfilNMRepository perfilNMRepository;
 	
 	
 	public List<Perfil> findAllPerfiles(){
@@ -23,6 +28,14 @@ public class PerfilServiceImpl implements PerfilService{
 		
 		return result;
 		
+	}
+
+	public PerfilNM saveOrUpdate(PerfilNM perfil){
+		return  perfilNMRepository.save(perfil);
+	}
+
+	public List<PerfilNM> getAllperfilesNuevos(){
+		return perfilNMRepository.findAll();
 	}
 
 }

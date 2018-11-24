@@ -1,5 +1,6 @@
 package com.legosoft.facultamiento.repository;
 
+import com.legosoft.facultamiento.models.nuevo.PerfilNM;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 

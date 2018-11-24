@@ -7,6 +7,8 @@ import com.legosoft.facultamiento.models.nuevo.Rol;
 import com.legosoft.facultamiento.repository.RolRepository;
 import com.legosoft.facultamiento.service.RolService;
 
+import java.util.List;
+
 @Service("rolService")
 public class RolServiceImpl implements RolService {
 
@@ -17,4 +19,7 @@ public class RolServiceImpl implements RolService {
 		return rolRepository.save(rol);
 	}
 
+	public List<Rol> getAllRoles(){
+		return rolRepository.findAll();
+	}
 }

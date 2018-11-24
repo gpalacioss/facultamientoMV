@@ -1,3 +1,24 @@
-<p>
-  rol works!
-</p>
+<div class="container margen">
+  <table class="table">
+     <thead class="thead-dark">
+       <tr>
+         <th>idRol</th>
+         <th>Nombre</th>
+         <th>Fecha de Creacion</th>
+         <th>Activo</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr *ngFor="let r of lstRol">
+         <td>{{r.idRo}}</td>
+         <td>{{r.nombreRol}}</td>
+         <td>{{r.isActivo}}</td>
+         <td>{{r.fechaCreacion}}</td>
+       </tr>
+     </tbody>
+   </table>
+   <div class="form-group" >
+     <!--<button type="button" class="btn btn-success" (click) = "getUsuarios()" data-toggle="tooltip" >Aceptar</button>-->
+   </div>
+ </div>
+ 

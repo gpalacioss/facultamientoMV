@@ -1,14 +1,11 @@
 package com.legosoft.facultamiento.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.annotation.Depth;
-import org.springframework.data.neo4j.annotation.QueryResult;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.legosoft.facultamiento.models.nuevo.Rol;
 import com.legosoft.facultamiento.models.old.Perfil;
 import com.legosoft.facultamiento.models.old.Usuario;
 import com.legosoft.facultamiento.repository.PerfilRepository;
@@ -46,6 +43,14 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	public void save(Usuario usuario) {
 		repository.save(usuario);
+	}
+
+	public Optional<Usuario> findUsuarioById(Long id){
+		return repository.findById(id);
+	}
+
+	public Usuario saveOrUpdate(Usuario usuario){
+		return repository.save(usuario);
 	}
 
 }

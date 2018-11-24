@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.legosoft.facultamiento.models.nuevo.PerfilNM;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -33,8 +34,11 @@ public class Usuario implements Serializable{
 	
 	private Boolean isActivo;
 	
-	@Relationship(type = "HAS_PERFIL", direction = Relationship.OUTGOING)
-	private Set<Perfil> perfiles = new HashSet<>();
+//	@Relationship(type = "HAS_PERFIL", direction = Relationship.OUTGOING)
+//	private Set<Perfil> perfiles = new HashSet<>();
+
+	@Relationship(type = "HAS_PERFIL_NM", direction = Relationship.OUTGOING)
+	private Set<PerfilNM> perfiles = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -95,11 +99,11 @@ public class Usuario implements Serializable{
 		this.isActivo = isActivo;
 	}
 
-	public Set<Perfil> getPerfiles() {
+	public Set<PerfilNM> getPerfiles() {
 		return perfiles;
 	}
 
-	public void setPerfiles(Set<Perfil> perfiles) {
+	public void setPerfiles(Set<PerfilNM> perfiles) {
 		this.perfiles = perfiles;
 	}
 	

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.legosoft.facultamiento.models.old.Usuario;
 
 import java.lang.String;
+import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
@@ -27,5 +28,8 @@ public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 	@Query("MATCH (u:Usuario)-[rp:HAS_PERFIL]-> (p:Perfil)-[rf:HAS_FACULTAD]-> (f:Facultad) where u.nombre={nombre} RETURN u,rp,p,rf,f")
 	List<Usuario> getInfoUsuario(@Param("nombre") String nombre);
 
-	
+
+	@Override
+	Optional<Usuario> findById(Long id);
+
 }

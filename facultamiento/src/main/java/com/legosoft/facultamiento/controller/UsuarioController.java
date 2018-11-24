@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.legosoft.facultamiento.models.nuevo.FacultadNM;
+import com.legosoft.facultamiento.repository.FacultadRepository;
+import com.legosoft.facultamiento.service.FacultadSerivice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,6 +36,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private RolService rolService;
+
+	@Autowired
+	private FacultadSerivice facultadSerivice;
 
 	@RequestMapping(value = "/infoUsuarios", method = RequestMethod.GET)
 	public List<Usuario> infoUsuarios() {
@@ -83,10 +89,30 @@ public class UsuarioController {
 				rol.setNombreRol("Rol:" + contador++);
 
 				f.forEach(ff -> {
-					rol.getFacultades().add(ff);
+
+					FacultadNM nf = facultadSerivice.findFacultadNmByIdFacultad(Long.parseLong(ff.getIdFacultad()));
+
+					if (nf == null){
+
+						nf = new FacultadNM();
+
+						nf.setActivo(ff.isActivo());
+						nf.setDescripcion(ff.getDescripcion());
+						nf.setFechaModificacion(ff.getFechaModificacion());
+						nf.setHoraFinal(ff.getHoraFinal());
+						nf.setHoraInicio(ff.getHoraInicio());
+						nf.setIdFacultad(Long.parseLong(ff.getIdFacultad()));
+						nf.setIsRestriccionHorario(ff.isRestriccionHorario());
+						nf.setNombre(ff.getNombre());
+						nf.setTipoFacultad(ff.getTipoFacultad());
+
+						nf = facultadSerivice.saveOrUpdateFAcultadNuevaMultiva(nf);
+					}
+
+					rol.getFacultades().add(nf);
 					System.out.println("El rol : " + rol.getNombreRol() + " Contiene las siguientes facultades:: ");
-					System.out.println("facultad :: " + ff.getNombre());
-					
+					System.out.println("facultad :: " + nf.getNombre());
+
 				});
 				
 				Rol r = rolService.save(rol);
