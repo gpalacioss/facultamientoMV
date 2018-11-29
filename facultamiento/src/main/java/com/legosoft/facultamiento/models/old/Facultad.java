@@ -1,11 +1,15 @@
 package com.legosoft.facultamiento.models.old;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import org.springframework.data.neo4j.annotation.QueryResult;
 
 @NodeEntity(label = "Facultad")
@@ -38,6 +42,10 @@ public class Facultad implements Serializable{
 	private String fechaModificacion;
 	
 	private Boolean isActivo;
+
+	@JsonIgnoreProperties("facultad")
+	@Relationship(type = "HAS_CUENTA_FACULTAD", direction = Relationship.OUTGOING)
+	private Set<FacultadCuenta> lstFacultadCuenta = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -117,5 +125,13 @@ public class Facultad implements Serializable{
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Set<FacultadCuenta> getLstFacultadCuenta() {
+		return lstFacultadCuenta;
+	}
+
+	public void setLstFacultadCuenta(Set<FacultadCuenta> lstFacultadCuenta) {
+		this.lstFacultadCuenta = lstFacultadCuenta;
 	}
 }

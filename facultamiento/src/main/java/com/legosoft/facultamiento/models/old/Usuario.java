@@ -37,8 +37,12 @@ public class Usuario implements Serializable{
 //	@Relationship(type = "HAS_PERFIL", direction = Relationship.OUTGOING)
 //	private Set<Perfil> perfiles = new HashSet<>();
 
+//	@Relationship(type = "HAS_CUENTA", direction = Relationship.OUTGOING)
+//	private Set<Cuenta> cuentasBancarias = new HashSet<>();
+
 	@Relationship(type = "HAS_PERFIL_NM", direction = Relationship.OUTGOING)
 	private Set<PerfilNM> perfiles = new HashSet<>();
+
 
 	public Long getId() {
 		return id;

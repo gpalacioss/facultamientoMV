@@ -10,8 +10,6 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import com.legosoft.facultamiento.models.old.Facultad;
-
 @NodeEntity(label = "Rol")
 public class Rol implements Serializable {
 	
@@ -26,7 +24,7 @@ public class Rol implements Serializable {
 	private Date fechaCreacion;
 	
 	@Relationship(type = "HAS_FACULTAD_ROL", direction = Relationship.OUTGOING)
-	private Set<FacultadNM> facultades = new HashSet<>();
+	private Set<Permiso> facultades = new HashSet<>();
 
 	public Long getIdRol() {
 		return idRol;
@@ -60,11 +58,11 @@ public class Rol implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	public Set<FacultadNM> getFacultades() {
+	public Set<Permiso> getFacultades() {
 		return facultades;
 	}
 
-	public void setFacultades(Set<FacultadNM> facultades) {
+	public void setFacultades(Set<Permiso> facultades) {
 		this.facultades = facultades;
 	}
 	

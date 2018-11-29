@@ -1,18 +1,23 @@
 package com.legosoft.facultamiento.models.nuevo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
-@NodeEntity(label = "FacultadNM")
-public class FacultadNM {
+import java.util.HashSet;
+import java.util.Set;
+
+@NodeEntity(label = "Permiso")
+public class Permiso {
 
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long idFacultad;
+    private Long idPermiso;
 
     private String nombre;
 
@@ -24,11 +29,15 @@ public class FacultadNM {
 
     private String isRestriccionHorario;
 
-    private String tipoFacultad;
+    private String tipoPermiso;
 
     private String fechaModificacion;
 
     private Boolean isActivo;
+
+    @JsonIgnoreProperties("permiso")
+    @Relationship(type = "HAS_PERMISO_CUENTA", direction = Relationship.OUTGOING)
+    private Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
 
 
     public Long getId() {
@@ -39,12 +48,12 @@ public class FacultadNM {
         this.id = id;
     }
 
-    public Long getIdFacultad() {
-        return idFacultad;
+    public Long getIdPermiso() {
+        return idPermiso;
     }
 
-    public void setIdFacultad(Long idFacultad) {
-        this.idFacultad = idFacultad;
+    public void setIdPermiso(Long idPermiso) {
+        this.idPermiso = idPermiso;
     }
 
     public String getNombre() {
@@ -87,12 +96,12 @@ public class FacultadNM {
         this.isRestriccionHorario = isRestriccionHorario;
     }
 
-    public String getTipoFacultad() {
-        return tipoFacultad;
+    public String getTipoPermiso() {
+        return tipoPermiso;
     }
 
-    public void setTipoFacultad(String tipoFacultad) {
-        this.tipoFacultad = tipoFacultad;
+    public void setTipoPermiso(String tipoPermiso) {
+        this.tipoPermiso = tipoPermiso;
     }
 
     public String getFechaModificacion() {
@@ -109,5 +118,13 @@ public class FacultadNM {
 
     public void setActivo(Boolean activo) {
         isActivo = activo;
+    }
+
+    public Set<PermisoCuenta> getLstPermisoCuentas() {
+        return lstPermisoCuentas;
+    }
+
+    public void setLstPermisoCuentas(Set<PermisoCuenta> lstPermisoCuentas) {
+        this.lstPermisoCuentas = lstPermisoCuentas;
     }
 }

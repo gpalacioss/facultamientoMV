@@ -1,10 +1,11 @@
 package com.legosoft.facultamiento.service.impl;
 
-import com.legosoft.facultamiento.models.nuevo.FacultadNM;
+import com.legosoft.facultamiento.models.nuevo.Permiso;
 import com.legosoft.facultamiento.models.old.Facultad;
-import com.legosoft.facultamiento.repository.FacultadNMRepository;
+import com.legosoft.facultamiento.repository.PermisoRepository;
 import com.legosoft.facultamiento.repository.FacultadRepository;
 import com.legosoft.facultamiento.service.FacultadSerivice;
+import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,19 +19,23 @@ public class FacultadSeriviceImpl implements FacultadSerivice {
     private FacultadRepository facultadRepository;
 
     @Autowired
-    private FacultadNMRepository facultadNMRepository;
+    private PermisoRepository permisoRepository;
 
     public List<Facultad> findAllFacultad(){
         return  facultadRepository.findAll();
     }
 
-    public FacultadNM findFacultadNmByIdFacultad(Long idFacultad){
-        return facultadNMRepository.findByIdFacultad(idFacultad);
+    public Permiso findFacultadNmByIdPermiso(Long idFacultad){
+        return permisoRepository.findByIdPermiso(idFacultad);
+    }
+
+    public Permiso findByNombrePermiso(String nombrePermiso){
+        return permisoRepository.findByNombre(nombrePermiso);
     }
 
 
-    public FacultadNM saveOrUpdateFAcultadNuevaMultiva(FacultadNM facultad){
-        return  facultadNMRepository.save(facultad);
+    public Permiso saveOrUpdateFAcultadNuevaMultiva(Permiso permiso){
+        return  permisoRepository.save(permiso);
     }
 
 }
