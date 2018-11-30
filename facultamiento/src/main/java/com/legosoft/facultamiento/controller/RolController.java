@@ -4,13 +4,11 @@ import com.legosoft.facultamiento.models.nuevo.CuentaNM;
 import com.legosoft.facultamiento.models.nuevo.Permiso;
 import com.legosoft.facultamiento.models.nuevo.PermisoCuenta;
 import com.legosoft.facultamiento.models.nuevo.Rol;
+import com.legosoft.facultamiento.models.old.Cuenta;
 import com.legosoft.facultamiento.models.old.Facultad;
 import com.legosoft.facultamiento.models.old.FacultadCuenta;
 import com.legosoft.facultamiento.models.old.Perfil;
-import com.legosoft.facultamiento.service.CuentaService;
-import com.legosoft.facultamiento.service.FacultadSerivice;
-import com.legosoft.facultamiento.service.PerfilService;
-import com.legosoft.facultamiento.service.RolService;
+import com.legosoft.facultamiento.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +36,9 @@ public class RolController {
     @Autowired
     private FacultadSerivice facultadSerivice;
 
+    @Autowired
+    private PermisoService permisoService;
+
 
 
     @RequestMapping(value = "/getAllRolles", method = RequestMethod.GET)
@@ -53,15 +54,9 @@ public class RolController {
 
         List<Perfil> result = perfilService.findAllPerfiles();
 
-        @SuppressWarnings("unchecked")
-        // devuelve el set de facultades y el set de perfiles unidos a esas facultades
-                Map<List<String>, Set<String>> collect = result.stream().collect(Collectors.groupingBy(Perfil::getNombresFac,
-                Collectors.mapping(Perfil::getNombre, Collectors.toSet())));
 
         Map<Set<Facultad>, Set<String>> collectFacultad = result.stream().collect(Collectors
                 .groupingBy(Perfil::getFacultades, Collectors.mapping(Perfil::getNombre, Collectors.toSet())));
-
-        System.out.println("facultades:: " + collect.keySet().size());
 
         int contador = 1;
         for (Set<Facultad> f : collectFacultad.keySet()) {
@@ -77,18 +72,20 @@ public class RolController {
 
                 f.forEach(ff -> {
 
-//                    Set<CuentaNM> cuentasNuevas = new HashSet<>();
                     Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
+                    Set<CuentaNM> cuentaBancarias = new HashSet<>();
 
-                    PermisoCuenta permisoCuenta = new PermisoCuenta();
+
+                   Map<String, Set<FacultadCuenta>> setFacultadCuenta =  ff.getLstFacultadCuenta().stream().collect(Collectors.groupingBy(FacultadCuenta::getNumCuentaByCuenta, Collectors.mapping(FacultadCuenta::getFacultadCuenta, Collectors.toSet())));
 
                     for (FacultadCuenta cf : ff.getLstFacultadCuenta()) {
 
+                        System.out.println("tamaño de relaciones inicial:: " + ff.getLstFacultadCuenta().size());
+                        System.out.println("cuenta:: " + cf.getCuenta().getNumeroCuenta());
 
-                        //ff.getLstFacultadCuenta().forEach(cf -> {
+                        PermisoCuenta permisoCuenta = new PermisoCuenta();
 
                         CuentaNM cuentaNM = cuentaService.findCuentaNMBynumeroCuenta(cf.getCuenta().getNumeroCuenta());
-                        //permisoCuenta = new PermisoCuenta();
 
                         if (cuentaNM == null) {
 
@@ -101,15 +98,15 @@ public class RolController {
 
                         }
 
+                        cuentaBancarias.add(cuentaNM);
 
-                        permisoCuenta.setCuenta(cuentaNM);
+//                        permisoCuenta.setCuenta(cuentaNM);
                         permisoCuenta.setLimiteIndividual(cf.getLimiteIndividual() == null || cf.getLimiteIndividual().isEmpty() ? new BigDecimal(0) : new BigDecimal(cf.getLimiteIndividual().replaceAll(",", "")));
                         permisoCuenta.setLimiteMancomunado(cf.getLimiteMancomunado() == null || cf.getLimiteMancomunado().isEmpty() ? new BigDecimal(0) : new BigDecimal(cf.getLimiteMancomunado().replaceAll(",", "")));
                         permisoCuenta.setLimiteOperable(cf.getLimiteOperable() == null || cf.getLimiteOperable().isEmpty() ? new BigDecimal(0) : new BigDecimal(cf.getLimiteOperable().replaceAll(",", "")));
-//                        cuentasNuevas.add(cuentaNM);
+
                         lstPermisoCuentas.add(permisoCuenta);
 
-//                    });
                     }
 
                     Permiso nf = facultadSerivice.findByNombrePermiso(ff.getNombre());
@@ -128,10 +125,8 @@ public class RolController {
                         nf.setNombre(ff.getNombre());
                         nf.setTipoPermiso(ff.getTipoFacultad());
 
-                        permisoCuenta.setPermiso(nf);
-
-                        //nf.setCuentasBancarias(cuentasNuevas);
-                        nf.setLstPermisoCuentas(lstPermisoCuentas);
+//                        permisoCuenta.setPermiso(nf);
+//                        nf.setLstPermisoCuentas(lstPermisoCuentas);
 
                         nf = facultadSerivice.saveOrUpdateFAcultadNuevaMultiva(nf);
 
@@ -140,7 +135,11 @@ public class RolController {
                     rol.getFacultades().add(nf);
                     System.out.println("El rol : " + rol.getNombreRol() + " Contiene las siguientes facultades:: ");
                     System.out.println("facultad :: " + nf.getNombre());
-                    nf.getLstPermisoCuentas().forEach(c -> System.out.println("numero de cuenta:: " + c.getCuenta().getNumeroCuenta()));
+//                    nf.getLstPermisoCuentas().forEach(c -> System.out.println("numero de cuenta:: " + c.getCuenta().getNumeroCuenta()));
+
+                    cuentaBancarias.forEach(c -> System.out.println("cuentas bancarias :: " + c.getNumeroCuenta()));
+
+                    creaRelacionPermisoCuenta(nf, cuentaBancarias, setFacultadCuenta);
 
                 });
 
@@ -150,6 +149,42 @@ public class RolController {
         }
 
         return null;
+    }
+
+
+    private void creaRelacionPermisoCuenta(Permiso permiso, Set<CuentaNM> cuentas, Map<String, Set<FacultadCuenta>> relaciones){
+
+        System.out.println("para este permiso tenemos lo siguiente :: " + permiso.getNombre());
+        System.out.println("Tamaño de la lista de cuentas:: " + cuentas.size());
+        System.out.println("lista de relaciones:: " + relaciones);
+
+       relaciones.forEach((s, facultadCuentas) -> {
+
+           PermisoCuenta pc;
+
+           FacultadCuenta fc = facultadCuentas.stream().findFirst().get();
+
+           pc = permisoService.findPermisoCuentaByPermisoAndCuenta(permiso.getNombre(), s);
+
+           if (pc == null){
+
+               pc = new PermisoCuenta();
+
+               pc.setPermiso(permiso);
+               pc.setCuenta(cuentaService.findCuentaNMBynumeroCuenta(s));
+               pc.setLimiteIndividual(fc.getLimiteIndividual() == null || fc.getLimiteIndividual().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteIndividual().replaceAll(",", "")));
+               pc.setLimiteMancomunado(fc.getLimiteMancomunado() == null || fc.getLimiteMancomunado().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteMancomunado().replaceAll(",", "")));
+               pc.setLimiteOperable(fc.getLimiteOperable() == null || fc.getLimiteOperable().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteOperable().replaceAll(",", "")));
+
+               System.out.println(" el permiso ---> ( " + pc.getPermiso().getNombre() + " ) --[HAS_PERMISO_CUENTA]-> " + "{ limiteOperable:: " + pc.getLimiteOperable() + ", limiteMancomunado:: " + pc.getLimiteMancomunado() + ", limiteIndividual :: " + pc.getLimiteIndividual() + " } -->  con la Cuenta  ---> (" + pc.getCuenta().getNumeroCuenta() +")");
+
+               permisoService.save(pc);
+           }
+
+       });
+
+
+
     }
 
 }

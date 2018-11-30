@@ -2,6 +2,7 @@ package com.legosoft.facultamiento.models.old;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.tools.javac.jvm.ByteCodes;
 import org.neo4j.ogm.annotation.*;
 
 
@@ -75,5 +76,23 @@ public class FacultadCuenta {
 
     public void setCuenta(Cuenta cuenta) {
         this.cuenta = cuenta;
+    }
+
+    public String getNumCuentaByCuenta(){
+        Cuenta c = new Cuenta();
+        c = getCuenta();
+        return c.getNumeroCuenta();
+    }
+
+    public FacultadCuenta getFacultadCuenta(){
+
+        FacultadCuenta c = new FacultadCuenta();
+
+        c.setId(getId());
+        c.setLimiteIndividual(getLimiteIndividual());
+        c.setLimiteMancomunado(getLimiteMancomunado());
+        c.setLimiteOperable(getLimiteOperable());
+
+        return c;
     }
 }

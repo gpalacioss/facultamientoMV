@@ -1,8 +1,12 @@
 package com.legosoft.facultamiento;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import com.legosoft.facultamiento.models.nuevo.Permiso;
+import com.legosoft.facultamiento.repository.PermisoRepository;
+import com.legosoft.facultamiento.service.PermisoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,13 @@ public class FacultamientoApplicationTests {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+
+	@Autowired
+	private PermisoService permisoService;
+
+	@Autowired
+	private PermisoRepository permisoRepository;
+
 /**
 	@Test
 	public void contextLoads() {
@@ -64,7 +75,18 @@ public class FacultamientoApplicationTests {
 
 	}
 
-	
+	@Test
+	public void actualizaRelacion(){
+
+		Permiso permiso = permisoService.findPermisoByNombre("Mul_Con_SaldoPagare");
+
+		permiso.getLstPermisoCuentas().forEach(pc -> {
+			pc.setLimiteMancomunado(new BigDecimal(100));
+		});
+
+		permisoRepository.save(permiso);
+
+	}
 	
 
 /**@Test
@@ -85,6 +107,7 @@ public class FacultamientoApplicationTests {
 	 }
 	
 	**/
+
 
 
 		

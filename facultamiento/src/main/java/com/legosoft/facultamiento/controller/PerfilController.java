@@ -36,7 +36,7 @@ public class PerfilController {
         return result;
     }
 
-    @RequestMapping(value = "/generaPerfilByFacultad", method = RequestMethod.GET)
+    @RequestMapping(value = "/generaPerfilByRol", method = RequestMethod.GET)
     public void generaPerfilByFacultad(){
 
         List<Rol> result = rolService.getAllRoles();

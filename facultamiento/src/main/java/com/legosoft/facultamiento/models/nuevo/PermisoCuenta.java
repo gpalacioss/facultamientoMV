@@ -12,6 +12,7 @@ public class PermisoCuenta {
 
     @Id
     @GeneratedValue
+//    @Index(unique = true)
     private Long id;
 
     private BigDecimal limiteOperable;
@@ -23,9 +24,12 @@ public class PermisoCuenta {
 
     @JsonIgnore
     @StartNode
+//    @Index(unique = true)
     private Permiso permiso;
 
+    @JsonIgnore
     @EndNode
+//    @Index(unique = true)
     private CuentaNM cuenta;
 
 
