@@ -1,12 +1,7 @@
 package com.legosoft.facultamiento.models.old;
 
-import javafx.scene.effect.SepiaTone;
-import org.neo4j.cypher.internal.compiler.v2_3.ast.rewriters.nameAllPatternElements;
 import org.neo4j.ogm.annotation.*;
-
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @NodeEntity(label = "Cuenta")
 public class Cuenta implements Serializable {
