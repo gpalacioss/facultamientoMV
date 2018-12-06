@@ -1,5 +1,7 @@
 export class Usuario {
 
+  public id: number;
+
   public idUsuario: number;
 
   public nombre: String;
@@ -11,4 +13,5 @@ export class Usuario {
   public isActivo: Boolean;
 
   public isInterno: Boolean;
+
 }

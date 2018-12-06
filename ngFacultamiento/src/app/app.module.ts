@@ -10,6 +10,8 @@ import { RolComponent } from './components/rol/rol.component';
 import { FacultadComponent } from './components/facultad/facultad.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FormUsuariosComponent } from './components/usuarios/form-usuarios/form-usuarios.component';
+import { FormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -20,12 +22,14 @@ import { FooterComponent } from './components/footer/footer.component';
     RolComponent,
     FacultadComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    FormUsuariosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

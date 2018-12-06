@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Facultad } from './../../models/facultad';
+import { Permiso } from '../../models/Permiso';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -10,8 +10,8 @@ export class FacultadService {
 
   constructor(private http: HttpClient) { }
 
-  public  getFacultades(): Observable<Facultad[]> {
-    return this.http.get<Facultad[]>('http://localhost:8080/getFacultades')
+  public  getPermisos(): Observable<Permiso[]> {
+    return this.http.get<Permiso[]>('http://localhost:8080/getPermisos')
   }
 
 
