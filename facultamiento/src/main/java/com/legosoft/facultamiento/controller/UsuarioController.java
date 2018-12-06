@@ -3,19 +3,11 @@ package com.legosoft.facultamiento.controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.legosoft.facultamiento.models.nuevo.CuentaNM;
-import com.legosoft.facultamiento.models.nuevo.Permiso;
 import com.legosoft.facultamiento.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.legosoft.facultamiento.models.nuevo.Rol;
-import com.legosoft.facultamiento.models.old.Facultad;
-import com.legosoft.facultamiento.models.old.Perfil;
 import com.legosoft.facultamiento.models.old.Usuario;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -59,4 +51,14 @@ public class UsuarioController {
 		return result;
 	}
 
+	@PostMapping(value = "/saveOrUpdateUsuario")
+	public Usuario saveOrUpdateUsuario(@RequestBody Usuario usuario){
+
+		return  usuarioService.saveOrUpdate(usuario);
+	}
+
+	@GetMapping(value = "/getUsuarios/{idUsuario}")
+	public Optional<Usuario> getUsuarioById(@PathVariable("idUsuario") Long idUsuario){
+		return usuarioService.findUsuarioById(idUsuario);
+	}
 }

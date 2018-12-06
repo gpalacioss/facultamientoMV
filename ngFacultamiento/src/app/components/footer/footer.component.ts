@@ -12,4 +12,6 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
+  public autor: any = {nombre:'Lefosoft'};
+
 }

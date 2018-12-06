@@ -1,12 +1,10 @@
 package com.legosoft.facultamiento.controller;
 
+import com.legosoft.facultamiento.models.nuevo.Permiso;
 import com.legosoft.facultamiento.models.old.Facultad;
 import com.legosoft.facultamiento.service.FacultadSerivice;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +23,11 @@ public class FacultadController {
 
         return  result;
 
+    }
+
+
+    @GetMapping(value = "/getPermisos")
+    public List<Permiso> getAllPermisos(){
+        return facultadSerivice.finAllPermisos();
     }
 }

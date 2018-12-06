@@ -14,4 +14,6 @@ public interface FacultadSerivice {
     public Permiso findByNombrePermiso(String nombrePermiso);
 
     public Permiso saveOrUpdateFAcultadNuevaMultiva(Permiso permiso);
+
+    public List<Permiso> finAllPermisos();
 }

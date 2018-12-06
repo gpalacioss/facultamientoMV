@@ -72,11 +72,9 @@ public class RolController {
 
                 f.forEach(ff -> {
 
-                    Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
                     Set<CuentaNM> cuentaBancarias = new HashSet<>();
 
-
-                   Map<String, Set<FacultadCuenta>> setFacultadCuenta =  ff.getLstFacultadCuenta().stream().collect(Collectors.groupingBy(FacultadCuenta::getNumCuentaByCuenta, Collectors.mapping(FacultadCuenta::getFacultadCuenta, Collectors.toSet())));
+                    Map<String, Set<FacultadCuenta>> setFacultadCuenta =  ff.getLstFacultadCuenta().stream().collect(Collectors.groupingBy(FacultadCuenta::getNumCuentaByCuenta, Collectors.mapping(FacultadCuenta::getFacultadCuenta, Collectors.toSet())));
 
                     for (FacultadCuenta cf : ff.getLstFacultadCuenta()) {
 
@@ -100,13 +98,6 @@ public class RolController {
 
                         cuentaBancarias.add(cuentaNM);
 
-//                        permisoCuenta.setCuenta(cuentaNM);
-                        permisoCuenta.setLimiteIndividual(cf.getLimiteIndividual() == null || cf.getLimiteIndividual().isEmpty() ? new BigDecimal(0) : new BigDecimal(cf.getLimiteIndividual().replaceAll(",", "")));
-                        permisoCuenta.setLimiteMancomunado(cf.getLimiteMancomunado() == null || cf.getLimiteMancomunado().isEmpty() ? new BigDecimal(0) : new BigDecimal(cf.getLimiteMancomunado().replaceAll(",", "")));
-                        permisoCuenta.setLimiteOperable(cf.getLimiteOperable() == null || cf.getLimiteOperable().isEmpty() ? new BigDecimal(0) : new BigDecimal(cf.getLimiteOperable().replaceAll(",", "")));
-
-                        lstPermisoCuentas.add(permisoCuenta);
-
                     }
 
                     Permiso nf = facultadSerivice.findByNombrePermiso(ff.getNombre());
@@ -125,8 +116,6 @@ public class RolController {
                         nf.setNombre(ff.getNombre());
                         nf.setTipoPermiso(ff.getTipoFacultad());
 
-//                        permisoCuenta.setPermiso(nf);
-//                        nf.setLstPermisoCuentas(lstPermisoCuentas);
 
                         nf = facultadSerivice.saveOrUpdateFAcultadNuevaMultiva(nf);
 
@@ -135,7 +124,6 @@ public class RolController {
                     rol.getFacultades().add(nf);
                     System.out.println("El rol : " + rol.getNombreRol() + " Contiene las siguientes facultades:: ");
                     System.out.println("facultad :: " + nf.getNombre());
-//                    nf.getLstPermisoCuentas().forEach(c -> System.out.println("numero de cuenta:: " + c.getCuenta().getNumeroCuenta()));
 
                     cuentaBancarias.forEach(c -> System.out.println("cuentas bancarias :: " + c.getNumeroCuenta()));
 

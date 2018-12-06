@@ -5,19 +5,16 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { RolComponent } from './components/rol/rol.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { FacultadComponent } from './components/facultad/facultad.component';
+import { FormUsuariosComponent } from './components/usuarios/form-usuarios/form-usuarios.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/appComponent', pathMatch: 'full'},
-
-  /**
-   * redirecciona al appComponent que es la ruta principal
-   */
-  { path: 'appComponent', component: AppComponent},
+  { path: ' ', redirectTo: '/appComponent', pathMatch: 'full'},
   { path: 'user', component: UsuariosComponent},
   { path: 'roles', component: RolComponent},
   { path: 'perfiles', component: PerfilComponent},
-  { path: 'facultades', component: FacultadComponent}
-
+  { path: 'facultades', component: FacultadComponent},
+  { path: 'user/formUsuario', component: FormUsuariosComponent},
+  { path: 'user/formUsuario/actualizaUsuario/:idUsuario', component: FormUsuariosComponent}
 ];
 
 @NgModule({

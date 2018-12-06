@@ -22,8 +22,7 @@ export class PerfilComponent implements OnInit {
 
   private getAllPerfiles(): void {
     this.perfilService.getPerfiles().subscribe(result => {
-
       this.lstPerfiles = result;
-    })
+    });
   }
 }

@@ -1,4 +1,20 @@
 package com.legosoft.facultamiento.models.nuevo;
 
-public class Grupo {
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+
+import java.io.Serializable;
+
+public class Grupo implements Serializable {
+
+
+    @Id
+    @GeneratedValue
+    private Long idGrupo;
+
+
+    private String nombreGrupo;
+
+
+
 }

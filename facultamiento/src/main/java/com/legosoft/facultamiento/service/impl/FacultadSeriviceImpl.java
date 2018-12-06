@@ -1,9 +1,11 @@
 package com.legosoft.facultamiento.service.impl;
 
 import com.legosoft.facultamiento.models.nuevo.Permiso;
+import com.legosoft.facultamiento.models.nuevo.Rol;
 import com.legosoft.facultamiento.models.old.Facultad;
 import com.legosoft.facultamiento.repository.PermisoRepository;
 import com.legosoft.facultamiento.repository.FacultadRepository;
+import com.legosoft.facultamiento.repository.RolRepository;
 import com.legosoft.facultamiento.service.FacultadSerivice;
 import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,16 @@ public class FacultadSeriviceImpl implements FacultadSerivice {
     @Autowired
     private FacultadRepository facultadRepository;
 
+
     @Autowired
     private PermisoRepository permisoRepository;
 
     public List<Facultad> findAllFacultad(){
         return  facultadRepository.findAll();
+    }
+
+    public List<Permiso> finAllPermisos(){
+        return permisoRepository.findAll();
     }
 
     public Permiso findFacultadNmByIdPermiso(Long idFacultad){
