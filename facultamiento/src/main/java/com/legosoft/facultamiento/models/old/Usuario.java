@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.legosoft.facultamiento.models.nuevo.CuentaNM;
 import com.legosoft.facultamiento.models.nuevo.PerfilNM;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -37,11 +38,14 @@ public class Usuario implements Serializable{
 //	@Relationship(type = "HAS_PERFIL", direction = Relationship.OUTGOING)
 //	private Set<Perfil> perfiles = new HashSet<>();
 
-//	@Relationship(type = "HAS_CUENTA", direction = Relationship.OUTGOING)
-//	private Set<Cuenta> cuentasBancarias = new HashSet<>();
+	@Relationship(type = "HAS_CUENTA", direction = Relationship.OUTGOING)
+	private Set<Cuenta> cuentasBancarias = new HashSet<>();
 
 	@Relationship(type = "HAS_PERFIL_NM", direction = Relationship.OUTGOING)
 	private Set<PerfilNM> perfiles = new HashSet<>();
+
+	@Relationship(type = "HAS_USUARIO_CUENTA", direction = Relationship.OUTGOING)
+	private Set<CuentaNM> cuentasBancariasUsuario = new HashSet<>();
 
 
 	public Long getId() {
@@ -92,8 +96,6 @@ public class Usuario implements Serializable{
 	public void setIsInterno(Boolean isInterno) {
 		this.isInterno = isInterno;
 	}
-	
-	
 
 	public Boolean getIsActivo() {
 		return isActivo;
@@ -110,6 +112,21 @@ public class Usuario implements Serializable{
 	public void setPerfiles(Set<PerfilNM> perfiles) {
 		this.perfiles = perfiles;
 	}
-	
-	
+
+
+	public Set<Cuenta> getCuentasBancarias() {
+		return cuentasBancarias;
+	}
+
+	public void setCuentasBancarias(Set<Cuenta> cuentasBancarias) {
+		this.cuentasBancarias = cuentasBancarias;
+	}
+
+	public Set<CuentaNM> getCuentasBancariasUsuario() {
+		return cuentasBancariasUsuario;
+	}
+
+	public void setCuentasBancariasUsuario(Set<CuentaNM> cuentasBancariasUsuario) {
+		this.cuentasBancariasUsuario = cuentasBancariasUsuario;
+	}
 }

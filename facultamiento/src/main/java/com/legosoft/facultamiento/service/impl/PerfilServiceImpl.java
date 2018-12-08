@@ -2,6 +2,7 @@ package com.legosoft.facultamiento.service.impl;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import com.legosoft.facultamiento.models.nuevo.PerfilNM;
 import com.legosoft.facultamiento.repository.PerfilNMRepository;
@@ -36,6 +37,14 @@ public class PerfilServiceImpl implements PerfilService{
 
 	public List<PerfilNM> getAllperfilesNuevos(){
 		return perfilNMRepository.findAll();
+	}
+
+	public Optional<PerfilNM> findPerfilNuevoById(Long idPerfilNuevo){
+		return perfilNMRepository.findById(idPerfilNuevo);
+	}
+
+	public Optional<PerfilNM> findPerfilNMByNombre(String nombre){
+		return perfilNMRepository.findByNombre(nombre);
 	}
 
 }

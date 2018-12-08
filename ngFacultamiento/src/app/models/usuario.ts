@@ -1,3 +1,4 @@
+import { Perfil } from 'src/app/models/perfil';
 export class Usuario {
 
   public id: number;
@@ -13,5 +14,7 @@ export class Usuario {
   public isActivo: Boolean;
 
   public isInterno: Boolean;
+
+  public perfil: Array<Perfil>;
 
 }

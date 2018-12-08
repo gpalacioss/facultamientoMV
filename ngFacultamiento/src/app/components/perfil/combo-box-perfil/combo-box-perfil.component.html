@@ -1,0 +1,7 @@
+<div class="col-sm-8">
+    <label for="inputState">Perfiles</label>
+    <select id="inputState" class="form-control">
+      <option selected>Seleccione...</option>
+      <option *ngFor="let perfil of lstPerfiles">{{perfil.nombre}}</option>
+    </select>
+</div>

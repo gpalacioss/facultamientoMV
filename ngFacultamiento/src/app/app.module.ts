@@ -11,7 +11,8 @@ import { FacultadComponent } from './components/facultad/facultad.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormUsuariosComponent } from './components/usuarios/form-usuarios/form-usuarios.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { ComboBoxPerfilComponent } from './components/perfil/combo-box-perfil/combo-box-perfil.component'
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms'
     FacultadComponent,
     HeaderComponent,
     FooterComponent,
-    FormUsuariosComponent
+    FormUsuariosComponent,
+    ComboBoxPerfilComponent
   ],
   imports: [
     BrowserModule,
