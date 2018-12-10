@@ -2,7 +2,6 @@ package com.legosoft.facultamiento.models.old;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.tools.javac.jvm.ByteCodes;
 import org.neo4j.ogm.annotation.*;
 
 

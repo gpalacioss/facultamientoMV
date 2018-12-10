@@ -44,7 +44,7 @@ public class Usuario implements Serializable{
 	@Relationship(type = "HAS_PERFIL_NM", direction = Relationship.OUTGOING)
 	private Set<PerfilNM> perfiles = new HashSet<>();
 
-	@Relationship(type = "HAS_USUARIO_CUENTA", direction = Relationship.OUTGOING)
+	@Relationship(type = "USUARIO_HAS_CUENTA", direction = Relationship.OUTGOING)
 	private Set<CuentaNM> cuentasBancariasUsuario = new HashSet<>();
 
 

@@ -80,17 +80,16 @@ public class FacultamientoApplicationTests {
 
                 u.getCuentasBancarias().forEach(c -> {
 
-                    CuentaNM nuevaCuenta = cuentaService.findCuentaNMBynumeroCuenta(c.getNumeroCuenta());
-
-                    u.getCuentasBancariasUsuario().add(nuevaCuenta);
+                        CuentaNM nuevaCuenta = cuentaService.findCuentaNMBynumeroCuenta(c.getNumeroCuenta());
+                        if (nuevaCuenta != null){
+                            u.getCuentasBancariasUsuario().add(nuevaCuenta);
+                        }
 		        });
 
             }
 
             if (u.getCuentasBancariasUsuario().size() > 0) {
-                u.getCuentasBancariasUsuario().forEach(cn -> {
-                    System.out.println("Cuenta :: " + cn.getNumeroCuenta());
-                });
+             usuarioService.saveOrUpdate(u);
             }
 
         });
@@ -148,5 +147,12 @@ public class FacultamientoApplicationTests {
         });
     }
 
+
+    @Test
+    public void permisosConCuentaBancarias(){
+        List<Permiso> result = permisoService.findPermisosConCuentas();
+
+        System.out.println("Cantidad de permisos que tienen cuenta:: " + result.size());
+    }
 
 }

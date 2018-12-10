@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("permisoService")
 public class PermisoServiceImpl implements PermisoService {
 
@@ -32,5 +34,9 @@ public class PermisoServiceImpl implements PermisoService {
 
     public Permiso findPermisoByNombre(String nombrePermiso){
         return permisoRepository.findByNombre(nombrePermiso);
+    }
+
+    public List<Permiso> findPermisosConCuentas(){
+        return permisoRepository.findPermisoConCuentas();
     }
 }
