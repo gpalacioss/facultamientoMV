@@ -175,39 +175,41 @@ public class FacultamientoApplicationTests {
 
         for (UsuarioPermisoCuenta upc : result) {
 
-            int contador = 0;
-
-            List<Usuario> usuarios = usuarioService.findUsuariosByNumeroCuenta(upc.getCuenta().getNumeroCuenta());
-
-            if (usuarios.size() > 0){
-
-                for (Usuario u : usuarios) {
-
-                    contador ++;
-
-                    UsuarioPermisoCuenta cpu = permisoService.findUsuarioPermisoCuentaByUsuarioAndCuentaAndPermiso(u.getNombre(), upc.getCuenta().getNumeroCuenta(), upc.getPermiso().getNombre());
-
-                    if (cpu == null){
-
-                        UsuarioPermisoCuenta relacion = permisoService.findUsuarioPermisoCuentaByCuentaAndPermiso(upc.getCuenta().getNumeroCuenta(), upc.getPermiso().getNombre());
-
-                        if (contador > 1){
-                            relacion.setId(null);
-                            relacion.setUsuario(u);
-
-                        }else {
-                            relacion.setUsuario(u);
-                        }
-
-                        relacion.setPermiso(upc.getPermiso());
-                        relacion.setCuenta(upc.getCuenta());
-                        permisoService.saveUsuarioPermisoCuenta(relacion);
-
-                    }
-
-                }
-
+            if (upc.getPermiso() == null || upc.getPermiso().getId() == null){
+                permisoService.deleteUsuarioPermisoCuenta(upc);
             }
+
+//            int contador = 0;
+//
+//            List<Usuario> usuarios = usuarioService.findUsuariosByNumeroCuenta(upc.getCuenta().getNumeroCuenta());
+//
+//            if (usuarios.size() > 0){
+//
+//                for (Usuario u : usuarios) {
+//
+//                    contador ++;
+//
+//                    UsuarioPermisoCuenta cpu = permisoService.findUsuarioPermisoCuentaByUsuarioAndCuentaAndPermiso(u.getNombre(), upc.getCuenta().getNumeroCuenta(), upc.getPermiso().getNombre());
+//
+//                    if (cpu == null){
+//
+//                        UsuarioPermisoCuenta relacion = permisoService.findUsuarioPermisoCuentaByCuentaAndPermiso(upc.getCuenta().getNumeroCuenta(), upc.getPermiso().getNombre());
+//
+//                        if (contador > 1){
+//                            relacion.setId(null);
+//                            relacion.setUsuario(u);
+//
+//                        }else {
+//                            relacion.setUsuario(u);
+//                        }
+//
+//                        permisoService.saveUsuarioPermisoCuenta(relacion);
+//
+//                    }
+//
+//                }
+//
+//            }
 
         }
 

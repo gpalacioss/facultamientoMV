@@ -60,4 +60,8 @@ public class PermisoServiceImpl implements PermisoService {
     public List<UsuarioPermisoCuenta> findAllUsuarioPermisoCuenta(){
         return usuarioPermisoCuentaRepository.findAll();
     }
+
+    public void deleteUsuarioPermisoCuenta(UsuarioPermisoCuenta upc){
+        usuarioPermisoCuentaRepository.delete(upc);
+    }
 }

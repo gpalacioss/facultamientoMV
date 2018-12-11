@@ -25,4 +25,6 @@ public interface PermisoService {
 
     public List<UsuarioPermisoCuenta> findAllUsuarioPermisoCuenta();
 
+    public void deleteUsuarioPermisoCuenta(UsuarioPermisoCuenta upc);
+
 }
