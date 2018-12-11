@@ -53,4 +53,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return repository.save(usuario);
 	}
 
+	public List<Usuario> findUsuariosByNumeroCuenta(String numeroCuenta){
+		return repository.findusuariosByNumeroCuenta(numeroCuenta);
+	}
+
 }

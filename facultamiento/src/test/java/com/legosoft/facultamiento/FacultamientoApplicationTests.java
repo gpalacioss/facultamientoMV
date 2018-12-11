@@ -7,12 +7,14 @@ import java.util.Optional;
 import com.legosoft.facultamiento.models.nuevo.CuentaNM;
 import com.legosoft.facultamiento.models.nuevo.PerfilNM;
 import com.legosoft.facultamiento.models.nuevo.Permiso;
+import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
 import com.legosoft.facultamiento.repository.PermisoRepository;
 import com.legosoft.facultamiento.service.CuentaService;
 import com.legosoft.facultamiento.service.PerfilService;
 import com.legosoft.facultamiento.service.PermisoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.neo4j.cypher.internal.compiler.v2_3.ast.QueryTagger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -60,9 +62,6 @@ public class FacultamientoApplicationTests {
             u.getPerfiles().forEach(p -> {
                 System.out.println("========Perfiles==============");
                 System.out.println(p.getNombre());
-//				p.getFacultades().forEach(f -> {
-//					System.out.println("facultades de cada perfil:: " + f.getNombre());
-//				});
             });
         });
     }
@@ -89,7 +88,7 @@ public class FacultamientoApplicationTests {
             }
 
             if (u.getCuentasBancariasUsuario().size() > 0) {
-             usuarioService.saveOrUpdate(u);
+//             usuarioService.saveOrUpdate(u);
             }
 
         });
@@ -104,7 +103,7 @@ public class FacultamientoApplicationTests {
             pc.setLimiteMancomunado(new BigDecimal(100));
         });
 
-        permisoRepository.save(permiso);
+//        permisoRepository.save(permiso);
 
     }
 
@@ -121,7 +120,6 @@ public class FacultamientoApplicationTests {
 
                 System.out.println("nombrePerfil" + p.getNombre());
 
-//					p.getFacultades().forEach(f -> System.out.println("nombre facultad :: " + f.getNombre()));
             });
         });
     }
@@ -142,7 +140,7 @@ public class FacultamientoApplicationTests {
 
             usuario1.getPerfiles().forEach(p -> System.out.println(p.getNombre()));
 
-           usuarioService.saveOrUpdate(usuario1);
+           //usuarioService.saveOrUpdate(usuario1);
 
         });
     }
@@ -152,7 +150,67 @@ public class FacultamientoApplicationTests {
     public void permisosConCuentaBancarias(){
         List<Permiso> result = permisoService.findPermisosConCuentas();
 
-        System.out.println("Cantidad de permisos que tienen cuenta:: " + result.size());
+
+        result.forEach(p -> {
+            p.getLstPermisoCuentas().forEach(pc -> {
+                UsuarioPermisoCuenta upc = permisoService.findUsuarioPermisoCuentaByCuentaAndPermiso(pc.getCuenta().getNumeroCuenta(), p.getNombre());
+
+                if (upc == null){
+                    upc = new UsuarioPermisoCuenta();
+
+                    upc.setCuenta(pc.getCuenta());
+                    upc.setPermiso(p);
+
+                    //permisoService.saveUsuarioPermisoCuenta(upc);
+
+                }
+            });
+        });
     }
 
+
+    @Test
+    public void getAllUsuarioPemisoCuentas(){
+        List<UsuarioPermisoCuenta> result = permisoService.findAllUsuarioPermisoCuenta();
+
+        for (UsuarioPermisoCuenta upc : result) {
+
+            int contador = 0;
+
+            List<Usuario> usuarios = usuarioService.findUsuariosByNumeroCuenta(upc.getCuenta().getNumeroCuenta());
+
+            if (usuarios.size() > 0){
+
+                for (Usuario u : usuarios) {
+
+                    contador ++;
+
+                    UsuarioPermisoCuenta cpu = permisoService.findUsuarioPermisoCuentaByUsuarioAndCuentaAndPermiso(u.getNombre(), upc.getCuenta().getNumeroCuenta(), upc.getPermiso().getNombre());
+
+                    if (cpu == null){
+
+                        UsuarioPermisoCuenta relacion = permisoService.findUsuarioPermisoCuentaByCuentaAndPermiso(upc.getCuenta().getNumeroCuenta(), upc.getPermiso().getNombre());
+
+                        if (contador > 1){
+                            relacion.setId(null);
+                            relacion.setUsuario(u);
+
+                        }else {
+                            relacion.setUsuario(u);
+                        }
+
+                        relacion.setPermiso(upc.getPermiso());
+                        relacion.setCuenta(upc.getCuenta());
+                        permisoService.saveUsuarioPermisoCuenta(relacion);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        System.out.println("total de registros" +  result.size());
+    }
 }

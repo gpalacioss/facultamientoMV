@@ -3,8 +3,10 @@ package com.legosoft.facultamiento.service.impl;
 import com.legosoft.facultamiento.models.nuevo.CuentaNM;
 import com.legosoft.facultamiento.models.nuevo.Permiso;
 import com.legosoft.facultamiento.models.nuevo.PermisoCuenta;
+import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
 import com.legosoft.facultamiento.repository.PermisoCuentaRepository;
 import com.legosoft.facultamiento.repository.PermisoRepository;
+import com.legosoft.facultamiento.repository.UsuarioPermisoCuentaRepository;
 import com.legosoft.facultamiento.service.PermisoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class PermisoServiceImpl implements PermisoService {
 
     @Autowired
     private PermisoRepository permisoRepository;
+
+    @Autowired
+    private UsuarioPermisoCuentaRepository usuarioPermisoCuentaRepository;
 
 
     public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso, String numeroCuenta){
@@ -38,5 +43,21 @@ public class PermisoServiceImpl implements PermisoService {
 
     public List<Permiso> findPermisosConCuentas(){
         return permisoRepository.findPermisoConCuentas();
+    }
+
+    public UsuarioPermisoCuenta findUsuarioPermisoCuentaByUsuarioAndCuentaAndPermiso(String usuario, String numeroCuenta, String nombrePermiso){
+        return usuarioPermisoCuentaRepository.findUsuarioPermisoCuentaByusuarioAndPermisoAndCuenta(usuario, numeroCuenta, nombrePermiso);
+    }
+
+    public UsuarioPermisoCuenta findUsuarioPermisoCuentaByCuentaAndPermiso(String numeroCuenta, String nombrePermiso){
+        return usuarioPermisoCuentaRepository.findUsuarioPermisoCuentaByPermisoAndCuenta(numeroCuenta, nombrePermiso);
+    }
+
+    public UsuarioPermisoCuenta saveUsuarioPermisoCuenta(UsuarioPermisoCuenta usuarioPermisoCuenta){
+        return usuarioPermisoCuentaRepository.save(usuarioPermisoCuenta);
+    }
+
+    public List<UsuarioPermisoCuenta> findAllUsuarioPermisoCuenta(){
+        return usuarioPermisoCuentaRepository.findAll();
     }
 }

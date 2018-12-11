@@ -39,6 +39,9 @@ public class Permiso {
     @Relationship(type = "HAS_PERMISO_CUENTA", direction = Relationship.OUTGOING)
     private Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
 
+    @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
+    private Set<UsuarioPermisoCuenta> usuarioPermisoCuentas = new HashSet<>();
+
 
     public Long getId() {
         return id;
@@ -126,5 +129,13 @@ public class Permiso {
 
     public void setLstPermisoCuentas(Set<PermisoCuenta> lstPermisoCuentas) {
         this.lstPermisoCuentas = lstPermisoCuentas;
+    }
+
+    public Set<UsuarioPermisoCuenta> getUsuarioPermisoCuentas() {
+        return usuarioPermisoCuentas;
+    }
+
+    public void setUsuarioPermisoCuentas(Set<UsuarioPermisoCuenta> usuarioPermisoCuentas) {
+        this.usuarioPermisoCuentas = usuarioPermisoCuentas;
     }
 }

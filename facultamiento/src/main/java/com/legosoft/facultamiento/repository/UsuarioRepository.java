@@ -32,4 +32,8 @@ public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 	@Override
 	Optional<Usuario> findById(Long id);
 
+	@Query("MATCH (u:Usuario)-[:USUARIO_HAS_CUENTA]->(c:CuentaNM) where c.numeroCuenta = {numeroCuenta} RETURN u ")
+	List<Usuario> findusuariosByNumeroCuenta(@Param("numeroCuenta") String numeroCuenta);
+
+
 }

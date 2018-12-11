@@ -20,4 +20,6 @@ public interface UsuarioService {
 
 	public Usuario saveOrUpdate(Usuario usuario);
 
+	public List<Usuario> findUsuariosByNumeroCuenta(String numeroCuenta);
+
 }

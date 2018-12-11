@@ -24,6 +24,9 @@ public class CuentaNM implements Serializable {
     @Relationship(type = "HAS_PERMISO_CUENTA", direction = Relationship.INCOMING)
     private Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
 
+    @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
+    private Set<UsuarioPermisoCuenta> usuarioPermisoCuentas = new HashSet<>();
+
     public Long getIdCuenta() {
         return idCuenta;
     }
@@ -54,5 +57,13 @@ public class CuentaNM implements Serializable {
 
     public void setLstPermisoCuentas(Set<PermisoCuenta> lstPermisoCuentas) {
         this.lstPermisoCuentas = lstPermisoCuentas;
+    }
+
+    public Set<UsuarioPermisoCuenta> getUsuarioPermisoCuentas() {
+        return usuarioPermisoCuentas;
+    }
+
+    public void setUsuarioPermisoCuentas(Set<UsuarioPermisoCuenta> usuarioPermisoCuentas) {
+        this.usuarioPermisoCuentas = usuarioPermisoCuentas;
     }
 }
