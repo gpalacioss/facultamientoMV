@@ -13,8 +13,8 @@ public interface PermisoCuentaRepository extends Neo4jRepository<PermisoCuenta, 
     @Override
     Optional<PermisoCuenta> findById(Long aLong);
 
-    @Query("MATCH  (p:Permiso)-[r:HAS_PERMISO_CUENTA]->(c:CuentaNM) WHERE p.nombre = {nombrePermiso} and c.numeroCuenta = {numeroCuenta} RETURN r")
-    PermisoCuenta findByPermisoAndCuenta(@Param("nombrePermiso") String nombrePermiso, @Param("numeroCuenta") String numeroCuenta);
+    @Query("MATCH  (u:Usuario)-[r:USUARIO_HAS_CUENTA_PERMISO]->(upc:UsuarioPermisoCuenta) WHERE u.nombre = {nombreUsuario} RETURN r")
+    PermisoCuenta findByPermisoAndCuenta(@Param("nombreUsuario") String nombreUsuario);
 
 
 }

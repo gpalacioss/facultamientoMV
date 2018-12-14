@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.legosoft.facultamiento.models.nuevo.CuentaNM;
 import com.legosoft.facultamiento.models.nuevo.PerfilNM;
+import com.legosoft.facultamiento.models.nuevo.PermisoCuenta;
 import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -49,7 +50,7 @@ public class Usuario implements Serializable{
 	private Set<CuentaNM> cuentasBancariasUsuario = new HashSet<>();
 
 	@Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
-	private Set<UsuarioPermisoCuenta> usuarioPermisoCuentas = new HashSet<>();
+	private Set<PermisoCuenta> permisoCuentas = new HashSet<>();
 
 
 	public Long getId() {
@@ -133,11 +134,11 @@ public class Usuario implements Serializable{
 		this.cuentasBancarias = cuentasBancarias;
 	}
 
-	public Set<UsuarioPermisoCuenta> getUsuarioPermisoCuentas() {
-		return usuarioPermisoCuentas;
+	public Set<PermisoCuenta> getPermisoCuentas() {
+		return permisoCuentas;
 	}
 
-	public void setUsuarioPermisoCuentas(Set<UsuarioPermisoCuenta> usuarioPermisoCuentas) {
-		this.usuarioPermisoCuentas = usuarioPermisoCuentas;
+	public void setPermisoCuentas(Set<PermisoCuenta> permisoCuentas) {
+		this.permisoCuentas = permisoCuentas;
 	}
 }

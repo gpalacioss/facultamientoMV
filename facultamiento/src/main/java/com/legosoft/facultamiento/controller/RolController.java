@@ -152,19 +152,19 @@ public class RolController {
 
            FacultadCuenta fc = facultadCuentas.stream().findFirst().get();
 
-           pc = permisoService.findPermisoCuentaByPermisoAndCuenta(permiso.getNombre(), s);
+           pc = permisoService.findPermisoCuentaByPermisoAndCuenta(permiso.getNombre());
 
            if (pc == null){
 
                pc = new PermisoCuenta();
 
-               pc.setPermiso(permiso);
-               pc.setCuenta(cuentaService.findCuentaNMBynumeroCuenta(s));
-               pc.setLimiteIndividual(fc.getLimiteIndividual() == null || fc.getLimiteIndividual().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteIndividual().replaceAll(",", "")));
-               pc.setLimiteMancomunado(fc.getLimiteMancomunado() == null || fc.getLimiteMancomunado().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteMancomunado().replaceAll(",", "")));
-               pc.setLimiteOperable(fc.getLimiteOperable() == null || fc.getLimiteOperable().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteOperable().replaceAll(",", "")));
-
-               System.out.println(" el permiso ---> ( " + pc.getPermiso().getNombre() + " ) --[HAS_PERMISO_CUENTA]-> " + "{ limiteOperable:: " + pc.getLimiteOperable() + ", limiteMancomunado:: " + pc.getLimiteMancomunado() + ", limiteIndividual :: " + pc.getLimiteIndividual() + " } -->  con la Cuenta  ---> (" + pc.getCuenta().getNumeroCuenta() +")");
+//               pc.setPermiso(permiso);
+//               pc.setCuenta(cuentaService.findCuentaNMBynumeroCuenta(s));
+//               pc.setLimiteIndividual(fc.getLimiteIndividual() == null || fc.getLimiteIndividual().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteIndividual().replaceAll(",", "")));
+//               pc.setLimiteMancomunado(fc.getLimiteMancomunado() == null || fc.getLimiteMancomunado().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteMancomunado().replaceAll(",", "")));
+//               pc.setLimiteOperable(fc.getLimiteOperable() == null || fc.getLimiteOperable().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteOperable().replaceAll(",", "")));
+//
+//               System.out.println(" el permiso ---> ( " + pc.getPermiso().getNombre() + " ) --[HAS_PERMISO_CUENTA]-> " + "{ limiteOperable:: " + pc.getLimiteOperable() + ", limiteMancomunado:: " + pc.getLimiteMancomunado() + ", limiteIndividual :: " + pc.getLimiteIndividual() + " } -->  con la Cuenta  ---> (" + pc.getCuenta().getNumeroCuenta() +")");
 
                permisoService.save(pc);
            }

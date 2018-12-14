@@ -27,8 +27,8 @@ public class PermisoServiceImpl implements PermisoService {
     private UsuarioPermisoCuentaRepository usuarioPermisoCuentaRepository;
 
 
-    public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso, String numeroCuenta){
-        return  permisoCuentaRepository.findByPermisoAndCuenta(nombrePermiso, numeroCuenta);
+    public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso){
+        return  permisoCuentaRepository.findByPermisoAndCuenta(nombrePermiso);
     }
 
     @Transactional

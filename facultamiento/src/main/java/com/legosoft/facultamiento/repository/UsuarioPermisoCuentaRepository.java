@@ -15,6 +15,6 @@ public interface UsuarioPermisoCuentaRepository extends Neo4jRepository<UsuarioP
     UsuarioPermisoCuenta findUsuarioPermisoCuentaByusuarioAndPermisoAndCuenta(@Param("nombreUsuario") String nombreUsuario, @Param("numeroCuenta") String numeroCuenta, @Param("nombrePermiso") String nombrePermiso);
 
 
-    @Query("MATCH (c:CuentaNM)-[:USUARIO_HAS_CUENTA_PERMISO]->(upc:UsuarioPermisoCuenta)<-[:USUARIO_HAS_CUENTA_PERMISO]-(p:Permiso) where c.numeroCuenta = {numeroCuenta} and p.nombre = {nombrePermiso} RETURN upc")
+    @Query("MATCH (c:CuentaNM)-[rc:USUARIO_HAS_CUENTA_PERMISO]->(upc:UsuarioPermisoCuenta)<-[rp:USUARIO_HAS_CUENTA_PERMISO]-(p:Permiso) where c.numeroCuenta = {numeroCuenta} and p.nombre = {nombrePermiso} RETURN upc,rc, c,rp, p")
     UsuarioPermisoCuenta findUsuarioPermisoCuentaByPermisoAndCuenta( @Param("numeroCuenta") String numeroCuenta, @Param("nombrePermiso") String nombrePermiso);
 }

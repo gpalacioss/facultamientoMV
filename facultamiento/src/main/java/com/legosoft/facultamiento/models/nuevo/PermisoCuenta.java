@@ -2,11 +2,12 @@ package com.legosoft.facultamiento.models.nuevo;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.legosoft.facultamiento.models.old.Usuario;
 import org.neo4j.ogm.annotation.*;
 
 import java.math.BigDecimal;
 
-@RelationshipEntity(type = "HAS_PERMISO_CUENTA")
+@RelationshipEntity(type = "USUARIO_HAS_CUENTA_PERMISO")
 public class PermisoCuenta {
 
 
@@ -15,62 +16,50 @@ public class PermisoCuenta {
 //    @Index(unique = true)
     private Long id;
 
-    private BigDecimal limiteOperable;
+    private BigDecimal limiteInferior;
 
-    private BigDecimal limiteIndividual;
-
-    private BigDecimal limiteMancomunado;
-
+    private BigDecimal limiteSuperior;
 
     @JsonIgnore
     @StartNode
 //    @Index(unique = true)
-    private Permiso permiso;
+    private Usuario usuario;
 
     @JsonIgnore
     @EndNode
 //    @Index(unique = true)
-    private CuentaNM cuenta;
+    private UsuarioPermisoCuenta usuarioPermisoCuenta;
 
-
-    public BigDecimal getLimiteOperable() {
-        return limiteOperable;
+    public BigDecimal getLimiteInferior() {
+        return limiteInferior;
     }
 
-    public void setLimiteOperable(BigDecimal limiteOperable) {
-        this.limiteOperable = limiteOperable;
+    public void setLimiteInferior(BigDecimal limiteInferior) {
+        this.limiteInferior = limiteInferior;
     }
 
-    public BigDecimal getLimiteIndividual() {
-        return limiteIndividual;
+    public BigDecimal getLimiteSuperior() {
+        return limiteSuperior;
     }
 
-    public void setLimiteIndividual(BigDecimal limiteIndividual) {
-        this.limiteIndividual = limiteIndividual;
+    public void setLimiteSuperior(BigDecimal limiteSuperior) {
+        this.limiteSuperior = limiteSuperior;
     }
 
-    public BigDecimal getLimiteMancomunado() {
-        return limiteMancomunado;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setLimiteMancomunado(BigDecimal limiteMancomunado) {
-        this.limiteMancomunado = limiteMancomunado;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Permiso getPermiso() {
-        return permiso;
+    public UsuarioPermisoCuenta getUsuarioPermisoCuenta() {
+        return usuarioPermisoCuenta;
     }
 
-    public void setPermiso(Permiso permiso) {
-        this.permiso = permiso;
-    }
-
-    public CuentaNM getCuenta() {
-        return cuenta;
-    }
-
-    public void setCuenta(CuentaNM cuenta) {
-        this.cuenta = cuenta;
+    public void setUsuarioPermisoCuenta(UsuarioPermisoCuenta usuarioPermisoCuenta) {
+        this.usuarioPermisoCuenta = usuarioPermisoCuenta;
     }
 
     public Long getId() {

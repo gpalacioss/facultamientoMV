@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PermisoService {
 
-    public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso, String numeroCuenta);
+    public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso);
 
     public PermisoCuenta save(PermisoCuenta permisoCuenta);
 

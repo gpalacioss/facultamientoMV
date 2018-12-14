@@ -17,15 +17,12 @@ public class UsuarioPermisoCuenta  implements Serializable {
     @GeneratedValue()
     private Long id;
 
-    @JsonIgnore
     @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO", direction = Relationship.INCOMING)
-    private Usuario usuario;
+    private PermisoCuenta permisoCuenta;
 
-    @JsonIgnore
     @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO", direction = Relationship.INCOMING)
     private CuentaNM cuenta;
 
-    @JsonIgnore
     @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO", direction = Relationship.INCOMING)
     private Permiso permiso;
 
@@ -38,12 +35,12 @@ public class UsuarioPermisoCuenta  implements Serializable {
         this.id = id;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public PermisoCuenta getPermisoCuenta() {
+        return permisoCuenta;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setPermisoCuenta(PermisoCuenta permisoCuenta) {
+        this.permisoCuenta = permisoCuenta;
     }
 
     public CuentaNM getCuenta() {
