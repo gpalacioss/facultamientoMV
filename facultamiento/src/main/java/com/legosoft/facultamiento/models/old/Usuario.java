@@ -40,8 +40,8 @@ public class Usuario implements Serializable{
 //	@Relationship(type = "HAS_PERFIL", direction = Relationship.OUTGOING)
 //	private Set<Perfil> perfiles = new HashSet<>();
 
-	@Relationship(type = "HAS_CUENTA", direction = Relationship.OUTGOING)
-	private Set<Cuenta> cuentasBancarias = new HashSet<>();
+//	@Relationship(type = "HAS_CUENTA", direction = Relationship.OUTGOING)
+//	private Set<Cuenta> cuentasBancarias = new HashSet<>();
 
 	@Relationship(type = "HAS_PERFIL_NM", direction = Relationship.OUTGOING)
 	private Set<PerfilNM> perfiles = new HashSet<>();
@@ -124,14 +124,6 @@ public class Usuario implements Serializable{
 
 	public void setCuentasBancariasUsuario(Set<CuentaNM> cuentasBancariasUsuario) {
 		this.cuentasBancariasUsuario = cuentasBancariasUsuario;
-	}
-
-	public Set<Cuenta> getCuentasBancarias() {
-		return cuentasBancarias;
-	}
-
-	public void setCuentasBancarias(Set<Cuenta> cuentasBancarias) {
-		this.cuentasBancarias = cuentasBancarias;
 	}
 
 	public Set<PermisoCuenta> getPermisoCuentas() {

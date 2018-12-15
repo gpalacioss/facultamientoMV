@@ -72,17 +72,17 @@ public class FacultamientoApplicationTests {
 
             System.out.println("El Usuario :: " + u.getNombre() + " Tiene estos numero de cuenta:: " );
 
-		    if (u.getCuentasBancarias().size() > 0){
-
-                u.getCuentasBancarias().forEach(c -> {
-
-                        CuentaNM nuevaCuenta = cuentaService.findCuentaNMBynumeroCuenta(c.getNumeroCuenta());
-                        if (nuevaCuenta != null){
-                            u.getCuentasBancariasUsuario().add(nuevaCuenta);
-                        }
-		        });
-
-            }
+//		    if (u.getCuentasBancarias().size() > 0){
+//
+//                u.getCuentasBancarias().forEach(c -> {
+//
+//                        CuentaNM nuevaCuenta = cuentaService.findCuentaNMBynumeroCuenta(c.getNumeroCuenta());
+//                        if (nuevaCuenta != null){
+//                            u.getCuentasBancariasUsuario().add(nuevaCuenta);
+//                        }
+//		        });
+//
+//            }
 
             if (u.getCuentasBancariasUsuario().size() > 0) {
 //             usuarioService.saveOrUpdate(u);

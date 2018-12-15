@@ -1,10 +1,9 @@
 package com.legosoft.facultamiento.models.nuevo;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @NodeEntity(label = "Compania")
@@ -14,11 +13,13 @@ public class Compania implements Serializable {
     @GeneratedValue
     private Long idCompania;
 
+    @Index(unique = true)
     private String nombreCompania;
 
     private Boolean isPadre;
 
-    private Set<Compania> companiaHijo;
+    @Relationship(type = "CHILD_OF", direction = Relationship.INCOMING)
+    private Set<Compania> companiaHijo = new HashSet<>();
 
     public Long getIdCompania() {
         return idCompania;
