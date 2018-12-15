@@ -13,4 +13,11 @@ public interface GrupoService {
      * @return
      */
     public List<Grupo> findAllGrupo();
+
+    /**
+     * Servicio que devuelve un grupo por nombre
+     * @param nombre
+     * @return
+     */
+    public Grupo findGrupoByNombre(String nombre);
 }

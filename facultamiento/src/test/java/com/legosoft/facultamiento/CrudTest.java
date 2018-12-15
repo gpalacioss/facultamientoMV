@@ -62,15 +62,19 @@ public class CrudTest {
     public void getAllGrupos(){
         List<Grupo> result = grupoService.findAllGrupo();
 
-        Compania companiaPadre = companiaService.findCompaniaByNombre("Legosoft");
+        Compania companiaPadre = companiaService.findCompaniaByNombre("Multiva");
 
         result.forEach(g -> {
-            if (g.getNombre().equals("Nomina Legosoft")){
+            if (g.getNombre().equals("gpo multivatouch")){
                 g.getCompanias().add(companiaPadre);
                 grupoService.save(g);
             }
         });
     }
 
+
+    public void editarGrupo(){
+        Grupo grupo = grupoService.findGrupoByNombre("gpo multivatouch");
+    }
 
 }

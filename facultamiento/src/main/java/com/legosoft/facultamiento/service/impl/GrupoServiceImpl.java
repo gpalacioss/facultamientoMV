@@ -1,5 +1,6 @@
 package com.legosoft.facultamiento.service.impl;
 
+import com.legosoft.facultamiento.models.nuevo.Compania;
 import com.legosoft.facultamiento.models.nuevo.Grupo;
 import com.legosoft.facultamiento.repository.GrupoRepository;
 import com.legosoft.facultamiento.service.GrupoService;
@@ -21,6 +22,10 @@ public class GrupoServiceImpl implements GrupoService {
 
     public List<Grupo> findAllGrupo(){
        return grupoRepository.findAll();
+    }
+
+    public Grupo findGrupoByNombre(String nombre){
+        return grupoRepository.findByNombre(nombre);
     }
 
 
