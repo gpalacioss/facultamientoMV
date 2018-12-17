@@ -22,7 +22,7 @@ public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 	
 	Collection<Usuario> findAll();
 	
-	List<Usuario> findByNombre(String nombre, @Depth int dept);
+	List<Usuario> findByNombre(String nombre);
 	
 	
 	@Query("MATCH (u:Usuario)-[rp:HAS_PERFIL]-> (p:Perfil)-[rf:HAS_FACULTAD]-> (f:Facultad) where u.nombre={nombre} RETURN u,rp,p,rf,f")

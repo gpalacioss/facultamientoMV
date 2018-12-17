@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.legosoft.facultamiento.models.nuevo.CuentaNM;
-import com.legosoft.facultamiento.models.nuevo.PerfilNM;
-import com.legosoft.facultamiento.models.nuevo.PermisoCuenta;
-import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
+import com.legosoft.facultamiento.models.nuevo.*;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -51,6 +48,12 @@ public class Usuario implements Serializable{
 
 	@Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
 	private Set<PermisoCuenta> permisoCuentas = new HashSet<>();
+
+	@Relationship(type = "MEMBER_OF")
+	private Set<Grupo> grupos = new HashSet<>();
+
+	@Relationship(type = "TRABAJA_EN")
+	private Set<Compania> commpanias = new HashSet<>();
 
 
 	public Long getId() {
@@ -132,5 +135,21 @@ public class Usuario implements Serializable{
 
 	public void setPermisoCuentas(Set<PermisoCuenta> permisoCuentas) {
 		this.permisoCuentas = permisoCuentas;
+	}
+
+	public Set<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(Set<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
+	public Set<Compania> getCommpanias() {
+		return commpanias;
+	}
+
+	public void setCommpanias(Set<Compania> commpanias) {
+		this.commpanias = commpanias;
 	}
 }

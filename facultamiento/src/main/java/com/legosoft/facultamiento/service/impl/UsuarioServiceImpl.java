@@ -22,7 +22,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private PerfilRepository perfilRepository;
 	
 	public List<Usuario> getAllUsuarios(){
-		List<Usuario> result = (List<Usuario>) repository.findAll(4);
+		List<Usuario> result = (List<Usuario>) repository.findAll();
 		return result;
 	}
 
@@ -37,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 	
 	public List<Usuario> findUsuarioBynombre(String nombre) {
-		List<Usuario> result = repository.findByNombre(nombre, 3);
+		List<Usuario> result = repository.findByNombre(nombre);
 		return result;
 	}
 	
