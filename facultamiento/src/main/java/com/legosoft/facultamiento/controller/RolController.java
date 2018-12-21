@@ -70,6 +70,10 @@ public class RolController {
                 rol.setIsActivo(Boolean.TRUE);
                 rol.setNombreRol("Rol:" + contador++);
 
+                rol = rolService.findRolByNombre("Rol:" + contador++);
+
+                Rol finalRol = rol;
+                System.out.println("rol numero :: " + finalRol.getNombreRol());
                 f.forEach(ff -> {
 
                     Set<CuentaNM> cuentaBancarias = new HashSet<>();
@@ -121,13 +125,13 @@ public class RolController {
 
                     }
 
-                    rol.getFacultades().add(nf);
-                    System.out.println("El rol : " + rol.getNombreRol() + " Contiene las siguientes facultades:: ");
+                    finalRol.getFacultades().add(nf);
+                    System.out.println("El rol : " + finalRol.getNombreRol() + " Contiene las siguientes facultades:: ");
                     System.out.println("facultad :: " + nf.getNombre());
 
                     cuentaBancarias.forEach(c -> System.out.println("cuentas bancarias :: " + c.getNumeroCuenta()));
 
-                    creaRelacionPermisoCuenta(nf, cuentaBancarias, setFacultadCuenta);
+                    //creaRelacionPermisoCuenta(nf, cuentaBancarias, setFacultadCuenta);
 
                 });
 

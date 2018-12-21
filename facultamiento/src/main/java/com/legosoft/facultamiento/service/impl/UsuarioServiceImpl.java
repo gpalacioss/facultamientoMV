@@ -1,8 +1,15 @@
 package com.legosoft.facultamiento.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sun.tools.javac.jvm.ByteCodes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +62,83 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	public List<Usuario> findUsuariosByNumeroCuenta(String numeroCuenta){
 		return repository.findusuariosByNumeroCuenta(numeroCuenta);
+	}
+
+
+	public String getUsuarioAndPermisosGraph(String nombreUsuario){
+
+		ArrayNode arrayNode = (new ObjectMapper()).createObjectNode().putArray("nodes");
+		ArrayNode arrayEdges = (new ObjectMapper()).createObjectNode().putArray("edges");
+
+		Usuario repoUsuario = repository.getUsuarioAndPermisos(nombreUsuario);
+
+		arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId()));
+
+		repoUsuario.getPerfiles().forEach(p -> {
+
+			arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil()));
+			arrayEdges.add(generaRelacion(repoUsuario.getId(), p.getIdPerfil(), "HAS_PERFIL"));
+
+			p.getRoles().forEach(r -> {
+
+				arrayNode.add(generaNodo(r.getNombreRol(), "rol", r.getIdRol()));
+				arrayEdges.add(generaRelacion(p.getIdPerfil(), r.getIdRol(), "HAS_ROL"));
+
+				r.getFacultades().forEach(pr ->{
+
+					arrayNode.add(generaNodo(pr.getNombre(), "permiso", pr.getIdPermiso()));
+					arrayEdges.add(generaRelacion(r.getIdRol(), pr.getIdPermiso(), "HAS_FACULTAD_ROL"));
+
+				});
+			});
+
+		});
+
+
+		System.out.println(generaGraph(arrayNode, arrayEdges).toString());
+
+		return  null;
+
+	}
+
+
+	private ObjectNode generaGraph(ArrayNode arrayNodes, ArrayNode arrayRelationship){
+
+		ObjectNode graphNodes = new ObjectMapper().createObjectNode();
+
+		graphNodes.set("nodes", arrayNodes);
+		graphNodes.set("edges", arrayRelationship);
+
+		return  graphNodes;
+	}
+
+	private JsonNode generaNodo(String caption, String type, Long id){
+
+		Map<String, Object> nodo  =  new HashMap<>();
+
+		nodo.put("caption", caption);
+		nodo.put("type", type);
+		nodo.put("id", id);
+
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jsonNodeMap = mapper.convertValue(nodo, JsonNode.class);
+
+		return jsonNodeMap;
+
+	}
+
+	private JsonNode generaRelacion(Long idStartNode, Long idEndNode, String etiquetaRelacion){
+
+		Map<String, Object> relacion = new HashMap<>();
+
+		relacion.put("source", idStartNode);
+		relacion.put("target", idEndNode);
+		relacion.put("caption", etiquetaRelacion);
+
+		ObjectMapper mapperRelacion = new ObjectMapper();
+		JsonNode jsonNodeRelacion = mapperRelacion.convertValue(relacion, JsonNode.class);
+
+		return  jsonNodeRelacion;
 	}
 
 }

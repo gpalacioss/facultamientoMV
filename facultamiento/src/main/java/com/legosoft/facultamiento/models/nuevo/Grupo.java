@@ -27,8 +27,14 @@ public class Grupo implements Serializable {
     private Boolean isActivo;
 
 
-    @Relationship(type = "ALLOW", direction = Relationship.INCOMING)
+    @Relationship(type = "ALLOW")
     private Set<Compania> companias =  new HashSet<>();
+
+    @Relationship(type = "DENIED")
+    private Set<Compania> companiasNegadas = new HashSet<>();
+
+    @Relationship(type = "ALLOWED_DO_NOT_INHERIT")
+    private Set<Compania> companiasPermitidasSinHerencia = new HashSet<>();
 
     public Long getIdGrupo() {
         return idGrupo;
@@ -69,5 +75,22 @@ public class Grupo implements Serializable {
 
     public void setCompanias(Set<Compania> companias) {
         this.companias = companias;
+    }
+
+    public Set<Compania> getCompaniasNegadas() {
+        return companiasNegadas;
+    }
+
+    public void setCompaniasNegadas(Set<Compania> companiasNegadas) {
+        this.companiasNegadas = companiasNegadas;
+    }
+
+
+    public Set<Compania> getCompaniasPermitidasSinHerencia() {
+        return companiasPermitidasSinHerencia;
+    }
+
+    public void setCompaniasPermitidasSinHerencia(Set<Compania> companiasPermitidasSinHerencia) {
+        this.companiasPermitidasSinHerencia = companiasPermitidasSinHerencia;
     }
 }

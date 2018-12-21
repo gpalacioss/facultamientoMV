@@ -10,4 +10,6 @@ public interface GrupoRepository extends Neo4jRepository<Grupo, Long> {
     List<Grupo> findAll();
 
     Grupo findByNombre(String nombre);
+
+
 }

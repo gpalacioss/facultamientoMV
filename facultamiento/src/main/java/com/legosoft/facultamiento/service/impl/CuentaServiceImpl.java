@@ -6,6 +6,8 @@ import com.legosoft.facultamiento.service.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("cuentaService")
 public class CuentaServiceImpl implements CuentaService {
 
@@ -19,5 +21,9 @@ public class CuentaServiceImpl implements CuentaService {
 
     public CuentaNM save(CuentaNM cuentaNueva){
        return cuentaNMRepository.save(cuentaNueva);
+    }
+
+    public List<CuentaNM> findCuentasByNumeroCuentaParameterList(String listNumeroCuenta){
+        return  cuentaNMRepository.findCuentaByListParameter(listNumeroCuenta);
     }
 }

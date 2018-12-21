@@ -47,4 +47,8 @@ public class PerfilServiceImpl implements PerfilService{
 		return perfilNMRepository.findByNombre(nombre);
 	}
 
+	public void deletePerfilNuevo(PerfilNM perfilNM){
+		perfilNMRepository.delete(perfilNM);
+	}
+
 }

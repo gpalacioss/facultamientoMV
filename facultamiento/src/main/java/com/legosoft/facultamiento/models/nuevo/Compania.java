@@ -21,6 +21,9 @@ public class Compania implements Serializable {
     @Relationship(type = "CHILD_OF", direction = Relationship.INCOMING)
     private Set<Compania> companiaHijo = new HashSet<>();
 
+    @Relationship(type = "COMPANIA_HAS_CUENTA")
+    private Set<CuentaNM> cuentasEmpresas = new HashSet<>();
+
     public Long getIdCompania() {
         return idCompania;
     }
@@ -51,5 +54,13 @@ public class Compania implements Serializable {
 
     public void setCompaniaHijo(Set<Compania> companiaHijo) {
         this.companiaHijo = companiaHijo;
+    }
+
+    public Set<CuentaNM> getCuentasEmpresas() {
+        return cuentasEmpresas;
+    }
+
+    public void setCuentasEmpresas(Set<CuentaNM> cuentasEmpresas) {
+        this.cuentasEmpresas = cuentasEmpresas;
     }
 }

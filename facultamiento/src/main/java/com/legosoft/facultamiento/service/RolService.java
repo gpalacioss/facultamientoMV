@@ -10,4 +10,9 @@ public interface RolService {
 
 	public List<Rol> getAllRoles();
 
+	public Rol findRolByNombre(String nombreRol);
+
+	public void deleteRol(Rol rol);
+
+
 }

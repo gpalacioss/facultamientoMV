@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.legosoft.facultamiento.service.*;
+import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
@@ -60,5 +61,10 @@ public class UsuarioController {
 	@GetMapping(value = "/getUsuarios/{idUsuario}")
 	public Optional<Usuario> getUsuarioById(@PathVariable("idUsuario") Long idUsuario){
 		return usuarioService.findUsuarioById(idUsuario);
+	}
+
+	@GetMapping(value = "/usuariosAndPermisosGraph")
+	public String getUsuariosAndPermisosGraph(@Param("nombreUsuario") String nombreUsuario){
+		return null;
 	}
 }

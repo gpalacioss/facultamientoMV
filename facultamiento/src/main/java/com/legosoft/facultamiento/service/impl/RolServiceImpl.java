@@ -22,4 +22,12 @@ public class RolServiceImpl implements RolService {
 	public List<Rol> getAllRoles(){
 		return rolRepository.findAll();
 	}
+
+	public Rol findRolByNombre(String nombreRol){
+		return rolRepository.findByNombreRol(nombreRol);
+	}
+
+	public void deleteRol(Rol rol){
+		rolRepository.delete(rol);
+	}
 }

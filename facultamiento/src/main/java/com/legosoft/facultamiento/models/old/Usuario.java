@@ -55,6 +55,12 @@ public class Usuario implements Serializable{
 	@Relationship(type = "TRABAJA_EN")
 	private Set<Compania> commpanias = new HashSet<>();
 
+	@Relationship(type = "DENIED")
+	private Set<Permiso> permisosNegados = new HashSet<>();
+
+	@Relationship(type = "PERMISO_AGREGADO")
+	private Set<Permiso> permisoAgregados = new HashSet<>();
+
 
 	public Long getId() {
 		return id;
@@ -151,5 +157,21 @@ public class Usuario implements Serializable{
 
 	public void setCommpanias(Set<Compania> commpanias) {
 		this.commpanias = commpanias;
+	}
+
+	public Set<Permiso> getPermisosNegados() {
+		return permisosNegados;
+	}
+
+	public void setPermisosNegados(Set<Permiso> permisosNegados) {
+		this.permisosNegados = permisosNegados;
+	}
+
+	public Set<Permiso> getPermisoAgregados() {
+		return permisoAgregados;
+	}
+
+	public void setPermisoAgregados(Set<Permiso> permisoAgregados) {
+		this.permisoAgregados = permisoAgregados;
 	}
 }

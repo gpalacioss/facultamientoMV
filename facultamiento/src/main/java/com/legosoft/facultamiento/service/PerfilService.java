@@ -18,4 +18,6 @@ public interface PerfilService {
 
 	public Optional<PerfilNM> findPerfilNMByNombre(String nombre);
 
+	public void deletePerfilNuevo(PerfilNM perfilNM);
+
 }

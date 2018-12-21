@@ -3,10 +3,6 @@ package com.legosoft.facultamiento.repository;
 
 import java.util.Collection;
 import java.util.List;
-
-import org.neo4j.ogm.session.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.annotation.Depth;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
@@ -34,6 +30,11 @@ public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 
 	@Query("MATCH (u:Usuario)-[:USUARIO_HAS_CUENTA]->(c:CuentaNM) where c.numeroCuenta = {numeroCuenta} RETURN u ")
 	List<Usuario> findusuariosByNumeroCuenta(@Param("numeroCuenta") String numeroCuenta);
+
+
+	@Query("MATCH query=(u:Usuario)-[:HAS_PERFIL_NM]-(p:PerfilNM)-[:HAS_ROL]->(r:Rol)-[:HAS_FACULTAD_ROL]-(pr:Permiso) where u.nombre = {nombreUsuario} AND NOT (u)-[:DENIED]->(pr)  OPTIONAL MATCH sq1=(u)-[:PERMISO_AGREGADO]->(ps:Permiso) RETURN query, sq1")
+	Usuario getUsuarioAndPermisos(@Param("nombreUsuario") String nombreUsuario);
+
 
 
 }

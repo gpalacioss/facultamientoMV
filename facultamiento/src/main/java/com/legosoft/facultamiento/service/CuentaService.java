@@ -2,6 +2,8 @@ package com.legosoft.facultamiento.service;
 
 import com.legosoft.facultamiento.models.nuevo.CuentaNM;
 
+import java.util.List;
+
 public interface CuentaService {
 
 
@@ -13,4 +15,11 @@ public interface CuentaService {
     public CuentaNM findCuentaNMBynumeroCuenta(String numeroCuenta);
 
     public CuentaNM save(CuentaNM cuentaNueva);
+
+    /**
+     * Consulta las cuentas por una lista  de numero de cuentas
+     * @param listNumeroCuenta
+     * @return
+     */
+    public List<CuentaNM> findCuentasByNumeroCuentaParameterList(String listNumeroCuenta);
 }

@@ -11,5 +11,7 @@ public interface RolRepository extends Neo4jRepository<Rol, Long>{
 
     List<Rol> findAll();
 
+    Rol findByNombreRol(String nombreRolr);
+
 
 }

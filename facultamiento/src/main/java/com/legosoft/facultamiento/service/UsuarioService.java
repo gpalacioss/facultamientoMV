@@ -22,4 +22,6 @@ public interface UsuarioService {
 
 	public List<Usuario> findUsuariosByNumeroCuenta(String numeroCuenta);
 
+	public String getUsuarioAndPermisosGraph(String nombreUsuario);
+
 }
