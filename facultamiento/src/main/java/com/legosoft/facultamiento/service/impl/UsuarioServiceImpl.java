@@ -74,6 +74,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 		arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId()));
 
+		repoUsuario.getPermisoAgregados().forEach(pa -> {
+
+			arrayNode.add(generaNodo(pa.getNombre(), "permiso", pa.getIdPermiso()));
+			arrayEdges.add(generaRelacion(repoUsuario.getId(), pa.getIdPermiso(), "PERMISO_AGREGADO"));
+
+		});
+
 		repoUsuario.getPerfiles().forEach(p -> {
 
 			arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil()));
