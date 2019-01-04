@@ -63,8 +63,8 @@ public class UsuarioController {
 		return usuarioService.findUsuarioById(idUsuario);
 	}
 
-	@GetMapping(value = "/usuariosAndPermisosGraph")
-	public String getUsuariosAndPermisosGraph(@Param("nombreUsuario") String nombreUsuario){
-		return null;
+	@GetMapping(value = "/usuariosAndPermisosGraph/{nombreUsuario}")
+	public String getUsuariosAndPermisosGraph(@PathVariable("nombreUsuario") String nombreUsuario){
+		return usuarioService.getUsuarioAndPermisosGraph(nombreUsuario);
 	}
 }

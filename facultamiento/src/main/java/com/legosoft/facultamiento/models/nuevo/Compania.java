@@ -1,5 +1,6 @@
 package com.legosoft.facultamiento.models.nuevo;
 
+import com.legosoft.facultamiento.models.old.Usuario;
 import org.neo4j.ogm.annotation.*;
 
 import java.io.Serializable;
@@ -23,6 +24,9 @@ public class Compania implements Serializable {
 
     @Relationship(type = "COMPANIA_HAS_CUENTA")
     private Set<CuentaNM> cuentasEmpresas = new HashSet<>();
+
+    @Relationship(type = "TRABAJA_EN", direction = Relationship.INCOMING)
+    private Set<Usuario> usuarios = new HashSet<>();
 
     public Long getIdCompania() {
         return idCompania;
@@ -62,5 +66,13 @@ public class Compania implements Serializable {
 
     public void setCuentasEmpresas(Set<CuentaNM> cuentasEmpresas) {
         this.cuentasEmpresas = cuentasEmpresas;
+    }
+
+    public Set<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Set<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 }
