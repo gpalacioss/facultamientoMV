@@ -1,0 +1,105 @@
+ {
+ 	"comment": "Charlize Theron's 'ego' network as GraphJSON",
+ 	"nodes": [{
+ 		"caption": "Administracion",
+ 		"id": 1022,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "Pagos",
+ 		"id": 1023,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "Inversiones",
+ 		"id": 1024,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "Unifin",
+ 		"id": 11248,
+ 		"type": "Compania"
+ 	}, {
+ 		"caption": "Nomina",
+ 		"id": 1025,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "Consultas y Reportes",
+ 		"id": 1026,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "Transferencias Bancarias",
+ 		"id": 1027,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "Banorte",
+ 		"id": 10350,
+ 		"type": "Compania"
+ 	}, {
+ 		"caption": "Bancomer",
+ 		"id": 10330,
+ 		"type": "Compania"
+ 	}, {
+ 		"caption": "Multiva",
+ 		"id": 11247,
+ 		"type": "Compania"
+ 	}, {
+ 		"caption": "JBPM",
+ 		"id": 1028,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "gpo multivatouch",
+ 		"id": 1029,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "Multiva",
+ 		"id": 11247,
+ 		"type": "Compania"
+ 	}, {
+ 		"caption": "Nomina Legosoft",
+ 		"id": 1030,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "Legosoft",
+ 		"id": 11370,
+ 		"type": "Compania"
+ 	}, {
+ 		"caption": "grupo prueba",
+ 		"id": 1031,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "sssssssssssaaa",
+ 		"id": 1212,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "gpo0001",
+ 		"id": 1213,
+ 		"type": "Grupo"
+ 	}, {
+ 		"caption": "OTP",
+ 		"id": 1214,
+ 		"type": "Grupo"
+ 	}],
+ 	"edges": [{
+ 		"caption": "ALLOW",
+ 		"source": 1024,
+ 		"target": 11248
+ 	}, {
+ 		"caption": "ALLOW",
+ 		"source": 1027,
+ 		"target": 10350
+ 	}, {
+ 		"caption": "ALLOW",
+ 		"source": 1027,
+ 		"target": 10330
+ 	}, {
+ 		"caption": "ALLOW",
+ 		"source": 1027,
+ 		"target": 11247
+ 	}, {
+ 		"caption": "ALLOW",
+ 		"source": 1029,
+ 		"target": 11247
+ 	}, {
+ 		"caption": "ALLOW",
+ 		"source": 1030,
+ 		"target": 11370
+ 	}]
+ }

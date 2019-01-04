@@ -23,4 +23,8 @@ export class UsuarioService {
     return this.http.get<Usuario>(`http://localhost:8080/getUsuarios/ ${idUsuario}`);
   }
 
+  public permisosUsuarioGraph(nombreUsuario: String): Observable<any>{
+    return this.http.get(`http://localhost:8080/usuariosAndPermisosGraph/${nombreUsuario}`);
+  }
+
 }

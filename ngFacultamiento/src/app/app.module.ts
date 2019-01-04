@@ -12,7 +12,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormUsuariosComponent } from './components/usuarios/form-usuarios/form-usuarios.component';
 import { FormsModule } from '@angular/forms';
-import { ComboBoxPerfilComponent } from './components/perfil/combo-box-perfil/combo-box-perfil.component'
+import { ComboBoxPerfilComponent } from './components/perfil/combo-box-perfil/combo-box-perfil.component';
+import { PermisosUsuarioComponent } from './components/usuarios/permisos-usuario/permisos-usuario.component'
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ComboBoxPerfilComponent } from './components/perfil/combo-box-perfil/co
     HeaderComponent,
     FooterComponent,
     FormUsuariosComponent,
-    ComboBoxPerfilComponent
+    ComboBoxPerfilComponent,
+    PermisosUsuarioComponent
   ],
   imports: [
     BrowserModule,

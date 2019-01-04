@@ -1,3 +1,4 @@
+import { PermisosUsuarioComponent } from './components/usuarios/permisos-usuario/permisos-usuario.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'perfiles', component: PerfilComponent},
   { path: 'facultades', component: FacultadComponent},
   { path: 'user/formUsuario', component: FormUsuariosComponent},
-  { path: 'user/formUsuario/actualizaUsuario/:idUsuario', component: FormUsuariosComponent}
+  { path: 'user/formUsuario/actualizaUsuario/:idUsuario', component: FormUsuariosComponent},
+  { path: 'user/graph/permisoUsuario', component: PermisosUsuarioComponent}
 ];
 
 @NgModule({

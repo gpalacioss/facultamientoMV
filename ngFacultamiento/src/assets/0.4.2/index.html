@@ -1,0 +1,42 @@
+<html>
+<head>
+  <link rel="stylesheet" href="styles/vendor.css"/>
+  <link rel="stylesheet" href="styles/alchemy.css"/>
+</head>
+<body>
+  <div class="alchemy" id="alchemy"></div>
+
+  <script src="scripts/vendor.js"></script>
+  <script src="scripts/alchemy.js"></script>
+
+  
+    <!--<script type="text/javascript">
+
+        var config = {
+            dataSource: 'https://127.0.0.1:8887/facultamiento.json',
+            };
+
+        var alchemy = new Alchemy(config)
+
+        console.log(alchemy);
+
+    </script>-->
+
+
+    <script type="text/javascript">
+
+      var dataSource = {"nodes":[{"caption":"Ricardo Legorreta","id":211,"type":"usuario"},{"caption":"Mul_Con_MovimientosFondos","id":40,"type":"permiso"},{"caption":"Mul_Nom_Dispersion","id":34,"type":"permiso"},{"caption":"Tesorero","id":6452,"type":"perfil"},{"caption":"Rol:6","id":6348,"type":"rol"},{"caption":"Mul_Tran_InterProveedor","id":101,"type":"permiso"},{"caption":"Mul_Inv_MultivaIntegra","id":117,"type":"permiso"},{"caption":"Mul_Con_MovimientosIntegra","id":39,"type":"permiso"},{"caption":"Mul_Tran_Terceros","id":103,"type":"permiso"},{"caption":"Mul_Tran_Propias","id":102,"type":"permiso"},{"caption":"Mul_Con_Cep","id":45,"type":"permiso"},{"caption":"Mul_Pago_Creditos","id":109,"type":"permiso"},{"caption":"Mul_Pago_ImpCDMX","id":111,"type":"permiso"},{"caption":"Mul_Mtouch_Registro","id":71,"type":"permiso"},{"caption":"Mul_Inv_MultivaIntegra_Invertir","id":118,"type":"permiso"},{"caption":"Mul_Con_Saldos","id":1,"type":"permiso"},{"caption":"Mul_Pago_TarjetaCredito","id":108,"type":"permiso"},{"caption":"Mul_Mtouch_Reposicion","id":72,"type":"permiso"},{"caption":"Mul_Inv_Fondos","id":116,"type":"permiso"},{"caption":"Mul_Adm_CambioContrasena","id":60,"type":"permiso"},{"caption":"Mul_Con_MovimientosVista","id":38,"type":"permiso"},{"caption":"Mul_Con_Retenciones","id":49,"type":"permiso"}],"edges":[{"caption":"PERMISO_AGREGADO","source":211,"target":40},{"caption":"PERMISO_AGREGADO","source":211,"target":34},{"caption":"HAS_PERFIL","source":211,"target":6452},{"caption":"HAS_ROL","source":6452,"target":6348},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":101},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":117},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":39},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":103},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":102},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":45},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":109},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":111},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":71},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":118},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":1},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":108},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":72},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":116},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":60},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":38},{"caption":"HAS_FACULTAD_ROL","source":6348,"target":49}]}
+
+
+console.log("hola que hace");
+      var config = {
+        dataSource,
+
+      };
+
+      alchemy = new Alchemy(config)
+    </script>
+
+
+</body>
+</html>
