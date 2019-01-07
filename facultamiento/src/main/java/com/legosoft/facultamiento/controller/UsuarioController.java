@@ -1,5 +1,8 @@
 package com.legosoft.facultamiento.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -65,6 +68,28 @@ public class UsuarioController {
 
 	@GetMapping(value = "/usuariosAndPermisosGraph/{nombreUsuario}")
 	public String getUsuariosAndPermisosGraph(@PathVariable("nombreUsuario") String nombreUsuario){
-		return usuarioService.getUsuarioAndPermisosGraph(nombreUsuario);
+
+		String json = usuarioService.getUsuarioAndPermisosGraph(nombreUsuario);
+		generaArchivoTxt(json, "hola");
+		return json;
 	}
+
+	private void  generaArchivoTxt(String json, String nombreArchivo){
+		try {
+			String ruta = "C:\\Users\\Gusstavo\\Documents\\0.4.2\\data/ " + nombreArchivo + ".json";
+
+			File file = new File(ruta);
+			// Si el archivo no existe es creado
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			FileWriter fw = new FileWriter(file);
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(json);
+			bw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

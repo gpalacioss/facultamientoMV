@@ -1,5 +1,8 @@
 package com.legosoft.facultamiento.service.impl;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +12,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.sun.tools.javac.jvm.ByteCodes;
-import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -105,6 +106,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 		System.out.println(generaGraph(arrayNode, arrayEdges).toString());
 
+		generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "usuarioAndPermisosGraph");
+
 		return  generaGraph(arrayNode, arrayEdges).toString();
 
 	}
@@ -139,6 +142,7 @@ public class UsuarioServiceImpl implements UsuarioService{
             });
         });
 
+        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "empresasByAdminGraph");
         return generaGraph(arrayNode, arrayEdges).toString();
 
     }
@@ -189,6 +193,7 @@ public class UsuarioServiceImpl implements UsuarioService{
             });
         });
 
+        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "empresasAndEmpleadosByAdminGraph");
         return generaGraph(arrayNode, arrayEdges).toString();
     }
 
@@ -239,6 +244,7 @@ public class UsuarioServiceImpl implements UsuarioService{
             });
         });
 
+        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "cuentasEmpresasByAdminGraph");
         return generaGraph(arrayNode, arrayEdges).toString();
 
     }
@@ -267,6 +273,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         });
 
+        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "permisosCuentaMontoByAdminGraph");
 	    return generaGraph(arrayNode, arrayEdges).toString();
     }
 
@@ -318,6 +325,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         });
 
+        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "permisosuentaMontoAndSimplesGraph");
         return  generaGraph(arrayNode, arrayEdges).toString();
     }
 
@@ -359,5 +367,23 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 		return  jsonNodeRelacion;
 	}
+
+    private void  generaArchivoTxt(String json, String nombreArchivo){
+        try {
+            String ruta = "C:\\Users\\Gusstavo\\Documents\\0.4.2\\data/" + nombreArchivo + ".json";
+
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(json);
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

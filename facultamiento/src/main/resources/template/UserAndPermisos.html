@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles/vendor.css"/>
+    <link rel="stylesheet" href="styles/alchemy.css"/>
+</head>
+<body th:action="@{/usuariosAndPermisosGraph/{nombreUsuario}}">
+<div class="alchemy" id="alchemy"></div>
+
+<script src="scripts/vendor.js"></script>
+<script src="scripts/alchemy.js"></script>
+
+<script type="text/javascript">
+
+    var config = {
+        dataSource: 'http://127.0.0.1:8887/jsonGraph.json',
+    };
+
+    alchemy = new Alchemy(config);
+
+    console.log(alchemy);
+
+</script>
+</body>
+</html>
