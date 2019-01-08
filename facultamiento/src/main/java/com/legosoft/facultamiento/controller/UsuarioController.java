@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.legosoft.facultamiento.models.old.Usuario;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class UsuarioController {
 
@@ -66,30 +66,49 @@ public class UsuarioController {
 		return usuarioService.findUsuarioById(idUsuario);
 	}
 
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(){
+
+		return "index";
+	}
+
+
 	@GetMapping(value = "/usuariosAndPermisosGraph/{nombreUsuario}")
 	public String getUsuariosAndPermisosGraph(@PathVariable("nombreUsuario") String nombreUsuario){
-
 		String json = usuarioService.getUsuarioAndPermisosGraph(nombreUsuario);
-		generaArchivoTxt(json, "hola");
 		return json;
 	}
 
-	private void  generaArchivoTxt(String json, String nombreArchivo){
-		try {
-			String ruta = "C:\\Users\\Gusstavo\\Documents\\0.4.2\\data/ " + nombreArchivo + ".json";
-
-			File file = new File(ruta);
-			// Si el archivo no existe es creado
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-			FileWriter fw = new FileWriter(file);
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(json);
-			bw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@GetMapping(value = "/getEmpresasbyAdministradorGraph/{nombreUsuario}")
+	public String getEmpresasbyAdministradorGraph(@PathVariable("nombreUsuario") String nombreUsuario){
+		String json = usuarioService.getEmpresasbyAdministradorGraph(nombreUsuario);
+		return json;
 	}
+
+	@GetMapping(value = "/getEmpresaAndEmpleadosByAdministrador/{nombreUsuario}")
+	public String getEmpresaAndEmpleadosByAdministrador(@PathVariable("nombreUsuario") String nombreUsuario){
+		String json = usuarioService.getEmpresaAndEmpleadosByAdministrador(nombreUsuario);
+		return json;
+	}
+
+	@GetMapping(value = "/getCuentasEmpresasByAdministrador/{nombreUsuario}")
+	public String getCuentasEmpresasByAdministrador(@PathVariable("nombreUsuario") String nombreUsuario){
+		String json = usuarioService.getCuentasEmpresasByAdministrador(nombreUsuario);
+		return json;
+	}
+
+	@GetMapping(value = "/getPermisosCuentaMontoByUsuario/{nombreUsuario}")
+	public String getPermisosCuentaMontoByUsuario(@PathVariable("nombreUsuario") String nombreUsuario){
+		String json = usuarioService.getPermisosCuentaMontoByUsuario(nombreUsuario);
+		return json;
+	}
+
+	@GetMapping(value = "/getPermisosCuentaMontoAndSimplesByUsuario/{nombreUsuario}")
+	public String getPermisosCuentaMontoAndSimplesByUsuario(@PathVariable("nombreUsuario") String nombreUsuario){
+		String json = usuarioService.getPermisosCuentaMontoAndSimplesByUsuario(nombreUsuario);
+		return json;
+	}
+
 
 }

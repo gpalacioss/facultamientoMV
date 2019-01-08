@@ -41,7 +41,7 @@ public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 
 
 	@Query("MATCH query=(admin:Usuario)-[:MEMBER_OF]->(g:Grupo)-[:ALLOW]-(c:Compania)<-[:TRABAJA_EN]-(em:Usuario) where admin.nombre = {nombreAdministrador} optional MATCH subquery=(gr:Grupo)-[r:ALLOWED_DO_NOT_INHERIT]->(csh:Compania)<-[:TRABAJA_EN]-(emcsh:Usuario) WHERE(admin)-[:MEMBER_OF]->(gr)  optional MATCH subquery2=(c)<-[:CHILD_OF]-(ch:Compania)<-[:TRABAJA_EN]-(emch:Usuario) WHERE NOT (g)-[:DENIED]->(ch)  RETURN query, subquery, subquery2")
-	Usuario empleadosAndEmpresasByAdministradorGraph(@Param("nombreAdministrador") String nombreAdministrador);
+	List<Usuario> empleadosAndEmpresasByAdministradorGraph(@Param("nombreAdministrador") String nombreAdministrador);
 
 
 	@Query("MATCH query=(admin:Usuario)-[:MEMBER_OF]->(g:Grupo)-[:ALLOW]-(c:Compania)-[:COMPANIA_HAS_CUENTA]->(cn:CuentaNM) where admin.nombre = {nombreAdministrador}  optional MATCH subquery=(gr:Grupo)-[r:ALLOWED_DO_NOT_INHERIT]->(csh:Compania)-[:COMPANIA_HAS_CUENTA]->(cncsh:CuentaNM) WHERE(admin)-[:MEMBER_OF]->(gr)  optional MATCH subquery2=(c)<-[:CHILD_OF]-(ch:Compania)-[:COMPANIA_HAS_CUENTA]->(cnch:CuentaNM) WHERE NOT (g)-[:DENIED]->(ch)  RETURN query, subquery, subquery2")

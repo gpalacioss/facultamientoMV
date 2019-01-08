@@ -74,28 +74,28 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 		Usuario repoUsuario = repository.getUsuarioAndPermisos(nombreUsuario);
 
-		arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId()));
+		arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
 
 		repoUsuario.getPermisoAgregados().forEach(pa -> {
 
-			arrayNode.add(generaNodo(pa.getNombre(), "permiso", pa.getIdPermiso()));
+			arrayNode.add(generaNodo(pa.getNombre(), "permiso", pa.getIdPermiso(), 2));
 			arrayEdges.add(generaRelacion(repoUsuario.getId(), pa.getIdPermiso(), "PERMISO_AGREGADO"));
 
 		});
 
 		repoUsuario.getPerfiles().forEach(p -> {
 
-			arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil()));
+			arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil(), 3));
 			arrayEdges.add(generaRelacion(repoUsuario.getId(), p.getIdPerfil(), "HAS_PERFIL"));
 
 			p.getRoles().forEach(r -> {
 
-				arrayNode.add(generaNodo(r.getNombreRol(), "rol", r.getIdRol()));
+				arrayNode.add(generaNodo(r.getNombreRol(), "rol", r.getIdRol(), 4));
 				arrayEdges.add(generaRelacion(p.getIdPerfil(), r.getIdRol(), "HAS_ROL"));
 
 				r.getFacultades().forEach(pr ->{
 
-					arrayNode.add(generaNodo(pr.getNombre(), "permiso", pr.getIdPermiso()));
+					arrayNode.add(generaNodo(pr.getNombre(), "permiso", pr.getIdPermiso(), 2));
 					arrayEdges.add(generaRelacion(r.getIdRol(), pr.getIdPermiso(), "HAS_FACULTAD_ROL"));
 
 				});
@@ -120,24 +120,24 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         Usuario repoUsuario = repository.empresasbyAdministradorGraph(nombreAdmin);
 
-        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId()));
+        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
 
         repoUsuario.getGrupos().forEach(g -> {
-            arrayNode.add(generaNodo(g.getNombre(), "grupo", g.getIdGrupo()));
+            arrayNode.add(generaNodo(g.getNombre(), "grupo", g.getIdGrupo(), 2));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), g.getIdGrupo(), "MEMBER_OF"));
 
             g.getCompanias().forEach(c -> {
-                arrayNode.add(generaNodo(c.getNombreCompania(), "compania", c.getIdCompania()));
+                arrayNode.add(generaNodo(c.getNombreCompania(), "compania", c.getIdCompania(), 3));
                 arrayEdges.add(generaRelacion(g.getIdGrupo(), c.getIdCompania(), "ALLOW"));
 
                 c.getCompaniaHijo().forEach(ch -> {
-                    arrayNode.add(generaNodo(ch.getNombreCompania(), "compania", ch.getIdCompania()));
-                    arrayEdges.add(generaRelacion(c.getIdCompania(), ch.getIdCompania(), "CHILD_OF"));
+                    arrayNode.add(generaNodo(ch.getNombreCompania(), "compania", ch.getIdCompania(), 3));
+                    arrayEdges.add(generaRelacion(ch.getIdCompania(), c.getIdCompania(), "CHILD_OF"));
                 });
             });
 
             g.getCompaniasPermitidasSinHerencia().forEach(csh -> {
-                arrayNode.add(generaNodo(csh.getNombreCompania(), "compania", csh.getIdCompania()));
+                arrayNode.add(generaNodo(csh.getNombreCompania(), "compania", csh.getIdCompania(), 3));
                 arrayEdges.add(generaRelacion(g.getIdGrupo(), csh.getIdCompania(), "ALLOWED_DO_NOT_INHERIT"));
             });
         });
@@ -152,29 +152,30 @@ public class UsuarioServiceImpl implements UsuarioService{
         ArrayNode arrayNode = (new ObjectMapper()).createObjectNode().putArray("nodes");
         ArrayNode arrayEdges = (new ObjectMapper()).createObjectNode().putArray("edges");
 
-        Usuario repoUsuario = repository.empleadosAndEmpresasByAdministradorGraph(nombreAdmin);
+        List<Usuario> lstrepoUsuario =repository.empleadosAndEmpresasByAdministradorGraph(nombreAdmin);
+        Usuario repoUsuario = lstrepoUsuario.stream().findFirst().get();
 
-        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId()));
+        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
 
         repoUsuario.getGrupos().forEach(g -> {
-            arrayNode.add(generaNodo(g.getNombre(), "grupo", g.getIdGrupo()));
+            arrayNode.add(generaNodo(g.getNombre(), "grupo", g.getIdGrupo(), 2));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), g.getIdGrupo(), "MEMBER_OF"));
 
             g.getCompanias().forEach(c -> {
-                arrayNode.add(generaNodo(c.getNombreCompania(), "compania", c.getIdCompania()));
+                arrayNode.add(generaNodo(c.getNombreCompania(), "compania", c.getIdCompania(), 3));
                 arrayEdges.add(generaRelacion(g.getIdGrupo(), c.getIdCompania(), "ALLOW"));
 
                 c.getUsuarios().forEach(em -> {
-                    arrayNode.add(generaNodo(em.getNombre(), "usuario", em.getId()));
+                    arrayNode.add(generaNodo(em.getNombre(), "usuario", em.getId(), 4));
                     arrayEdges.add(generaRelacion(c.getIdCompania(), em.getId(), "TRABAJA_EN"));
                 });
 
                 c.getCompaniaHijo().forEach(ch -> {
-                    arrayNode.add(generaNodo(ch.getNombreCompania(), "compania", ch.getIdCompania()));
+                    arrayNode.add(generaNodo(ch.getNombreCompania(), "compania", ch.getIdCompania(), 3));
                     arrayEdges.add(generaRelacion(c.getIdCompania(), ch.getIdCompania(), "CHILD_OF"));
 
                     ch.getUsuarios().forEach(emeh -> {
-                        arrayNode.add(generaNodo(emeh.getNombre(), "usuario", emeh.getId()));
+                        arrayNode.add(generaNodo(emeh.getNombre(), "usuario", emeh.getId(), 4));
                         arrayEdges.add(generaRelacion(ch.getIdCompania(), emeh.getId(), "TRABAJA_EN"));
                     });
 
@@ -182,11 +183,11 @@ public class UsuarioServiceImpl implements UsuarioService{
             });
 
             g.getCompaniasPermitidasSinHerencia().forEach(csh -> {
-                arrayNode.add(generaNodo(csh.getNombreCompania(), "compania", csh.getIdCompania()));
+                arrayNode.add(generaNodo(csh.getNombreCompania(), "compania", csh.getIdCompania(), 3));
                 arrayEdges.add(generaRelacion(g.getIdGrupo(), csh.getIdCompania(), "ALLOWED_DO_NOT_INHERIT"));
 
                 csh.getUsuarios().forEach(emesh -> {
-                    arrayNode.add(generaNodo(emesh.getNombre(), "usuario", emesh.getId()));
+                    arrayNode.add(generaNodo(emesh.getNombre(), "usuario", emesh.getId(), 4));
                     arrayEdges.add(generaRelacion(csh.getIdCompania(), emesh.getId(), "TRABAJA_EN"));
                 });
 
@@ -204,27 +205,27 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         Usuario repoUsuario = repository.cuentasEmpresasByAdministrador(nombreAdmin);
 
-        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId()));
+        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
 
         repoUsuario.getGrupos().forEach(g -> {
-            arrayNode.add(generaNodo(g.getNombre(), "grupo", g.getIdGrupo()));
+            arrayNode.add(generaNodo(g.getNombre(), "grupo", g.getIdGrupo(), 2));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), g.getIdGrupo(), "MEMBER_OF"));
 
             g.getCompanias().forEach(c -> {
-                arrayNode.add(generaNodo(c.getNombreCompania(), "compania", c.getIdCompania()));
+                arrayNode.add(generaNodo(c.getNombreCompania(), "compania", c.getIdCompania(), 3));
                 arrayEdges.add(generaRelacion(g.getIdGrupo(), c.getIdCompania(), "ALLOW"));
 
                 c.getCuentasEmpresas().forEach(ce -> {
-                    arrayNode.add(generaNodo(ce.getNumeroCuenta(), "cuenta", ce.getIdCuenta()));
+                    arrayNode.add(generaNodo(ce.getNumeroCuenta(), "cuenta", ce.getIdCuenta(), 4));
                     arrayEdges.add(generaRelacion(c.getIdCompania(), ce.getIdCuenta(), "COMPANIA_HAS_CUENTA"));
                 });
 
                 c.getCompaniaHijo().forEach(ch -> {
-                    arrayNode.add(generaNodo(ch.getNombreCompania(), "compania", ch.getIdCompania()));
+                    arrayNode.add(generaNodo(ch.getNombreCompania(), "compania", ch.getIdCompania(), 3));
                     arrayEdges.add(generaRelacion(c.getIdCompania(), ch.getIdCompania(), "CHILD_OF"));
 
                     ch.getCuentasEmpresas().forEach(cech -> {
-                        arrayNode.add(generaNodo(cech.getNumeroCuenta(), "cuenta", cech.getIdCuenta()));
+                        arrayNode.add(generaNodo(cech.getNumeroCuenta(), "cuenta", cech.getIdCuenta(), 4));
                         arrayEdges.add(generaRelacion(ch.getIdCompania(), cech.getIdCuenta(), "COMPANIA_HAS_CUENTA"));
                     });
 
@@ -233,11 +234,11 @@ public class UsuarioServiceImpl implements UsuarioService{
             });
 
             g.getCompaniasPermitidasSinHerencia().forEach(csh -> {
-                arrayNode.add(generaNodo(csh.getNombreCompania(), "compania", csh.getIdCompania()));
+                arrayNode.add(generaNodo(csh.getNombreCompania(), "compania", csh.getIdCompania(), 3));
                 arrayEdges.add(generaRelacion(g.getIdGrupo(), csh.getIdCompania(), "ALLOWED_DO_NOT_INHERIT"));
 
                 csh.getCuentasEmpresas().forEach(cecsh -> {
-                    arrayNode.add(generaNodo(cecsh.getNumeroCuenta(), "cuenta", cecsh.getIdCuenta()));
+                    arrayNode.add(generaNodo(cecsh.getNumeroCuenta(), "cuenta", cecsh.getIdCuenta(), 4));
                     arrayEdges.add(generaRelacion(csh.getIdCompania(), cecsh.getIdCuenta(), "COMPANIA_HAS_CUENTA"));
                 });
 
@@ -257,18 +258,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         Usuario repoUsuario = repository.permisosCuentaMontoByUsuario(nombreUsuario);
 
-        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId()));
+        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
 
         repoUsuario.getPermisoCuentas().forEach(pc -> {
-            arrayNode.add(generaNodo("LimiteInferior: " + pc.getLimiteInferior() + " -- " + "limite Superior :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId()));
+            arrayNode.add(generaNodo("LimiteInferior: " + pc.getLimiteInferior() + " -- " + "limite Superior :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId(), 2));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getPermiso().getNombre(), "permiso", pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso()));
+            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getPermiso().getNombre(), "permiso", pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso(), 3));
             arrayEdges.add(generaRelacion(pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getCuenta().getNumeroCuenta(), "cuenta", pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta()));
+            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getCuenta().getNumeroCuenta(), "cuenta", pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta(), 4));
             arrayEdges.add(generaRelacion(pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
 
         });
@@ -284,20 +285,20 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         Usuario repoUsuario = repository.permisoCuentaMontoAndSimplebyUsuario(usuario);
 
-        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId()));
+        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
 
         repoUsuario.getPerfiles().forEach(p -> {
 
-            arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil()));
+            arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil(),2));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), p.getIdPerfil(), "HAS_PERFIL"));
 
             p.getRoles().forEach(r -> {
 
-                arrayNode.add(generaNodo(r.getNombreRol(), "rol", r.getIdRol()));
+                arrayNode.add(generaNodo(r.getNombreRol(), "rol", r.getIdRol(), 3));
                 arrayEdges.add(generaRelacion(p.getIdPerfil(), r.getIdRol(), "HAS_ROL"));
 
                 r.getFacultades().forEach(pr ->{
-                    arrayNode.add(generaNodo(pr.getNombre(), "permiso", pr.getIdPermiso()));
+                    arrayNode.add(generaNodo(pr.getNombre(), "permiso", pr.getIdPermiso(), 4));
                     arrayEdges.add(generaRelacion(r.getIdRol(), pr.getIdPermiso(), "HAS_FACULTAD_ROL"));
                 });
             });
@@ -305,27 +306,27 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         repoUsuario.getPermisoAgregados().forEach(pa -> {
 
-            arrayNode.add(generaNodo(pa.getNombre(), "permiso", pa.getIdPermiso()));
+            arrayNode.add(generaNodo(pa.getNombre(), "permiso", pa.getIdPermiso(), 4));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), pa.getIdPermiso(), "PERMISO_AGREGADO"));
 
         });
 
 
         repoUsuario.getPermisoCuentas().forEach(pc -> {
-            arrayNode.add(generaNodo("LimiteInferior: " + pc.getLimiteInferior() + " -- " + "limite Superior :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId()));
+            arrayNode.add(generaNodo("LimiteInferior: " + pc.getLimiteInferior() + " -- " + "limite Superior :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId(), 5));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getPermiso().getNombre(), "permiso", pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso()));
+            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getPermiso().getNombre(), "permiso", pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso(), 4));
             arrayEdges.add(generaRelacion(pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getCuenta().getNumeroCuenta(), "cuenta", pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta()));
+            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getCuenta().getNumeroCuenta(), "cuenta", pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta(),6));
             arrayEdges.add(generaRelacion(pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
 
         });
 
-        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "permisosuentaMontoAndSimplesGraph");
+        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "permisosCuentaMontoAndSimplesGraph");
         return  generaGraph(arrayNode, arrayEdges).toString();
     }
 
@@ -339,13 +340,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return  graphNodes;
 	}
 
-	private JsonNode generaNodo(String caption, String type, Long id){
+	private JsonNode generaNodo(String caption, String type, Long id, int cluster){
 
 		Map<String, Object> nodo  =  new HashMap<>();
 
-		nodo.put("caption", caption);
-		nodo.put("type", type);
-		nodo.put("id", id);
+        nodo.put("id", id);
+		nodo.put("name", caption);
+        nodo.put("cluster", cluster);
 
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode jsonNodeMap = mapper.convertValue(nodo, JsonNode.class);
@@ -370,7 +371,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     private void  generaArchivoTxt(String json, String nombreArchivo){
         try {
-            String ruta = "C:\\Users\\Gusstavo\\Documents\\0.4.2\\data/" + nombreArchivo + ".json";
+
+            //windows
+//            String ruta = "C:\\Users\\Gusstavo\\Documents\\0.4.2\\data/" + nombreArchivo + ".json";
+
+            String ruta = "/home/usuario/Imágenes/precatica graficas/0.4.2/data/" + nombreArchivo + ".json";
 
             File file = new File(ruta);
             // Si el archivo no existe es creado

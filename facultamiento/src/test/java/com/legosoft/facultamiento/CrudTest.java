@@ -375,35 +375,35 @@ public class CrudTest {
         System.out.println(result);
     }
 
-    @Test
-    public void empresasByUsuario(){
-        String result = usuarioService.getEmpresasbyAdministradorGraph("Jorge Brant");
-        System.out.println(result);
-    }
-
-
-    @Test
-    public void empresasAndEmpleadosByUsuario(){
-        String result = usuarioService.getEmpresaAndEmpleadosByAdministrador("Jorge Brant");
-        System.out.println(result);
-    }
-
-    @Test
-    public void cuentasEmpresas(){
-        String result = usuarioService.getCuentasEmpresasByAdministrador("Jorge Brant");
-        System.out.println(result);
-    }
-
-    @Test
-    public void permisosCuentaMonto(){
-        String result = usuarioService.getPermisosCuentaMontoByUsuario("kik ros mat ");
-        System.out.println(result);
-    }
-
-    @Test
-    public void permisosCuentaMontoAndSimples(){
-        String result = usuarioService.getPermisosCuentaMontoAndSimplesByUsuario("Administrador Consulta AgreCapturista ");
-        System.out.println(result);
-    }
+//    @Test
+//    public void empresasByUsuario(){
+//        String result = usuarioService.getEmpresasbyAdministradorGraph("Jorge Brant");
+//        System.out.println(result);
+//    }
+//
+//
+//    @Test
+//    public void empresasAndEmpleadosByUsuario(){
+//        String result = usuarioService.getEmpresaAndEmpleadosByAdministrador("Jorge Brant");
+//        System.out.println(result);
+//    }
+//
+//    @Test
+//    public void cuentasEmpresas(){
+//        String result = usuarioService.getCuentasEmpresasByAdministrador("Jorge Brant");
+//        System.out.println(result);
+//    }
+//
+//    @Test
+//    public void permisosCuentaMonto(){
+//        String result = usuarioService.getPermisosCuentaMontoByUsuario("kik ros mat ");
+//        System.out.println(result);
+//    }
+//
+//    @Test
+//    public void permisosCuentaMontoAndSimples(){
+//        String result = usuarioService.getPermisosCuentaMontoAndSimplesByUsuario("Administrador Consulta AgreCapturista ");
+//        System.out.println(result);
+//    }
 
 }
