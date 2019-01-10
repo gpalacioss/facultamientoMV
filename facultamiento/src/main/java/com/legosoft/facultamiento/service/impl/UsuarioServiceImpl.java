@@ -347,6 +347,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         nodo.put("id", id);
 		nodo.put("name", caption);
         nodo.put("cluster", cluster);
+        nodo.put("nodeType", type);
 
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode jsonNodeMap = mapper.convertValue(nodo, JsonNode.class);
@@ -361,7 +362,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 		relacion.put("source", idStartNode);
 		relacion.put("target", idEndNode);
-		relacion.put("caption", etiquetaRelacion);
+		relacion.put("edgeType", etiquetaRelacion);
 
 		ObjectMapper mapperRelacion = new ObjectMapper();
 		JsonNode jsonNodeRelacion = mapperRelacion.convertValue(relacion, JsonNode.class);
