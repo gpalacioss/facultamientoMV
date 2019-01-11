@@ -1,6 +1,5 @@
 package com.legosoft.facultamiento.service.impl;
 
-import com.legosoft.facultamiento.models.nuevo.CuentaNM;
 import com.legosoft.facultamiento.models.nuevo.Permiso;
 import com.legosoft.facultamiento.models.nuevo.PermisoCuenta;
 import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("permisoService")
 public class PermisoServiceImpl implements PermisoService {
@@ -35,6 +35,11 @@ public class PermisoServiceImpl implements PermisoService {
     public PermisoCuenta save(PermisoCuenta permisoCuenta){
 
         return permisoCuentaRepository.save(permisoCuenta, 0);
+    }
+
+    public Permiso savePermisoSimple(Permiso permiso){
+
+        return permisoRepository.save(permiso);
     }
 
     public Permiso findPermisoByNombre(String nombrePermiso){
@@ -63,5 +68,9 @@ public class PermisoServiceImpl implements PermisoService {
 
     public void deleteUsuarioPermisoCuenta(UsuarioPermisoCuenta upc){
         usuarioPermisoCuentaRepository.delete(upc);
+    }
+
+    public Optional<PermisoCuenta> findPermisoCuentaById(Long id){
+        return permisoCuentaRepository.findById(id);
     }
 }

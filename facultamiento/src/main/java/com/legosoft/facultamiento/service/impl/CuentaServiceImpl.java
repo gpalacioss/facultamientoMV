@@ -26,4 +26,8 @@ public class CuentaServiceImpl implements CuentaService {
     public List<CuentaNM> findCuentasByNumeroCuentaParameterList(String listNumeroCuenta){
         return  cuentaNMRepository.findCuentaByListParameter(listNumeroCuenta);
     }
+
+    public void deleteCuenta(CuentaNM cuenta){
+        cuentaNMRepository.delete(cuenta);
+    }
 }

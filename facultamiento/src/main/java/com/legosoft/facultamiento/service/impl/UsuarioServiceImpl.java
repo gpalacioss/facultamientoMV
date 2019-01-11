@@ -167,16 +167,16 @@ public class UsuarioServiceImpl implements UsuarioService{
 
                 c.getUsuarios().forEach(em -> {
                     arrayNode.add(generaNodo(em.getNombre(), "usuario", em.getId(), 4));
-                    arrayEdges.add(generaRelacion(c.getIdCompania(), em.getId(), "TRABAJA_EN"));
+                    arrayEdges.add(generaRelacion(em.getId(), c.getIdCompania(), "TRABAJA_EN"));
                 });
 
                 c.getCompaniaHijo().forEach(ch -> {
                     arrayNode.add(generaNodo(ch.getNombreCompania(), "compania", ch.getIdCompania(), 3));
-                    arrayEdges.add(generaRelacion(c.getIdCompania(), ch.getIdCompania(), "CHILD_OF"));
+                    arrayEdges.add(generaRelacion(ch.getIdCompania(), c.getIdCompania(),"CHILD_OF"));
 
                     ch.getUsuarios().forEach(emeh -> {
                         arrayNode.add(generaNodo(emeh.getNombre(), "usuario", emeh.getId(), 4));
-                        arrayEdges.add(generaRelacion(ch.getIdCompania(), emeh.getId(), "TRABAJA_EN"));
+                        arrayEdges.add(generaRelacion( emeh.getId(), ch.getIdCompania(), "TRABAJA_EN"));
                     });
 
                 });
@@ -188,7 +188,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
                 csh.getUsuarios().forEach(emesh -> {
                     arrayNode.add(generaNodo(emesh.getNombre(), "usuario", emesh.getId(), 4));
-                    arrayEdges.add(generaRelacion(csh.getIdCompania(), emesh.getId(), "TRABAJA_EN"));
+                    arrayEdges.add(generaRelacion(emesh.getId(), csh.getIdCompania(), "TRABAJA_EN"));
                 });
 
             });
@@ -261,7 +261,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
 
         repoUsuario.getPermisoCuentas().forEach(pc -> {
-            arrayNode.add(generaNodo("LimiteInferior: " + pc.getLimiteInferior() + " -- " + "limite Superior :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId(), 2));
+            arrayNode.add(generaNodo("LInf: " + pc.getLimiteInferior() + "--" + "LSup :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId(), 2));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
@@ -313,7 +313,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 
         repoUsuario.getPermisoCuentas().forEach(pc -> {
-            arrayNode.add(generaNodo("LimiteInferior: " + pc.getLimiteInferior() + " -- " + "limite Superior :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId(), 5));
+            arrayNode.add(generaNodo("LInf: " + pc.getLimiteInferior() + "--" + "LSup: " + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId(), 5));
             arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 

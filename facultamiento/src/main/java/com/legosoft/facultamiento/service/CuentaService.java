@@ -22,4 +22,7 @@ public interface CuentaService {
      * @return
      */
     public List<CuentaNM> findCuentasByNumeroCuentaParameterList(String listNumeroCuenta);
+
+
+    public void deleteCuenta(CuentaNM cuenta);
 }
