@@ -29,6 +29,8 @@ public interface PermisoService {
 
     public void deleteUsuarioPermisoCuenta(UsuarioPermisoCuenta upc);
 
+    public void deletePermisoSimple(Permiso permiso);
+
 
     public Optional<PermisoCuenta> findPermisoCuentaById(Long id);
 

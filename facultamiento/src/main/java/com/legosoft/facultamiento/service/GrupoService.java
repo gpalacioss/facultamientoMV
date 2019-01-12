@@ -8,6 +8,8 @@ public interface GrupoService {
 
     public Grupo save(Grupo grupo);
 
+    public void deleteGrupo(Grupo grupo);
+
     /**
      * Servicio que regresa todos los grupos existentes
      * @return

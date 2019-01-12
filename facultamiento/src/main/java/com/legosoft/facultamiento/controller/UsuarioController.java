@@ -1,26 +1,18 @@
 package com.legosoft.facultamiento.controller;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.legosoft.facultamiento.models.nuevo.*;
 import com.legosoft.facultamiento.service.*;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import com.legosoft.facultamiento.models.old.Usuario;
 
-import javax.websocket.server.PathParam;
 
 //@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
@@ -49,6 +41,7 @@ public class UsuarioController {
 
 	@Autowired
 	private GrupoService grupoService;
+	private Object HttpStatusCodeException;
 
 	@RequestMapping(value = "/infoUsuarios", method = RequestMethod.GET)
 	public List<Usuario> infoUsuarios() {
@@ -122,7 +115,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping(value = "/eliminaNodo")
-	public void eliminaNodo(@RequestBody String info){
+	public Response eliminaNodo(@RequestBody String info){
 
 		String[] datos = info.split("&");
 		String[] nombre = datos[0].split("=");
@@ -131,68 +124,92 @@ public class UsuarioController {
 
 
 		String nm = nombre[1].replaceAll("\\+", " ");
+		Response response = null;
 		switch (tipo[1]){
+
 
 			case "usuario":
 				Usuario user = usuarioService.findUsuarioBynombre(nm).stream().findFirst().get();
 
-				if (user != null ){
+				if (user != null && user.getPermisoCuentas().size() == 0 && user.getCuentasBancariasUsuario().size() == 0 && user.getPermisoAgregados().size() == 0 && user.getPerfiles().size() == 0){
+                    usuarioService.deleteUsuario(user);
+				}else{
 
-				}
+					response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
+                }
 				break;
 
 			case "grupo":
 				Grupo grupo = grupoService.findGrupoByNombre(nm);
 
-				if (grupo != null ){
+				if (grupo != null && grupo.getCompaniasPermitidasSinHerencia().size() == 0 && grupo.getCompanias().size() == 0){
+                    grupoService.deleteGrupo(grupo);
+				}else{
 
+					response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
 				}
 				break;
 
 			case "compania":
 				Compania compania = companiaService.findCompaniaByNombre(nm);
 
-				if (compania != null ){
+				if (compania != null && compania.getCuentasEmpresas().size() == 0 &&  compania.getUsuarios().size() == 0 && compania.getCompaniaHijo().size() == 0){
+                    companiaService.deleteCompania(compania);
+				}else{
 
+					response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
 				}
 				break;
 
 			case "rol":
 				Rol rol = rolService.findRolByNombre(nm);
 
-				if (rol != null ){
+				if (rol != null && rol.getFacultades().size() == 0){
+                    rolService.deleteRol(rol);
+				}else{
 
+					response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
 				}
 				break;
+
 			case "perfil":
 
 				Optional<PerfilNM> perfil = perfilService.findPerfilNMByNombre(nm);
 
-				if (perfil.isPresent() && perfil.get().getRoles().size() != 0){
+				if (perfil.isPresent() && perfil.get().getRoles().size() == 0){
+                    perfilService.deletePerfilNuevo(perfil.get());
+				}else{
 
+					response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
 				}
+
 				break;
 
 			case "cuenta":
 				CuentaNM cuenta = cuentaService.findCuentaNMBynumeroCuenta(nm);
 
-				if (cuenta != null && cuenta.getLstPermisoCuentas().size() != 0 && cuenta.getUsuarioPermisoCuentas().size() != 0){
+				if (cuenta != null && cuenta.getLstPermisoCuentas().size() == 0 && cuenta.getUsuarioPermisoCuentas().size() == 0){
 					cuentaService.deleteCuenta(cuenta);
-				}else {
-					System.out.println("no se puede eliminar por que tienen nodos relacionados");
-				}
+				}else{
 
+					response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
+				}
 				break;
+
 			case "permiso":
 				Permiso permiso = permisoService.findPermisoByNombre(nm);
 
-				if (permiso != null ){
+				if (permiso != null && permiso.getLstPermisoCuentas().size() == 0 && permiso.getUsuarioPermisoCuentas().size() == 0 ){
+                    permisoService.deletePermisoSimple(permiso);
+				}else{
 
+					response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
 				}
+
 				break;
 
 		}
-
+		return response;
 	}
 
 	@PostMapping("/editaNodo")

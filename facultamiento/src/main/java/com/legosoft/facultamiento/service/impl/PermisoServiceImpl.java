@@ -70,6 +70,10 @@ public class PermisoServiceImpl implements PermisoService {
         usuarioPermisoCuentaRepository.delete(upc);
     }
 
+    public void deletePermisoSimple(Permiso permiso){
+        permisoRepository.delete(permiso);
+    }
+
     public Optional<PermisoCuenta> findPermisoCuentaById(Long id){
         return permisoCuentaRepository.findById(id);
     }

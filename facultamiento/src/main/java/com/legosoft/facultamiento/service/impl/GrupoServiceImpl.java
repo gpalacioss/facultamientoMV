@@ -20,6 +20,10 @@ public class GrupoServiceImpl implements GrupoService {
         return grupoRepository.save(grupo);
     }
 
+    public void deleteGrupo(Grupo grupo){
+        grupoRepository.delete(grupo);
+    }
+
     public List<Grupo> findAllGrupo(){
        return grupoRepository.findAll();
     }

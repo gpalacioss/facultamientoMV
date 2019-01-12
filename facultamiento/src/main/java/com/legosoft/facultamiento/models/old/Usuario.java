@@ -22,7 +22,7 @@ public class Usuario implements Serializable{
 	@GeneratedValue
 	private Long id;
 	
-	private String idUsuario;
+	private Long idUsuario;
 	
 	private String nombre;
 	
@@ -71,11 +71,11 @@ public class Usuario implements Serializable{
 	}
 
 	
-	public String getIdUsuario() {
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(String idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 

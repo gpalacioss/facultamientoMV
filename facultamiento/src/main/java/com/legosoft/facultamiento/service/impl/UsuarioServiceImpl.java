@@ -54,6 +54,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 		repository.save(usuario);
 	}
 
+	public void deleteUsuario(Usuario usuario){
+	    repository.delete(usuario);
+    }
+
 	public Optional<Usuario> findUsuarioById(Long id){
 		return repository.findById(id);
 	}
@@ -74,19 +78,19 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 		Usuario repoUsuario = repository.getUsuarioAndPermisos(nombreUsuario);
 
-		arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
+		arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getIdUsuario(), 1));
 
 		repoUsuario.getPermisoAgregados().forEach(pa -> {
 
 			arrayNode.add(generaNodo(pa.getNombre(), "permiso", pa.getIdPermiso(), 2));
-			arrayEdges.add(generaRelacion(repoUsuario.getId(), pa.getIdPermiso(), "PERMISO_AGREGADO"));
+			arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), pa.getIdPermiso(), "PERMISO_AGREGADO"));
 
 		});
 
 		repoUsuario.getPerfiles().forEach(p -> {
 
 			arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil(), 3));
-			arrayEdges.add(generaRelacion(repoUsuario.getId(), p.getIdPerfil(), "HAS_PERFIL"));
+			arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), p.getIdPerfil(), "HAS_PERFIL"));
 
 			p.getRoles().forEach(r -> {
 

@@ -20,6 +20,10 @@ public class CompaniaServiceImpl implements CompaniaService {
         return companiaRepository.save(compania);
     }
 
+    public void deleteCompania(Compania compania){
+        companiaRepository.delete(compania);
+    }
+
     public Compania findCompaniaByNombre(String nombreCompania){
         return companiaRepository.findCompaniaByNombreCompania(nombreCompania);
     }

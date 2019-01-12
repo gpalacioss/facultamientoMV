@@ -8,6 +8,8 @@ public interface CompaniaService {
 
     public Compania save(Compania compania);
 
+    public void deleteCompania(Compania compania);
+
     /**
      * servicio que busca  la compania por nombre
      * @param nombreCompania
