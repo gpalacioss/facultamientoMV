@@ -47,7 +47,7 @@ public class Usuario implements Serializable{
 	private Set<CuentaNM> cuentasBancariasUsuario = new HashSet<>();
 
 	@Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
-	private Set<PermisoCuenta> permisoCuentas = new HashSet<>();
+	private Set<UsuarioPermisoCuenta> usuarioPermisoCuentas = new HashSet<>();
 
 	@Relationship(type = "MEMBER_OF")
 	private Set<Grupo> grupos = new HashSet<>();
@@ -135,12 +135,12 @@ public class Usuario implements Serializable{
 		this.cuentasBancariasUsuario = cuentasBancariasUsuario;
 	}
 
-	public Set<PermisoCuenta> getPermisoCuentas() {
-		return permisoCuentas;
+	public Set<UsuarioPermisoCuenta> getUsuarioPermisoCuentas() {
+		return usuarioPermisoCuentas;
 	}
 
-	public void setPermisoCuentas(Set<PermisoCuenta> permisoCuentas) {
-		this.permisoCuentas = permisoCuentas;
+	public void setUsuarioPermisoCuentas(Set<UsuarioPermisoCuenta> usuarioPermisoCuentas) {
+		this.usuarioPermisoCuentas = usuarioPermisoCuentas;
 	}
 
 	public Set<Grupo> getGrupos() {

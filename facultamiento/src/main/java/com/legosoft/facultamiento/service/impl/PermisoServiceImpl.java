@@ -1,8 +1,9 @@
 package com.legosoft.facultamiento.service.impl;
 
 import com.legosoft.facultamiento.models.nuevo.Permiso;
-import com.legosoft.facultamiento.models.nuevo.PermisoCuenta;
 import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
+import com.legosoft.facultamiento.models.old.Perfil;
+import com.legosoft.facultamiento.models.old.Usuario;
 import com.legosoft.facultamiento.repository.PermisoCuentaRepository;
 import com.legosoft.facultamiento.repository.PermisoRepository;
 import com.legosoft.facultamiento.repository.UsuarioPermisoCuentaRepository;
@@ -27,15 +28,15 @@ public class PermisoServiceImpl implements PermisoService {
     private UsuarioPermisoCuentaRepository usuarioPermisoCuentaRepository;
 
 
-    public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso){
-        return  permisoCuentaRepository.findByPermisoAndCuenta(nombrePermiso);
-    }
-
-    @Transactional
-    public PermisoCuenta save(PermisoCuenta permisoCuenta){
-
-        return permisoCuentaRepository.save(permisoCuenta, 0);
-    }
+//    public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso){
+//        return  permisoCuentaRepository.findByPermisoAndCuenta(nombrePermiso);
+//    }
+//
+//    @Transactional
+//    public PermisoCuenta save(PermisoCuenta permisoCuenta){
+//
+//        return permisoCuentaRepository.save(permisoCuenta, 0);
+//    }
 
     public Permiso savePermisoSimple(Permiso permiso){
 
@@ -74,7 +75,21 @@ public class PermisoServiceImpl implements PermisoService {
         permisoRepository.delete(permiso);
     }
 
-    public Optional<PermisoCuenta> findPermisoCuentaById(Long id){
-        return permisoCuentaRepository.findById(id);
+//    public Optional<PermisoCuenta> findPermisoCuentaById(Long id){
+//        return permisoCuentaRepository.findById(id);
+//    }
+
+
+    public UsuarioPermisoCuenta findUsuarioPermisoCuentaById(Long id){
+         Optional<UsuarioPermisoCuenta> result = usuarioPermisoCuentaRepository.findById(id);
+         return result.get();
+    }
+
+    public List<Permiso> findAllPermisos(){
+        return permisoRepository.findAll();
+    }
+
+    public List<Permiso> findPermisoByNombrePerfil(String nombrePerfil){
+       return permisoRepository.findPermisosByNombrePerfil(nombrePerfil);
     }
 }

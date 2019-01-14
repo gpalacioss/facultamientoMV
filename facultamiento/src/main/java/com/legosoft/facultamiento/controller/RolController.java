@@ -2,9 +2,7 @@ package com.legosoft.facultamiento.controller;
 
 import com.legosoft.facultamiento.models.nuevo.CuentaNM;
 import com.legosoft.facultamiento.models.nuevo.Permiso;
-import com.legosoft.facultamiento.models.nuevo.PermisoCuenta;
 import com.legosoft.facultamiento.models.nuevo.Rol;
-import com.legosoft.facultamiento.models.old.Cuenta;
 import com.legosoft.facultamiento.models.old.Facultad;
 import com.legosoft.facultamiento.models.old.FacultadCuenta;
 import com.legosoft.facultamiento.models.old.Perfil;
@@ -85,7 +83,7 @@ public class RolController {
                         System.out.println("tamaño de relaciones inicial:: " + ff.getLstFacultadCuenta().size());
                         System.out.println("cuenta:: " + cf.getCuenta().getNumeroCuenta());
 
-                        PermisoCuenta permisoCuenta = new PermisoCuenta();
+//                        PermisoCuenta permisoCuenta = new PermisoCuenta();
 
                         CuentaNM cuentaNM = cuentaService.findCuentaNMBynumeroCuenta(cf.getCuenta().getNumeroCuenta());
 
@@ -144,39 +142,39 @@ public class RolController {
     }
 
 
-    private void creaRelacionPermisoCuenta(Permiso permiso, Set<CuentaNM> cuentas, Map<String, Set<FacultadCuenta>> relaciones){
-
-        System.out.println("para este permiso tenemos lo siguiente :: " + permiso.getNombre());
-        System.out.println("Tamaño de la lista de cuentas:: " + cuentas.size());
-        System.out.println("lista de relaciones:: " + relaciones);
-
-       relaciones.forEach((s, facultadCuentas) -> {
-
-           PermisoCuenta pc;
-
-           FacultadCuenta fc = facultadCuentas.stream().findFirst().get();
-
-           pc = permisoService.findPermisoCuentaByPermisoAndCuenta(permiso.getNombre());
-
-           if (pc == null){
-
-               pc = new PermisoCuenta();
-
-//               pc.setPermiso(permiso);
-//               pc.setCuenta(cuentaService.findCuentaNMBynumeroCuenta(s));
-//               pc.setLimiteIndividual(fc.getLimiteIndividual() == null || fc.getLimiteIndividual().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteIndividual().replaceAll(",", "")));
-//               pc.setLimiteMancomunado(fc.getLimiteMancomunado() == null || fc.getLimiteMancomunado().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteMancomunado().replaceAll(",", "")));
-//               pc.setLimiteOperable(fc.getLimiteOperable() == null || fc.getLimiteOperable().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteOperable().replaceAll(",", "")));
+//    private void creaRelacionPermisoCuenta(Permiso permiso, Set<CuentaNM> cuentas, Map<String, Set<FacultadCuenta>> relaciones){
 //
-//               System.out.println(" el permiso ---> ( " + pc.getPermiso().getNombre() + " ) --[HAS_PERMISO_CUENTA]-> " + "{ limiteOperable:: " + pc.getLimiteOperable() + ", limiteMancomunado:: " + pc.getLimiteMancomunado() + ", limiteIndividual :: " + pc.getLimiteIndividual() + " } -->  con la Cuenta  ---> (" + pc.getCuenta().getNumeroCuenta() +")");
+//        System.out.println("para este permiso tenemos lo siguiente :: " + permiso.getNombre());
+//        System.out.println("Tamaño de la lista de cuentas:: " + cuentas.size());
+//        System.out.println("lista de relaciones:: " + relaciones);
+//
+//       relaciones.forEach((s, facultadCuentas) -> {
+//
+//           PermisoCuenta pc;
+//
+//           FacultadCuenta fc = facultadCuentas.stream().findFirst().get();
+//
+//           pc = permisoService.findPermisoCuentaByPermisoAndCuenta(permiso.getNombre());
+//
+//           if (pc == null){
+//
+//               pc = new PermisoCuenta();
+//
+////               pc.setPermiso(permiso);
+////               pc.setCuenta(cuentaService.findCuentaNMBynumeroCuenta(s));
+////               pc.setLimiteIndividual(fc.getLimiteIndividual() == null || fc.getLimiteIndividual().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteIndividual().replaceAll(",", "")));
+////               pc.setLimiteMancomunado(fc.getLimiteMancomunado() == null || fc.getLimiteMancomunado().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteMancomunado().replaceAll(",", "")));
+////               pc.setLimiteOperable(fc.getLimiteOperable() == null || fc.getLimiteOperable().isEmpty() ? new BigDecimal(0) : new BigDecimal(fc.getLimiteOperable().replaceAll(",", "")));
+////
+////               System.out.println(" el permiso ---> ( " + pc.getPermiso().getNombre() + " ) --[HAS_PERMISO_CUENTA]-> " + "{ limiteOperable:: " + pc.getLimiteOperable() + ", limiteMancomunado:: " + pc.getLimiteMancomunado() + ", limiteIndividual :: " + pc.getLimiteIndividual() + " } -->  con la Cuenta  ---> (" + pc.getCuenta().getNumeroCuenta() +")");
+//
+//               permisoService.save(pc);
+//           }
+//
+//       });
 
-               permisoService.save(pc);
-           }
-
-       });
 
 
-
-    }
+//    }
 
 }

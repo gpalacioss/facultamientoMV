@@ -264,17 +264,17 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
 
-        repoUsuario.getPermisoCuentas().forEach(pc -> {
-            arrayNode.add(generaNodo("LInf: " + pc.getLimiteInferior() + "--" + "LSup :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId(), 2));
-            arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
+        repoUsuario.getUsuarioPermisoCuentas().forEach(pc -> {
+            arrayNode.add(generaNodo("LInf: " + pc.getLimiteInferior() + "--" + "LSup :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getIdUsuarioPermisoCuenta(), 2));
+            arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getPermiso().getNombre(), "permiso", pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso(), 3));
-            arrayEdges.add(generaRelacion(pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permiso", pc.getPermiso().getIdPermiso(), 3));
+            arrayEdges.add(generaRelacion(pc.getPermiso().getIdPermiso(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getCuenta().getNumeroCuenta(), "cuenta", pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta(), 4));
-            arrayEdges.add(generaRelacion(pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayNode.add(generaNodo(pc.getCuenta().getNumeroCuenta(), "cuenta", pc.getCuenta().getIdCuenta(), 4));
+            arrayEdges.add(generaRelacion(pc.getCuenta().getIdCuenta(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
         });
 
@@ -316,17 +316,17 @@ public class UsuarioServiceImpl implements UsuarioService{
         });
 
 
-        repoUsuario.getPermisoCuentas().forEach(pc -> {
-            arrayNode.add(generaNodo("LInf: " + pc.getLimiteInferior() + "--" + "LSup: " + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getId(), 5));
-            arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
+        repoUsuario.getUsuarioPermisoCuentas().forEach(pc -> {
+            arrayNode.add(generaNodo("LInf: " + pc.getLimiteInferior() + "--" + "LSup: " + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getIdUsuarioPermisoCuenta(), 5));
+            arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getPermiso().getNombre(), "permiso", pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso(), 4));
-            arrayEdges.add(generaRelacion(pc.getUsuarioPermisoCuenta().getPermiso().getIdPermiso(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permiso", pc.getPermiso().getIdPermiso(), 4));
+            arrayEdges.add(generaRelacion(pc.getPermiso().getIdPermiso(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getUsuarioPermisoCuenta().getCuenta().getNumeroCuenta(), "cuenta", pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta(),6));
-            arrayEdges.add(generaRelacion(pc.getUsuarioPermisoCuenta().getCuenta().getIdCuenta(), pc.getId(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayNode.add(generaNodo(pc.getCuenta().getNumeroCuenta(), "cuenta", pc.getCuenta().getIdCuenta(),6));
+            arrayEdges.add(generaRelacion(pc.getCuenta().getIdCuenta(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
         });
 
@@ -375,25 +375,25 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
     private void  generaArchivoTxt(String json, String nombreArchivo){
-        try {
-
-            //windows
+//        try {
+//
+//            //windows
 //            String ruta = "C:\\Users\\Gusstavo\\Documents\\0.4.2\\data/" + nombreArchivo + ".json";
-
-            String ruta = "/home/usuario/Imágenes/precatica graficas/0.4.2/data/" + nombreArchivo + ".json";
-
-            File file = new File(ruta);
-            // Si el archivo no existe es creado
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(json);
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+////            String ruta = "/home/usuario/Imágenes/precatica graficas/0.4.2/data/" + nombreArchivo + ".json";
+//
+//            File file = new File(ruta);
+//            // Si el archivo no existe es creado
+//            if (!file.exists()) {
+//                file.createNewFile();
+//            }
+//            FileWriter fw = new FileWriter(file);
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            bw.write(json);
+//            bw.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 }

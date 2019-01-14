@@ -96,7 +96,7 @@ public class FacultamientoApplicationTests {
 
         Permiso permiso = permisoService.findPermisoByNombre("Mul_Con_SaldoPagare");
 
-        permiso.getLstPermisoCuentas().forEach(pc -> {
+        permiso.getUsuarioPermisoCuentas().forEach(pc -> {
 //            pc.setLimiteMancomunado(new BigDecimal(100));
         });
 
@@ -149,7 +149,7 @@ public class FacultamientoApplicationTests {
 
 
         result.forEach(p -> {
-            p.getLstPermisoCuentas().forEach(pc -> {
+            p.getUsuarioPermisoCuentas().forEach(pc -> {
 //                UsuarioPermisoCuenta upc = permisoService.findUsuarioPermisoCuentaByCuentaAndPermiso(pc.getCuenta().getNumeroCuenta(), p.getNombre());
 //
 //                if (upc == null){

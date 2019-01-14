@@ -5,14 +5,15 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.legosoft.facultamiento.models.nuevo.*;
 import com.legosoft.facultamiento.models.old.Usuario;
+import com.legosoft.facultamiento.repository.UsuarioRepository;
 import com.legosoft.facultamiento.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -40,6 +41,9 @@ public class CrudTest {
     @Autowired
     private RolService rolService;
 
+    @Autowired
+    private UsuarioRepository repo;
+
     @Test
     public void save(){
 
@@ -60,6 +64,36 @@ public class CrudTest {
 
     }
 
+    @Test
+    public void guardaPermiso(){
+        Permiso per = new Permiso();
+
+        CuentaNM cn = cuentaService.findCuentaNMBynumeroCuenta("00000101998");
+        Usuario usr = usuarioService.findUsuarioBynombre("Francisco Armani").stream().findFirst().get();
+        Permiso p = permisoService.findPermisoByNombre("Mul_Tran_Propias");
+
+        List<Permiso> lstP = permisoService.findAllPermisos();
+
+
+
+
+                UsuarioPermisoCuenta upc = new UsuarioPermisoCuenta();
+
+                upc.setLimiteInferior(new BigDecimal(50000));
+                upc.setLimiteSuperior(new BigDecimal(1000000));
+                upc.setPermiso(p);
+                upc.setUsuarios(usr);
+                upc.setCuenta(cn);
+                permisoService.saveUsuarioPermisoCuenta(upc);
+
+
+
+
+//        per.setNombre("PC_SPEI_RECURRENTE");
+//        per.setActivo(true);
+//        per.setDescripcion("permiso que permite hacer spei cuando se requiera");
+//        permisoService.savePermisoSimple(per);
+}
 
     @Test
     public void creaRelacionCompaniaCompania(){
@@ -94,7 +128,7 @@ public class CrudTest {
 //                COMPANIAS PERMITIDAS SIN HERENCIA
 //                g.getCompaniasPermitidasSinHerencia().add(companiaPadre);
 
-                grupoService.save(g);
+                //grupoService.save(g);
 
             }
         });
@@ -394,11 +428,22 @@ public class CrudTest {
 //        System.out.println(result);
 //    }
 //
-//    @Test
-//    public void permisosCuentaMonto(){
-//        String result = usuarioService.getPermisosCuentaMontoByUsuario("kik ros mat ");
-//        System.out.println(result);
-//    }
+    @Test
+    public void permisosCuentaMonto(){
+        String result = usuarioService.getPermisosCuentaMontoByUsuario("Hector Perales  ");
+        Usuario r = repo.permisosCuentaMontoByUsuario("Hector Perales  ");
+
+        int contador = 0;
+//        r.getPermisoCuentas().forEach(pc -> {
+//            contador ++;
+//
+//            if (contador > 3){
+//                pc.getUsuarioPermisoCuenta().get
+//                permisoService.deleteUsuarioPermisoCuenta(pc);
+//            }
+//        });
+        System.out.println(result);
+    }
 //
 //    @Test
 //    public void permisosCuentaMontoAndSimples(){

@@ -35,9 +35,9 @@ public class Permiso {
 
     private Boolean isActivo;
 
-    @JsonIgnoreProperties("permiso")
-    @Relationship(type = "HAS_PERMISO_CUENTA", direction = Relationship.OUTGOING)
-    private Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
+//    @JsonIgnoreProperties("permiso")
+//    @Relationship(type = "HAS_PERMISO_CUENTA", direction = Relationship.OUTGOING)
+//    private Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
 
     @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
     private Set<UsuarioPermisoCuenta> usuarioPermisoCuentas = new HashSet<>();
@@ -121,14 +121,6 @@ public class Permiso {
 
     public void setActivo(Boolean activo) {
         isActivo = activo;
-    }
-
-    public Set<PermisoCuenta> getLstPermisoCuentas() {
-        return lstPermisoCuentas;
-    }
-
-    public void setLstPermisoCuentas(Set<PermisoCuenta> lstPermisoCuentas) {
-        this.lstPermisoCuentas = lstPermisoCuentas;
     }
 
     public Set<UsuarioPermisoCuenta> getUsuarioPermisoCuentas() {

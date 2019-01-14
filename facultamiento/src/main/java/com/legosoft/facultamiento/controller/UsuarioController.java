@@ -104,6 +104,7 @@ public class UsuarioController {
 
 	@GetMapping(value = "/getPermisosCuentaMontoByUsuario/{nombreUsuario}")
 	public String getPermisosCuentaMontoByUsuario(@PathVariable("nombreUsuario") String nombreUsuario){
+		System.out.println(nombreUsuario);
 		String json = usuarioService.getPermisosCuentaMontoByUsuario(nombreUsuario);
 		return json;
 	}
@@ -120,8 +121,11 @@ public class UsuarioController {
 		String[] datos = info.split("&");
 		String[] nombre = datos[0].split("=");
 		String[] tipo = datos[1].split("=");
+		String[] nombreUsuario = datos[2].split("=");
+        String[] id = datos[3].split("=");
 		System.out.println(nombre[1].replaceAll("\\+", " ") + " " + tipo[1]);
 
+		Usuario usuario = usuarioService.findUsuarioBynombre(nombreUsuario[1].replaceAll("\\+", " ")).stream().findFirst().get();
 
 		String nm = nombre[1].replaceAll("\\+", " ");
 		Response response = null;
@@ -131,7 +135,7 @@ public class UsuarioController {
 			case "usuario":
 				Usuario user = usuarioService.findUsuarioBynombre(nm).stream().findFirst().get();
 
-				if (user != null && user.getPermisoCuentas().size() == 0 && user.getCuentasBancariasUsuario().size() == 0 && user.getPermisoAgregados().size() == 0 && user.getPerfiles().size() == 0){
+				if (user != null && user.getUsuarioPermisoCuentas().size() == 0 && user.getCuentasBancariasUsuario().size() == 0 && user.getPermisoAgregados().size() == 0 && user.getPerfiles().size() == 0){
                     usuarioService.deleteUsuario(user);
 				}else{
 
@@ -188,7 +192,7 @@ public class UsuarioController {
 			case "cuenta":
 				CuentaNM cuenta = cuentaService.findCuentaNMBynumeroCuenta(nm);
 
-				if (cuenta != null && cuenta.getLstPermisoCuentas().size() == 0 && cuenta.getUsuarioPermisoCuentas().size() == 0){
+				if (cuenta != null && cuenta.getUsuarioPermisoCuentas().size() == 0){
 					cuentaService.deleteCuenta(cuenta);
 				}else{
 
@@ -199,14 +203,28 @@ public class UsuarioController {
 			case "permiso":
 				Permiso permiso = permisoService.findPermisoByNombre(nm);
 
-				if (permiso != null && permiso.getLstPermisoCuentas().size() == 0 && permiso.getUsuarioPermisoCuentas().size() == 0 ){
-                    permisoService.deletePermisoSimple(permiso);
+
+				if (permiso != null && usuario != null ){
+					usuario.getPermisosNegados().add(permiso);
+                    usuarioService.saveOrUpdate(usuario);
 				}else{
 
 					response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
 				}
-
 				break;
+
+            case "permisoCuentaMonto":
+                UsuarioPermisoCuenta upc = permisoService.findUsuarioPermisoCuentaById(Long.parseLong(id[1]));
+
+
+                if (upc != null && usuario != null ){
+                    permisoService.deleteUsuarioPermisoCuenta(upc);
+                }else{
+
+                    response = new Response(HttpStatus.NOT_MODIFIED.value(), "No se puede eliminar por que tiene informacion relacionada");
+                }
+                break;
+
 
 		}
 		return response;
@@ -296,15 +314,14 @@ public class UsuarioController {
 				break;
 
 			case "permisoCuentaMonto":
-				Optional<PermisoCuenta> permisoCuenta = permisoService.findPermisoCuentaById(Long.parseLong(param[3]));
+				UsuarioPermisoCuenta permisoCuenta = permisoService.findUsuarioPermisoCuentaById(Long.parseLong(param[3]));
 
-				if (permisoCuenta.isPresent()){
-					PermisoCuenta pc = permisoCuenta.get();
+				if (permisoCuenta != null){
 
-					pc.setLimiteInferior(new BigDecimal(param[1]));
-					pc.setLimiteSuperior(new BigDecimal(param[4]));
+					permisoCuenta.setLimiteInferior(new BigDecimal(param[1]));
+					permisoCuenta.setLimiteSuperior(new BigDecimal(param[4]));
 
-					permisoService.save(pc);
+					permisoService.saveUsuarioPermisoCuenta(permisoCuenta);
 				}
 
 				break;

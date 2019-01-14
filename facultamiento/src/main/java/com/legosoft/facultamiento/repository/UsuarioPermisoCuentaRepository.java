@@ -6,6 +6,7 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsuarioPermisoCuentaRepository extends Neo4jRepository<UsuarioPermisoCuenta, Long> {
 
@@ -17,4 +18,7 @@ public interface UsuarioPermisoCuentaRepository extends Neo4jRepository<UsuarioP
 
     @Query("MATCH (c:CuentaNM)-[rc:USUARIO_HAS_CUENTA_PERMISO]->(upc:UsuarioPermisoCuenta)<-[rp:USUARIO_HAS_CUENTA_PERMISO]-(p:Permiso) where c.numeroCuenta = {numeroCuenta} and p.nombre = {nombrePermiso} RETURN upc,rc, c,rp, p")
     UsuarioPermisoCuenta findUsuarioPermisoCuentaByPermisoAndCuenta( @Param("numeroCuenta") String numeroCuenta, @Param("nombrePermiso") String nombrePermiso);
+
+    @Override
+    Optional<UsuarioPermisoCuenta> findById(Long aLong);
 }

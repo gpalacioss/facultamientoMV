@@ -1,7 +1,6 @@
 package com.legosoft.facultamiento.service;
 
 import com.legosoft.facultamiento.models.nuevo.Permiso;
-import com.legosoft.facultamiento.models.nuevo.PermisoCuenta;
 import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
 
 import java.util.List;
@@ -9,9 +8,9 @@ import java.util.Optional;
 
 public interface PermisoService {
 
-    public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso);
-
-    public PermisoCuenta save(PermisoCuenta permisoCuenta);
+//    public PermisoCuenta findPermisoCuentaByPermisoAndCuenta(String nombrePermiso);
+//
+//    public PermisoCuenta save(PermisoCuenta permisoCuenta);
 
     public Permiso savePermisoSimple(Permiso permiso);
 
@@ -32,6 +31,12 @@ public interface PermisoService {
     public void deletePermisoSimple(Permiso permiso);
 
 
-    public Optional<PermisoCuenta> findPermisoCuentaById(Long id);
+//    public Optional<PermisoCuenta> findPermisoCuentaById(Long id);
+
+    public UsuarioPermisoCuenta findUsuarioPermisoCuentaById(Long id);
+
+    public List<Permiso> findAllPermisos();
+
+    public List<Permiso> findPermisoByNombrePerfil(String nombrePerfil);
 
 }
