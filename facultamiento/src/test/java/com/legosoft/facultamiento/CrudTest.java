@@ -70,7 +70,7 @@ public class CrudTest {
 
         CuentaNM cn = cuentaService.findCuentaNMBynumeroCuenta("00000101998");
         Usuario usr = usuarioService.findUsuarioBynombre("Francisco Armani").stream().findFirst().get();
-        Permiso p = permisoService.findPermisoByNombre("Mul_Tran_Propias");
+        Permiso p = permisoService.findPermisoByNombre("Mul_Con_Saldo_Creditos");
 
         List<Permiso> lstP = permisoService.findAllPermisos();
 
@@ -79,8 +79,8 @@ public class CrudTest {
 
                 UsuarioPermisoCuenta upc = new UsuarioPermisoCuenta();
 
-                upc.setLimiteInferior(new BigDecimal(50000));
-                upc.setLimiteSuperior(new BigDecimal(1000000));
+                upc.setLimiteInferior(new BigDecimal(1));
+                upc.setLimiteSuperior(new BigDecimal(3900));
                 upc.setPermiso(p);
                 upc.setUsuarios(usr);
                 upc.setCuenta(cn);

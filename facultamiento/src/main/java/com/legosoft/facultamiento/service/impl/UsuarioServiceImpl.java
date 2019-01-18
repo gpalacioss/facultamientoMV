@@ -262,15 +262,20 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         Usuario repoUsuario = repository.permisosCuentaMontoByUsuario(nombreUsuario);
 
-        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
+        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getIdUsuario(), 1));
+
+        repoUsuario.getCuentasBancariasUsuario().forEach(c -> {
+            arrayNode.add(generaNodo(c.getNumeroCuenta(), "cuenta", c.getIdCuenta(), 2));
+            arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), c.getIdCuenta(), "USUARIO_HAS_CUENTA"));
+        });
 
         repoUsuario.getUsuarioPermisoCuentas().forEach(pc -> {
-            arrayNode.add(generaNodo("LInf: " + pc.getLimiteInferior() + "--" + "LSup :" + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getIdUsuarioPermisoCuenta(), 2));
-            arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permisoCuentaMonto", pc.getIdUsuarioPermisoCuenta(), 2));
+//            arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permiso", pc.getPermiso().getIdPermiso(), 3));
-            arrayEdges.add(generaRelacion(pc.getPermiso().getIdPermiso(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
+//            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permiso", pc.getPermiso().getIdPermiso(), 3));
+//            arrayEdges.add(generaRelacion(pc.getPermiso().getIdPermiso(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
             arrayNode.add(generaNodo(pc.getCuenta().getNumeroCuenta(), "cuenta", pc.getCuenta().getIdCuenta(), 4));
@@ -279,6 +284,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         });
 
         generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "permisosCuentaMontoByAdminGraph");
+        System.out.println(generaGraph(arrayNode, arrayEdges).toString());
 	    return generaGraph(arrayNode, arrayEdges).toString();
     }
 
@@ -317,12 +323,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 
         repoUsuario.getUsuarioPermisoCuentas().forEach(pc -> {
-            arrayNode.add(generaNodo("LInf: " + pc.getLimiteInferior() + "--" + "LSup: " + pc.getLimiteSuperior(), "permisoCuentaMonto", pc.getIdUsuarioPermisoCuenta(), 5));
-            arrayEdges.add(generaRelacion(repoUsuario.getId(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permisoCuentaMonto", pc.getIdUsuarioPermisoCuenta(), 5));
+            arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
-            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permiso", pc.getPermiso().getIdPermiso(), 4));
-            arrayEdges.add(generaRelacion(pc.getPermiso().getIdPermiso(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
+//            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permiso", pc.getPermiso().getIdPermiso(), 4));
+//            arrayEdges.add(generaRelacion(pc.getPermiso().getIdPermiso(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
 
 
             arrayNode.add(generaNodo(pc.getCuenta().getNumeroCuenta(), "cuenta", pc.getCuenta().getIdCuenta(),6));
@@ -396,4 +402,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 //        }
     }
 
+
+    public void deletePermisosAgregados(String nombreUsuario, String nombrePermiso){
+	    repository.deletePermisosAgregados(nombreUsuario, nombrePermiso);
+    }
 }

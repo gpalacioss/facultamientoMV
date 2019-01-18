@@ -2,13 +2,19 @@ package com.legosoft.facultamiento.controller;
 
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.legosoft.facultamiento.models.nuevo.*;
 import com.legosoft.facultamiento.service.*;
 
+import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
+import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.legosoft.facultamiento.models.old.Usuario;
@@ -205,6 +211,9 @@ public class UsuarioController {
 
 
 				if (permiso != null && usuario != null ){
+
+					usuarioService.deletePermisosAgregados(usuario.getNombre(), permiso.getNombre());
+
 					usuario.getPermisosNegados().add(permiso);
                     usuarioService.saveOrUpdate(usuario);
 				}else{
@@ -237,7 +246,7 @@ public class UsuarioController {
 
 		String[] datos = info.split("&");
 
-		String[] param = new String[]{"","","","",""};
+		String[] param = new String[]{"","","","","",""};
 		int contador = 0;
 		for (String dato : datos) {
 
@@ -249,6 +258,9 @@ public class UsuarioController {
 		System.out.println(param[0]);
 		System.out.println(param[1]);
 		System.out.println(param[2]);
+		System.out.println(param[3]);
+		System.out.println(param[4]);
+		System.out.println(param[5]);
 
 		switch (param[2]){
 			case "usuario":
@@ -315,17 +327,165 @@ public class UsuarioController {
 
 			case "permisoCuentaMonto":
 				UsuarioPermisoCuenta permisoCuenta = permisoService.findUsuarioPermisoCuentaById(Long.parseLong(param[3]));
+				Permiso pr = permisoService.findPermisoByNombre(param[0]);
 
 				if (permisoCuenta != null){
 
-					permisoCuenta.setLimiteInferior(new BigDecimal(param[1]));
-					permisoCuenta.setLimiteSuperior(new BigDecimal(param[4]));
+					permisoCuenta.setLimiteInferior(new BigDecimal(param[4]));
+					permisoCuenta.setLimiteSuperior(new BigDecimal(param[5]));
 
 					permisoService.saveUsuarioPermisoCuenta(permisoCuenta);
+
+					pr.setNombre(param[1]);
+					permisoService.savePermisoSimple(pr);
 				}
 
 				break;
 		}
+
+	}
+
+	@PostMapping(value = "/agregarPermisoUsuario")
+	public void savePermiso(@RequestBody String info){
+		System.out.println(info);
+		String[] datos = info.split("&");
+		String[] nu = datos[0].split("=");
+		String[] np = datos[1].split("=");
+
+		System.out.println(nu[1]);
+		System.out.println(np[1]);
+
+		String nombreUser = nu[1].replaceAll("\\+", " ");
+		System.out.println(nombreUser);
+		Usuario usr = usuarioService.findUsuarioBynombre(nombreUser).stream().findFirst().get();
+		Permiso pr = permisoService.findPermisoByNombre(np[1]);
+
+		usr.getPermisoAgregados().add(pr);
+		usuarioService.saveOrUpdate(usr);
+
+	}
+
+	@PostMapping(value = "/getInfoNode")
+	public String geiInfoNode(@RequestBody String info){
+		System.out.println(info);
+
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		String date = "";
+
+
+		String[] datos = info.split("&");
+		String[] param = datos[0].split("=");
+		String[] param2 = datos[1].split("=");
+		String[] param3 = datos[2].split("=");
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		Long id = Long.parseLong(param[1]);
+		String tipo = param2[1];
+		String nombre = param3[1].replaceAll("\\+", " ").replaceAll("%3A", ":");
+
+		System.out.println("id : " + id + " tipo ::" + tipo + " nombre : " + nombre);
+
+		String result = "";
+
+		switch (tipo){
+			case "usuario":
+				Usuario user = usuarioService.findUsuarioBynombre(nombre).stream().findFirst().get();
+
+				user.setCuentasBancariasUsuario(null);
+				user.setCommpanias(null);
+				user.setGrupos(null);
+				user.setPermisoAgregados(null);
+				user.setPerfiles(null);
+				user.setPermisosNegados(null);
+				user.setUsuarioPermisoCuentas(null);
+
+				result = convertObjectToJson(user);
+
+				break;
+
+			case "grupo":
+				Grupo grupo = grupoService.findGrupoByNombre(nombre);
+
+				grupo.setCompanias(null);
+				grupo.setCompaniasNegadas(null);
+				grupo.setCompaniasPermitidasSinHerencia(null);
+
+				result = convertObjectToJson(grupo);
+
+				break;
+
+			case "compania":
+				Compania compania = companiaService.findCompaniaByNombre(nombre);
+				compania.setCompaniaHijo(null);
+				compania.setCuentasEmpresas(null);
+				compania.setUsuarios(null);
+
+				result = convertObjectToJson(compania);
+
+				break;
+
+			case "rol":
+				Rol rol = rolService.findRolByNombre(nombre);
+				rol.setFacultades(null);
+				result = convertObjectToJson(rol);
+				break;
+			case "perfil":
+
+				PerfilNM perfil = perfilService.findPerfilNMByNombre(nombre).get();
+				perfil.setRoles(null);
+
+				result = convertObjectToJson(perfil);
+				break;
+			case "cuenta":
+				CuentaNM cuenta = cuentaService.findCuentaNMBynumeroCuenta(nombre);
+
+				cuenta.setUsuarioPermisoCuentas(null);
+				result = convertObjectToJson(cuenta);
+
+				break;
+			case "permiso":
+				Permiso permiso = permisoService.findPermisoByNombre(nombre);
+
+				Permiso np = new Permiso();
+				np.setNombre(permiso.getNombre());
+				np.setActivo(permiso.getActivo());
+				np.setFechaModificacion(permiso.getFechaModificacion());
+				np.setIdPermiso(permiso.getIdPermiso());
+				np.setTipoPermiso(permiso.getTipoPermiso());
+
+				result = convertObjectToJson(np);
+
+				break;
+
+			case "permisoCuentaMonto":
+				UsuarioPermisoCuenta permisoCuenta = permisoService.findUsuarioPermisoCuentaById(id);
+				permisoCuenta.setCuenta(null);
+				permisoCuenta.setPermiso(null);
+				permisoCuenta.setUsuarios(null);
+
+				result = convertObjectToJson(permisoCuenta);
+
+				break;
+		}
+
+
+		return result;
+	}
+
+	private String convertObjectToJson(Object objeto){
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		String result = "";
+
+		try {
+			result = mapper.writeValueAsString(objeto);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return result;
 
 	}
 

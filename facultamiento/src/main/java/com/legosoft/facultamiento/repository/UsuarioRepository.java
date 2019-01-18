@@ -48,12 +48,15 @@ public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 	Usuario cuentasEmpresasByAdministrador(@Param("nombreAdministrador") String nombreAdministrador);
 
 
-	@Query("MATCH query=(u:Usuario)-[:USUARIO_HAS_CUENTA_PERMISO]->(upc:UsuarioPermisoCuenta)<-[:USUARIO_HAS_CUENTA_PERMISO]-(pcm:Permiso) where u.nombre = {nombreUsuario} AND NOT (u)-[:DENIED]->(pcm)  OPTIONAL MATCH sq1=(u)-[:PERMISO_AGREGADO]->(ps:Permiso) OPTIONAL MATCH sq2=(upc)<-[:USUARIO_HAS_CUENTA_PERMISO]-(cm:CuentaNM)  RETURN query, sq1, sq2")
+	@Query("MATCH query=(u:Usuario)-[:USUARIO_HAS_CUENTA_PERMISO]->(upc:UsuarioPermisoCuenta)<-[:USUARIO_HAS_CUENTA_PERMISO]-(pcm:Permiso) where u.nombre = {nombreUsuario} AND NOT (u)-[:DENIED]->(pcm)  OPTIONAL MATCH sq1=(u)-[:PERMISO_AGREGADO]->(ps:Permiso) OPTIONAL MATCH sq2=(upc)<-[:USUARIO_HAS_CUENTA_PERMISO]-(cm:CuentaNM) OPTIONAL MATCH sq3=(u)-[:USUARIO_HAS_CUENTA]->(cm)  RETURN query, sq1, sq2, sq3")
 	Usuario permisosCuentaMontoByUsuario(@Param("nombreUsuario") String nombreUsuario);
 
 
 	@Query("MATCH query=(u:Usuario)-[:HAS_PERFIL_NM]-(p:PerfilNM)-[:HAS_ROL]->(r:Rol)-[:HAS_FACULTAD_ROL]-(pr:Permiso) where u.nombre = {nombreUsuario} AND NOT (u)-[:DENIED]->(pr)  OPTIONAL MATCH sq1=(u)-[:PERMISO_AGREGADO]->(ps:Permiso) OPTIONAL MATCH sq2=(u)-[:USUARIO_HAS_CUENTA_PERMISO]->(upc:UsuarioPermisoCuenta)<-[:USUARIO_HAS_CUENTA_PERMISO]-(cm:CuentaNM) OPTIONAL MATCH sq3=(upc)<-[:USUARIO_HAS_CUENTA_PERMISO]-(pcm:Permiso)  RETURN query, sq1, sq2, sq3")
 	Usuario permisoCuentaMontoAndSimplebyUsuario(@Param("nombreUsuario") String nombreUsuario);
+
+	@Query("MATCH(u:Usuario)-[r:PERMISO_AGREGADO]->(p:Permiso) where u.nombre = {nombreUsuario} and p.nombre = {nombrePermiso} DELETE r")
+	void deletePermisosAgregados(@Param("nombreUsuario") String nombreUsuario, @Param("nombrePermiso") String nombrePermiso);
 
 
 }

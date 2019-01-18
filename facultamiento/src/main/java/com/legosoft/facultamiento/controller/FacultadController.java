@@ -30,7 +30,7 @@ public class FacultadController {
     }
 
 
-    @GetMapping(value = "/getPermisos")
+    @RequestMapping(value = "/getPermisos", method = RequestMethod.GET)
     public List<Permiso> getAllPermisos(){
         return facultadSerivice.finAllPermisos();
     }
@@ -40,4 +40,5 @@ public class FacultadController {
         System.out.println(nombrePerfil);
         return permisoService.findPermisoByNombrePerfil(nombrePerfil);
     }
+
 }

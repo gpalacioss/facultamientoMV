@@ -69,4 +69,7 @@ public interface UsuarioService {
 	 */
 	public String getPermisosCuentaMontoAndSimplesByUsuario(String usuario);
 
+
+	public void deletePermisosAgregados(String nombreUsuario, String nombrePermiso);
+
 }
