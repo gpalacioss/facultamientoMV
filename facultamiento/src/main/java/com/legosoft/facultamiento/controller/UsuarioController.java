@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import com.legosoft.facultamiento.models.old.Usuario;
 
 
-//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class UsuarioController {
 
@@ -47,7 +47,6 @@ public class UsuarioController {
 
 	@Autowired
 	private GrupoService grupoService;
-	private Object HttpStatusCodeException;
 
 	@RequestMapping(value = "/infoUsuarios", method = RequestMethod.GET)
 	public List<Usuario> infoUsuarios() {
@@ -82,6 +81,11 @@ public class UsuarioController {
 		return usuarioService.findUsuarioById(idUsuario);
 	}
 
+	@DeleteMapping(value = "/deleteUser/{idUsuario}")
+    public void deleteUser(@PathVariable("idUsuario") Long idUsuario){
+	    Usuario u = usuarioService.findUsuarioById(idUsuario).get();
+	    usuarioService.deleteUsuario(u);
+    }
 
 
 	@GetMapping(value = "/usuariosAndPermisosGraph/{nombreUsuario}")

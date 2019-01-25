@@ -1,28 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
 <div class="container margen">
+
+  <div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/user/formUsuario']" routerLinkActive="router-link-active" >Agregar</button>
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/graph/','perfil']" routerLinkActive="router-link-active" >Grafos</button>
+  </div>
+
   <table class="table">
-     <thead class="thead-dark">
-      <tr>
-        <th>idPerfil</th>
-        <th>Nombre</th>
-        <th>Activo</th>
-        <th>Fecha de Creacion</th>
-        <th>Petron</th>
-        <th>Maestro</th>
-      </tr>
-     </thead>
-     <tbody>
-       <tr *ngFor="let p of lstPerfiles">
-         <td>{{p.idPerfil}}</td>
-         <td>{{p.nombre}}</td>
-         <td>{{p.isActivo}}</td>
-         <td>{{p.fechaCreacion}}</td>
-         <td>{{p.isPatron}}</td>
-         <td>{{p.isMaestro}}</td>
-       </tr>
-     </tbody>
-   </table>
-   <div class="form-group" >
-     <!--<button type="button" class="btn btn-success" (click) = "getUsuarios()" data-toggle="tooltip" >Aceptar</button>-->
-   </div>
- </div>
- 
+    <thead class="thead-dark">
+    <tr>
+      <th>idPerfil</th>
+      <th>Nombre</th>
+      <th>Activo</th>
+      <th>Fecha de Creacion</th>
+      <th>Petron</th>
+      <th>Maestro</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of lstPerfiles">
+      <td>{{p.idPerfil}}</td>
+      <td>{{p.nombre}}</td>
+      <td>{{p.isActivo}}</td>
+      <td>{{p.fechaCreacion}}</td>
+      <td>{{p.isPatron}}</td>
+      <td>{{p.isMaestro}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="form-group" >
+    <!--<button type="button" class="btn btn-success" (click) = "getUsuarios()" data-toggle="tooltip" >Aceptar</button>-->
+  </div>
+</div>
+</body>
+</html>
+
+

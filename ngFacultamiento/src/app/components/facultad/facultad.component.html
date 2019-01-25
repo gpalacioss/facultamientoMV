@@ -1,23 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
 <div class="container margen">
+
+  <div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/user/formUsuario']" routerLinkActive="router-link-active" >Agregar</button>
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/graph/','permisoSimple']" routerLinkActive="router-link-active" >Grafos</button>
+  </div>
+
   <table class="table">
-     <thead class="thead-dark">
-       <tr>
-         <th>idFacultad</th>
-         <th>Nombre</th>
-         <th>Descripcion</th>
-         <th>fecha de Modificacion</th>
-         <th>Activo</th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr *ngFor="let f of lstPermisos">
-         <td>{{f.idFacultad}}</td>
-         <td>{{f.nombre}}</td>
-         <!--<td>{{f.descripcion}}</td>-->
-         <td>{{f.fechaModificacion}}</td>
-         <td>{{f.isActivo}}</td>
-       </tr>
-     </tbody>
-   </table>
- </div>
- 
+    <thead class="thead-dark">
+    <tr>
+      <th>idFacultad</th>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>fecha de Modificacion</th>
+      <th>Activo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let f of lstPermisos">
+      <td>{{f.idPermiso}}</td>
+      <td>{{f.nombre}}</td>
+      <td>{{f.descripcion}}</td>
+      <td>{{f.fechaModificacion}}</td>
+      <td>{{f.isActivo}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

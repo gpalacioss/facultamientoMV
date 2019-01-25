@@ -7,6 +7,8 @@ export class Usuario {
 
   public nombre: String;
 
+  public nombreUsuario: String;
+
   public email: String;
 
   public telefono: String;
@@ -14,6 +16,8 @@ export class Usuario {
   public isActivo: Boolean;
 
   public isInterno: Boolean;
+
+  public isAdministrador: Boolean;
 
   public perfil: Array<Perfil>;
 

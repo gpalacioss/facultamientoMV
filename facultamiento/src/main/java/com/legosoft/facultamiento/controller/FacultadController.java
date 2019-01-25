@@ -1,6 +1,7 @@
 package com.legosoft.facultamiento.controller;
 
 import com.legosoft.facultamiento.models.nuevo.Permiso;
+import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
 import com.legosoft.facultamiento.models.old.Facultad;
 import com.legosoft.facultamiento.service.FacultadSerivice;
 import com.legosoft.facultamiento.service.PermisoService;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class FacultadController {
 
@@ -32,7 +33,14 @@ public class FacultadController {
 
     @RequestMapping(value = "/getPermisos", method = RequestMethod.GET)
     public List<Permiso> getAllPermisos(){
-        return facultadSerivice.finAllPermisos();
+        List<Permiso> result = facultadSerivice.finAllPermisos();
+        return result;
+    }
+
+    @RequestMapping(value = "/getPermisosCuentaMonto", method = RequestMethod.GET)
+    public List<UsuarioPermisoCuenta> getAllPermisosCuentaMonto(){
+        List<UsuarioPermisoCuenta> result = permisoService.findAllUsuarioPermisoCuenta();
+        return result;
     }
 
     @GetMapping(value = "/getPermisos/{nombrePerfil}")

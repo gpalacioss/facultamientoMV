@@ -1629,7 +1629,7 @@
       "all": {
         "radius": 10,
         "color": "#68B9FE",
-        "borderColor": "#127DC1",
+        "borderColor": "#2963c1",
         "borderWidth": function(d, radius) {
           return radius / 3;
         },
@@ -1661,8 +1661,8 @@
     edgeCaptionsOnByDefault: false,
     edgeStyle: {
       "all": {
-        "width": 4,
-        "color": "#CCC",
+        "width": 6,
+        "color": "#cc1e13",
         "opacity": 0.2,
         "directed": true,
         "curved": true,
@@ -1688,7 +1688,7 @@
     edgeClick: null,
     search: false,
     searchMethod: "contains",
-    backgroundColour: "#000000",
+    backgroundColour: "#fff",
     theme: null,
     afterLoad: 'afterLoad',
     divSelector: '#alchemy',

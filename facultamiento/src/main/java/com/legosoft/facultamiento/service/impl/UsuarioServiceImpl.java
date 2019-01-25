@@ -31,7 +31,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private PerfilRepository perfilRepository;
 	
 	public List<Usuario> getAllUsuarios(){
-		List<Usuario> result = (List<Usuario>) repository.findAll();
+		List<Usuario> result = repository.findAll();
 		return result;
 	}
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legosoft.facultamiento.models.nuevo.*;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -40,25 +41,32 @@ public class Usuario implements Serializable{
 //	@Relationship(type = "HAS_CUENTA", direction = Relationship.OUTGOING)
 //	private Set<Cuenta> cuentasBancarias = new HashSet<>();
 
-	@Relationship(type = "HAS_PERFIL_NM")
+	@JsonIgnore
+	@Relationship(type = "HAS_PROFILE")
 	private Set<PerfilNM> perfiles = new HashSet<>();
 
-	@Relationship(type = "USUARIO_HAS_CUENTA")
+	@JsonIgnore
+	@Relationship(type = "HAS_ACCOUNT")
 	private Set<CuentaNM> cuentasBancariasUsuario = new HashSet<>();
 
-	@Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
+	@JsonIgnore
+	@Relationship(type = "HAS_ACCOUNT_PERMIT")
 	private Set<UsuarioPermisoCuenta> usuarioPermisoCuentas = new HashSet<>();
 
+	@JsonIgnore
 	@Relationship(type = "MEMBER_OF")
 	private Set<Grupo> grupos = new HashSet<>();
 
-	@Relationship(type = "TRABAJA_EN")
+	@JsonIgnore
+	@Relationship(type = "WORKS_FOR")
 	private Set<Compania> commpanias = new HashSet<>();
 
+	@JsonIgnore
 	@Relationship(type = "DENIED")
 	private Set<Permiso> permisosNegados = new HashSet<>();
 
-	@Relationship(type = "PERMISO_AGREGADO")
+	@JsonIgnore
+	@Relationship(type = "ADDED_PERMIT")
 	private Set<Permiso> permisoAgregados = new HashSet<>();
 
 

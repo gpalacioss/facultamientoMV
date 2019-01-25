@@ -1,16 +1,18 @@
 package com.legosoft.facultamiento.models.nuevo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@NodeEntity(label = "Permiso")
-public class Permiso {
+@NodeEntity(label = "Permit")
+public class Permiso implements Serializable {
 
 
     @Id
@@ -39,7 +41,8 @@ public class Permiso {
 //    @Relationship(type = "HAS_PERMISO_CUENTA", direction = Relationship.OUTGOING)
 //    private Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
 
-    @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
+    @JsonIgnore
+    @Relationship(type = "HAS_ACCOUNT_PERMIT")
     private Set<UsuarioPermisoCuenta> usuarioPermisoCuentas = new HashSet<>();
 
 

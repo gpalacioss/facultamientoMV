@@ -92,4 +92,8 @@ public class PermisoServiceImpl implements PermisoService {
     public List<Permiso> findPermisoByNombrePerfil(String nombrePerfil){
        return permisoRepository.findPermisosByNombrePerfil(nombrePerfil);
     }
+
+    public List<UsuarioPermisoCuenta> getPermisosCuentaMonto(){
+        return usuarioPermisoCuentaRepository.findAll();
+    }
 }

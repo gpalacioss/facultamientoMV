@@ -8,37 +8,33 @@
   <title>Document</title>
 </head>
 <body>
-
 <div class="container margen">
 
   <div class="my-2 text-left">
     <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/user/formUsuario']" routerLinkActive="router-link-active" >Agregar</button>
-    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/graph/','rol']" routerLinkActive="router-link-active" >Grafos</button>
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/graph/','permisoCuentaMonto']" routerLinkActive="router-link-active" >Grafos</button>
   </div>
 
   <table class="table">
     <thead class="thead-dark">
     <tr>
-      <th>idRol</th>
-      <th>Nombre</th>
-      <th>Fecha de Creacion</th>
-      <th>Activo</th>
+      <th>id</th>
+      <th>Nombre Permiso</th>
+      <th>limite Inferior</th>
+      <th>limite Superior</th>
+
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let r of lstRol">
-      <td>{{r.idRo}}</td>
-      <td>{{r.nombreRol}}</td>
-      <td>{{r.isActivo}}</td>
-      <td>{{r.fechaCreacion}}</td>
+    <tr *ngFor="let pcm of lstPermisoCuentaMonto">
+      <td>{{pcm.idUsuarioPermisoCuenta}}</td>
+      <td>{{pcm.permiso.nombre}}</td>
+      <td>{{pcm.limiteInferior}}</td>
+      <td>{{pcm.limiteSuperior}}</td>
     </tr>
     </tbody>
   </table>
-  <div class="form-group" >
-    <!--<button type="button" class="btn btn-success" (click) = "getUsuarios()" data-toggle="tooltip" >Aceptar</button>-->
-  </div>
 </div>
+
 </body>
 </html>
-
-

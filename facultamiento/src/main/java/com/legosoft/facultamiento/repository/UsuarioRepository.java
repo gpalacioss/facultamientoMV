@@ -13,7 +13,6 @@ import com.legosoft.facultamiento.models.old.Usuario;
 import java.lang.String;
 import java.util.Optional;
 
-@Repository
 public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 	
 	Collection<Usuario> findAll();

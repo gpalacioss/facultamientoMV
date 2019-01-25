@@ -13,7 +13,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FormUsuariosComponent } from './components/usuarios/form-usuarios/form-usuarios.component';
 import { FormsModule } from '@angular/forms';
 import { ComboBoxPerfilComponent } from './components/perfil/combo-box-perfil/combo-box-perfil.component';
-import { PermisosUsuarioComponent } from './components/usuarios/permisos-usuario/permisos-usuario.component'
+import { GraphComponent } from './components/graph/graph.component';
+import { PermisoCuentaMontoComponent } from './components/permiso-cuenta-monto/permiso-cuenta-monto.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PermisosUsuarioComponent } from './components/usuarios/permisos-usuario
     FooterComponent,
     FormUsuariosComponent,
     ComboBoxPerfilComponent,
-    PermisosUsuarioComponent
+    GraphComponent,
+    PermisoCuentaMontoComponent
   ],
   imports: [
     BrowserModule,

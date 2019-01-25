@@ -1,4 +1,5 @@
 package com.legosoft.facultamiento.models.nuevo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legosoft.facultamiento.models.old.Usuario;
 import org.neo4j.ogm.annotation.*;
 
@@ -18,11 +19,12 @@ public class UsuarioPermisoCuenta  implements Serializable {
 
     private BigDecimal limiteSuperior;
 
-
-    @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO", direction = Relationship.INCOMING)
+    @JsonIgnore
+    @Relationship(type = "HAS_ACCOUNT_PERMIT", direction = Relationship.INCOMING)
     private Usuario usuarios;
 
-    @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO", direction = Relationship.INCOMING)
+    @JsonIgnore
+    @Relationship(type = "HAS_ACCOUNT_PERMIT", direction = Relationship.INCOMING)
     private CuentaNM cuenta;
 
     @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO", direction = Relationship.INCOMING)

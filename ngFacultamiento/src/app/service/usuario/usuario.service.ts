@@ -16,15 +16,20 @@ export class UsuarioService {
   }
 
   public guardaUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>("http://localhost:8080/saveOrUpdateUsuario", usuario);
+    return this.http.post<Usuario>('http://localhost:8080/saveOrUpdateUsuario', usuario);
   }
 
   public  getUsuarioById(idUsuario: number): Observable<Usuario>{
     return this.http.get<Usuario>(`http://localhost:8080/getUsuarios/ ${idUsuario}`);
   }
 
-  public permisosUsuarioGraph(nombreUsuario: String): Observable<any>{
-    return this.http.get(`http://localhost:8080/usuariosAndPermisosGraph/${nombreUsuario}`);
+
+  public getUsuariosByUsuarioAdministrador(nombreAdmin: String): Observable<Object>{
+    return this.http.get('http://localhost:8080/getEmpresaAndEmpleadosByAdministrador/' + nombreAdmin);
+  }
+
+  public deleteUsuario(id: number): Observable<Usuario> {
+    return this.http.delete<Usuario>('http://localhost:8080/deleteUser/' + id);
   }
 
 }

@@ -28,9 +28,20 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/assets/alchemy/alchemy.css",
+              "src/assets/alchemy/alchemy.min.css",
+              "src/assets/alchemy/alchemy-white.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/permisoSimpleEmpleado.js",
+              "src/assets/js/d3.min.js",
+              "src/assets/js/d3.js",
+              "src/assets/alchemy/alchemy.js",
+              "src/assets/alchemy/alchemy.min.js",
+              "src/assets/alchemy/scripts/vendor.js"
+
+            ]
           },
           "configurations": {
             "production": {
