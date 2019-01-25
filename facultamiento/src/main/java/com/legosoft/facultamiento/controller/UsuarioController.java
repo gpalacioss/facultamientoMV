@@ -11,10 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.legosoft.facultamiento.models.nuevo.*;
 import com.legosoft.facultamiento.service.*;
 
-import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.legosoft.facultamiento.models.old.Usuario;

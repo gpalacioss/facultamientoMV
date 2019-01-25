@@ -1,33 +1,51 @@
-<div class="container margen">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <div class="container margen">
 
-  <div class="my-2 text-left">
-    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/user/formUsuario']" routerLinkActive="router-link-active" >Agregar</button>
-  </div>
+        <div class="my-2 text-left">
+          <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/user/formUsuario']" routerLinkActive="router-link-active" >Agregar</button>
+          <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/graph/','usuarios']" routerLinkActive="router-link-active" >Grafos</button>
+        </div>
+      
+       <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>IdUsuario</th>
+              <th>Nombre</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Telefono</th>
+              <th>Administrador</th>
+              <th>Activo</th>
+              <th>Interno</th>
+              <th>opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of userLis">
+              <td>{{u.idUsuario}}</td>
+              <td>{{u.nombre}}</td>
+              <td>{{u.nombreUsuario}}</td>
+              <td>{{u.email}}</td>
+              <td>{{u.telefono}}</td>
+              <td>{{u.isAdministrador}}</td>
+              <td>{{u.isActivo}}</td>
+              <td>{{u.isInterno}}</td>
+              <td>
+                <button type="button" name="button" [routerLink]="['/user/formUsuario/', u.id]" class="btn btn-primary ">Editar</button>
+                <button type="button" name="button" (click)="deleteusuario(u)" class="btn btn-danger ">delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</body>
+</html>
 
- <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th>IdUsuario</th>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Telefono</th>
-        <th>Activo</th>
-        <th>Interno</th>
-        <th>opciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let u of userLis">
-        <td>{{u.idUsuario}}</td>
-        <td>{{u.nombre}}</td>
-        <td>{{u.email}}</td>
-        <td>{{u.telefono}}</td>
-        <td>{{u.isActivo}}</td>
-        <td>{{u.isInterno}}</td>
-        <td>
-          <button type="button" name="button" [routerLink]="['/user/formUsuario/actualizaUsuario/', u.id]" class="btn btn-primary ">Editar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>

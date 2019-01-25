@@ -11,7 +11,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-@NodeEntity(label = "Usuario")
+@NodeEntity(label = "User")
 public class Usuario implements Serializable{
 
 	/**
@@ -26,6 +26,8 @@ public class Usuario implements Serializable{
 	private Long idUsuario;
 	
 	private String nombre;
+
+	private String nombreUsuario;
 	
 	private String telefono;
 	
@@ -34,6 +36,8 @@ public class Usuario implements Serializable{
 	private Boolean isInterno;
 	
 	private Boolean isActivo;
+
+	private Boolean isAdministrador;
 	
 //	@Relationship(type = "HAS_PERFIL", direction = Relationship.OUTGOING)
 //	private Set<Perfil> perfiles = new HashSet<>();
@@ -182,4 +186,22 @@ public class Usuario implements Serializable{
 	public void setPermisoAgregados(Set<Permiso> permisoAgregados) {
 		this.permisoAgregados = permisoAgregados;
 	}
+
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public Boolean getAdministrador() {
+		return isAdministrador;
+	}
+
+	public void setAdministrador(Boolean administrador) {
+		isAdministrador = administrador;
+	}
+
+
 }

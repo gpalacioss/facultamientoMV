@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@NodeEntity(label = "Compania")
+@NodeEntity(label = "Company")
 public class Compania implements Serializable {
 
     @Id
@@ -22,10 +22,10 @@ public class Compania implements Serializable {
     @Relationship(type = "CHILD_OF", direction = Relationship.INCOMING)
     private Set<Compania> companiaHijo = new HashSet<>();
 
-    @Relationship(type = "COMPANIA_HAS_CUENTA")
+    @Relationship(type = "HAS_ACCOUNT")
     private Set<CuentaNM> cuentasEmpresas = new HashSet<>();
 
-    @Relationship(type = "TRABAJA_EN", direction = Relationship.INCOMING)
+    @Relationship(type = "WORKS_FOR", direction = Relationship.INCOMING)
     private Set<Usuario> usuarios = new HashSet<>();
 
     public Long getIdCompania() {

@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@NodeEntity(label = "CuentaNM")
+@NodeEntity(label = "Account")
 public class CuentaNM implements Serializable {
 
     @Id
@@ -24,7 +24,7 @@ public class CuentaNM implements Serializable {
 //    @Relationship(type = "HAS_PERMISO_CUENTA", direction = Relationship.INCOMING)
 //    private Set<PermisoCuenta> lstPermisoCuentas = new HashSet<>();
 
-    @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO")
+    @Relationship(type = "HAS_ACCOUNT_PERMIT")
     private Set<UsuarioPermisoCuenta> usuarioPermisoCuentas = new HashSet<>();
 
     public Long getIdCuenta() {

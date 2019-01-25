@@ -11,7 +11,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 
-@NodeEntity(label = "PerfilNM")
+@NodeEntity(label = "Profile")
 public class PerfilNM implements Serializable {
 
 
@@ -36,7 +36,7 @@ public class PerfilNM implements Serializable {
 
 	private Boolean isMaestro;
 
-	@Relationship(type = "HAS_ROL", direction = Relationship.OUTGOING)
+	@Relationship(type = "HAS_ROLE", direction = Relationship.OUTGOING)
 	private Set<Rol> roles = new HashSet<>();
 
 

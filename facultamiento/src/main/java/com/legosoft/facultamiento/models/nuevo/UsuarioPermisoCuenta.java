@@ -7,7 +7,7 @@ import org.neo4j.ogm.annotation.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@NodeEntity("UsuarioPermisoCuenta")
+@NodeEntity("UserPermitAccount")
 public class UsuarioPermisoCuenta  implements Serializable {
 
     @Id
@@ -27,7 +27,7 @@ public class UsuarioPermisoCuenta  implements Serializable {
     @Relationship(type = "HAS_ACCOUNT_PERMIT", direction = Relationship.INCOMING)
     private CuentaNM cuenta;
 
-    @Relationship(type = "USUARIO_HAS_CUENTA_PERMISO", direction = Relationship.INCOMING)
+    @Relationship(type = "HAS_ACCOUNT_PERMIT", direction = Relationship.INCOMING)
     private Permiso permiso;
 
     public Long getIdUsuarioPermisoCuenta() {

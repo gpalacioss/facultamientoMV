@@ -83,24 +83,24 @@ public class UsuarioServiceImpl implements UsuarioService{
 		repoUsuario.getPermisoAgregados().forEach(pa -> {
 
 			arrayNode.add(generaNodo(pa.getNombre(), "permiso", pa.getIdPermiso(), 2));
-			arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), pa.getIdPermiso(), "PERMISO_AGREGADO"));
+			arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), pa.getIdPermiso(), "ADDED_PERMIT"));
 
 		});
 
 		repoUsuario.getPerfiles().forEach(p -> {
 
 			arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil(), 3));
-			arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), p.getIdPerfil(), "HAS_PERFIL"));
+			arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), p.getIdPerfil(), "HAS_PROFILE"));
 
 			p.getRoles().forEach(r -> {
 
 				arrayNode.add(generaNodo(r.getNombreRol(), "rol", r.getIdRol(), 4));
-				arrayEdges.add(generaRelacion(p.getIdPerfil(), r.getIdRol(), "HAS_ROL"));
+				arrayEdges.add(generaRelacion(p.getIdPerfil(), r.getIdRol(), "HAS_ROLE"));
 
 				r.getFacultades().forEach(pr ->{
 
 					arrayNode.add(generaNodo(pr.getNombre(), "permiso", pr.getIdPermiso(), 2));
-					arrayEdges.add(generaRelacion(r.getIdRol(), pr.getIdPermiso(), "HAS_FACULTAD_ROL"));
+					arrayEdges.add(generaRelacion(r.getIdRol(), pr.getIdPermiso(), "HAS_PERMIT"));
 
 				});
 			});
@@ -109,8 +109,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 
 		System.out.println(generaGraph(arrayNode, arrayEdges).toString());
-
-		generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "usuarioAndPermisosGraph");
 
 		return  generaGraph(arrayNode, arrayEdges).toString();
 
@@ -146,7 +144,6 @@ public class UsuarioServiceImpl implements UsuarioService{
             });
         });
 
-        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "empresasByAdminGraph");
         return generaGraph(arrayNode, arrayEdges).toString();
 
     }
@@ -171,7 +168,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
                 c.getUsuarios().forEach(em -> {
                     arrayNode.add(generaNodo(em.getNombre(), "usuario", em.getId(), 4));
-                    arrayEdges.add(generaRelacion(em.getId(), c.getIdCompania(), "TRABAJA_EN"));
+                    arrayEdges.add(generaRelacion(em.getId(), c.getIdCompania(), "WORKS_FOR"));
                 });
 
                 c.getCompaniaHijo().forEach(ch -> {
@@ -180,7 +177,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
                     ch.getUsuarios().forEach(emeh -> {
                         arrayNode.add(generaNodo(emeh.getNombre(), "usuario", emeh.getId(), 4));
-                        arrayEdges.add(generaRelacion( emeh.getId(), ch.getIdCompania(), "TRABAJA_EN"));
+                        arrayEdges.add(generaRelacion( emeh.getId(), ch.getIdCompania(), "WORKS_FOR"));
                     });
 
                 });
@@ -192,13 +189,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 
                 csh.getUsuarios().forEach(emesh -> {
                     arrayNode.add(generaNodo(emesh.getNombre(), "usuario", emesh.getId(), 4));
-                    arrayEdges.add(generaRelacion(emesh.getId(), csh.getIdCompania(), "TRABAJA_EN"));
+                    arrayEdges.add(generaRelacion(emesh.getId(), csh.getIdCompania(), "WORKS_FOR"));
                 });
 
             });
         });
 
-        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "empresasAndEmpleadosByAdminGraph");
         return generaGraph(arrayNode, arrayEdges).toString();
     }
 
@@ -221,7 +217,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
                 c.getCuentasEmpresas().forEach(ce -> {
                     arrayNode.add(generaNodo(ce.getNumeroCuenta(), "cuenta", ce.getIdCuenta(), 4));
-                    arrayEdges.add(generaRelacion(c.getIdCompania(), ce.getIdCuenta(), "COMPANIA_HAS_CUENTA"));
+                    arrayEdges.add(generaRelacion(c.getIdCompania(), ce.getIdCuenta(), "HAS_ACCOUNT"));
                 });
 
                 c.getCompaniaHijo().forEach(ch -> {
@@ -230,7 +226,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
                     ch.getCuentasEmpresas().forEach(cech -> {
                         arrayNode.add(generaNodo(cech.getNumeroCuenta(), "cuenta", cech.getIdCuenta(), 4));
-                        arrayEdges.add(generaRelacion(ch.getIdCompania(), cech.getIdCuenta(), "COMPANIA_HAS_CUENTA"));
+                        arrayEdges.add(generaRelacion(ch.getIdCompania(), cech.getIdCuenta(), "HAS_ACCOUNT"));
                     });
 
 
@@ -243,13 +239,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 
                 csh.getCuentasEmpresas().forEach(cecsh -> {
                     arrayNode.add(generaNodo(cecsh.getNumeroCuenta(), "cuenta", cecsh.getIdCuenta(), 4));
-                    arrayEdges.add(generaRelacion(csh.getIdCompania(), cecsh.getIdCuenta(), "COMPANIA_HAS_CUENTA"));
+                    arrayEdges.add(generaRelacion(csh.getIdCompania(), cecsh.getIdCuenta(), "HAS_ACCOUNT"));
                 });
 
             });
         });
 
-        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "cuentasEmpresasByAdminGraph");
         return generaGraph(arrayNode, arrayEdges).toString();
 
     }
@@ -266,7 +261,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         repoUsuario.getCuentasBancariasUsuario().forEach(c -> {
             arrayNode.add(generaNodo(c.getNumeroCuenta(), "cuenta", c.getIdCuenta(), 2));
-            arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), c.getIdCuenta(), "USUARIO_HAS_CUENTA"));
+            arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), c.getIdCuenta(), "HAS_ACCOUNT"));
         });
 
         repoUsuario.getUsuarioPermisoCuentas().forEach(pc -> {
@@ -279,11 +274,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 
             arrayNode.add(generaNodo(pc.getCuenta().getNumeroCuenta(), "cuenta", pc.getCuenta().getIdCuenta(), 4));
-            arrayEdges.add(generaRelacion(pc.getCuenta().getIdCuenta(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayEdges.add(generaRelacion(pc.getCuenta().getIdCuenta(), pc.getIdUsuarioPermisoCuenta(), "HAS_ACCOUNT_PERMIT"));
 
         });
-
-        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "permisosCuentaMontoByAdminGraph");
         System.out.println(generaGraph(arrayNode, arrayEdges).toString());
 	    return generaGraph(arrayNode, arrayEdges).toString();
     }
@@ -300,16 +293,16 @@ public class UsuarioServiceImpl implements UsuarioService{
         repoUsuario.getPerfiles().forEach(p -> {
 
             arrayNode.add(generaNodo(p.getNombre(), "perfil", p.getIdPerfil(),2));
-            arrayEdges.add(generaRelacion(repoUsuario.getId(), p.getIdPerfil(), "HAS_PERFIL"));
+            arrayEdges.add(generaRelacion(repoUsuario.getId(), p.getIdPerfil(), "HAS_PROFILE"));
 
             p.getRoles().forEach(r -> {
 
                 arrayNode.add(generaNodo(r.getNombreRol(), "rol", r.getIdRol(), 3));
-                arrayEdges.add(generaRelacion(p.getIdPerfil(), r.getIdRol(), "HAS_ROL"));
+                arrayEdges.add(generaRelacion(p.getIdPerfil(), r.getIdRol(), "HAS_ROLE"));
 
                 r.getFacultades().forEach(pr ->{
                     arrayNode.add(generaNodo(pr.getNombre(), "permiso", pr.getIdPermiso(), 4));
-                    arrayEdges.add(generaRelacion(r.getIdRol(), pr.getIdPermiso(), "HAS_FACULTAD_ROL"));
+                    arrayEdges.add(generaRelacion(r.getIdRol(), pr.getIdPermiso(), "HAS_PERMIT"));
                 });
             });
         });
@@ -317,14 +310,14 @@ public class UsuarioServiceImpl implements UsuarioService{
         repoUsuario.getPermisoAgregados().forEach(pa -> {
 
             arrayNode.add(generaNodo(pa.getNombre(), "permiso", pa.getIdPermiso(), 4));
-            arrayEdges.add(generaRelacion(repoUsuario.getId(), pa.getIdPermiso(), "PERMISO_AGREGADO"));
+            arrayEdges.add(generaRelacion(repoUsuario.getId(), pa.getIdPermiso(), "ADDED_PERMIT"));
 
         });
 
 
         repoUsuario.getUsuarioPermisoCuentas().forEach(pc -> {
             arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permisoCuentaMonto", pc.getIdUsuarioPermisoCuenta(), 5));
-            arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayEdges.add(generaRelacion(repoUsuario.getIdUsuario(), pc.getIdUsuarioPermisoCuenta(), "HAS_ACCOUNT_PERMIT"));
 
 
 //            arrayNode.add(generaNodo(pc.getPermiso().getNombre(), "permiso", pc.getPermiso().getIdPermiso(), 4));
@@ -332,11 +325,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 
             arrayNode.add(generaNodo(pc.getCuenta().getNumeroCuenta(), "cuenta", pc.getCuenta().getIdCuenta(),6));
-            arrayEdges.add(generaRelacion(pc.getCuenta().getIdCuenta(), pc.getIdUsuarioPermisoCuenta(), "USUARIO_HAS_CUENTA_PERMISO"));
+            arrayEdges.add(generaRelacion(pc.getCuenta().getIdCuenta(), pc.getIdUsuarioPermisoCuenta(), "HAS_ACCOUNT_PERMIT"));
 
         });
 
-        generaArchivoTxt(generaGraph(arrayNode, arrayEdges).toString(), "permisosCuentaMontoAndSimplesGraph");
         return  generaGraph(arrayNode, arrayEdges).toString();
     }
 

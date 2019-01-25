@@ -10,7 +10,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-@NodeEntity(label = "Rol")
+@NodeEntity(label = "Role")
 public class Rol implements Serializable {
 	
 	@Id
@@ -23,7 +23,7 @@ public class Rol implements Serializable {
 	
 	private Date fechaCreacion;
 	
-	@Relationship(type = "HAS_FACULTAD_ROL", direction = Relationship.OUTGOING)
+	@Relationship(type = "HAS_PERMIT", direction = Relationship.OUTGOING)
 	private Set<Permiso> facultades = new HashSet<>();
 
 	public Long getIdRol() {

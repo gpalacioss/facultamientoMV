@@ -9,6 +9,7 @@ import com.legosoft.facultamiento.repository.UsuarioRepository;
 import com.legosoft.facultamiento.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.neo4j.cypher.internal.frontend.v2_3.ast.functions.Str;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -451,4 +452,41 @@ public class CrudTest {
 //        System.out.println(result);
 //    }
 
+
+    @Test
+    public void generaEmail(){
+        List<Usuario> result = usuarioService.getAllUsuarios();
+
+        result.forEach(u -> {
+
+
+            if (u.getNombre() == null || u.getNombre().equals("PruebaAuditoria")){
+                u.setNombre("German Montero");
+            }
+
+            if("SANDRA VILLA CARRANZA ".equals(u.getNombre()) || "Jorge Brant".equals(u.getNombre())){
+                u.setAdministrador(Boolean.TRUE);
+            }else{
+                u.setAdministrador(Boolean.FALSE);
+            }
+
+
+            String[] nm = u.getNombre().split(" ");
+
+            String email = nm[0].toLowerCase().charAt(0) + nm[1].toLowerCase();
+
+            u.setEmail(email+"@gmail.com");
+            u.setNombreUsuario(email);
+
+            System.out.println(u.getNombre());
+            System.out.println(u.getEmail());
+            System.out.println(u.getNombreUsuario());
+            System.out.println(u.getAdministrador());
+
+            usuarioService.saveOrUpdate(u);
+
+        });
+    }
+
 }
+

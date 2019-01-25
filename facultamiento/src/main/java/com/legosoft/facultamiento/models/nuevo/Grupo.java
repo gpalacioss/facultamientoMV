@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@NodeEntity(label = "Grupo")
+@NodeEntity(label = "Group")
 public class Grupo implements Serializable {
 
 
