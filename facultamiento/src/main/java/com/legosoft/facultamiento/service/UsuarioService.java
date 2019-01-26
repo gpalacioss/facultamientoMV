@@ -22,6 +22,8 @@ public interface UsuarioService {
 
 	public void deleteUsuario(Usuario usuario);
 
+	public Usuario findUsuarioByNombreUsuario(String username);
+
 	public List<Usuario> findUsuariosByNumeroCuenta(String numeroCuenta);
 
 	/**

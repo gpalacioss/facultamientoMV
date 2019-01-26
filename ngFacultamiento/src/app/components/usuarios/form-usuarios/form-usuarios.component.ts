@@ -47,7 +47,7 @@ export class FormUsuariosComponent implements OnInit {
 
   public guardaUsuario(accion: number): void {
 
-    let mensaje: String;
+    let mensaje: string;
     let titulo: string;
 
     if (accion === 1) {

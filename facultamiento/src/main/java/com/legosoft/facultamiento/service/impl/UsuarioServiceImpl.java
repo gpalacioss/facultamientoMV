@@ -49,6 +49,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 		List<Usuario> result = repository.findByNombre(nombre);
 		return result;
 	}
+
+	public Usuario findUsuarioByNombreUsuario(String username){
+	    return repository.findByNombreUsuario(username);
+    }
 	
 	public void save(Usuario usuario) {
 		repository.save(usuario);

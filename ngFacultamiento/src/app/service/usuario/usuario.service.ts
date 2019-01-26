@@ -28,6 +28,10 @@ export class UsuarioService {
     return this.http.get('http://localhost:8080/getEmpresaAndEmpleadosByAdministrador/' + nombreAdmin);
   }
 
+  public getUsuarioByUsername(username: String): Observable<Usuario> {
+    return this.http.get<Usuario>('http://localhost:8080/getUsuarioByUsername/' + username);
+  }
+
   public deleteUsuario(id: number): Observable<Usuario> {
     return this.http.delete<Usuario>('http://localhost:8080/deleteUser/' + id);
   }

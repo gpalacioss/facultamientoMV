@@ -1,15 +1,10 @@
 import {UsuarioService} from './../../service/usuario/usuario.service';
 import {Alchemy} from '../../../assets/alchemy/alchemy.js';
-import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FacultadService} from '../../service/facultad/facultad.service';
-import {ElementDef} from '@angular/core/src/view';
+import {Usuario} from '../../models/usuario';
 import {element} from 'protractor';
-import {clearResolutionOfComponentResourcesQueue} from '@angular/core/src/metadata/resource_loading';
-
-
-
-
 
 @Component({
   selector: 'app-graph',
@@ -19,7 +14,7 @@ import {clearResolutionOfComponentResourcesQueue} from '@angular/core/src/metada
 export class GraphComponent implements OnInit {
 
   private jsonGraph: Object;
-  @ViewChild('alchemy') element: ElementDef;
+  @ViewChild('alchemy') element: ElementRef;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -29,14 +24,13 @@ export class GraphComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     let opcion: String;
 
     this.activateRoute.params.subscribe(params => {
       opcion = params['tipo'];
     });
 
-    console.log('valor de opcion' + opcion);
+    console.log('valor de opcion ' + opcion);
 
     switch (opcion) {
       case 'usuarios': {
@@ -87,8 +81,62 @@ export class GraphComponent implements OnInit {
     });
   }
 
-  public getInfoClick(): void{
-      console.log(this.element);
+  public getInfoClick(): void {
+
+    this.renderer.listen(this.element.nativeElement, 'click', (event) => {
+      console.log('hola');
+    });
+
+    const node = $('g[id^="node-"]');
+    node.click(function () {
+      const nombre = $(this).text();
+
+      const id = $(this).attr('id').split('-')[1];
+      const tipo = $(this).attr('class').split(' ')[1];
+
+
+      console.log(nombre);
+      console.log(tipo);
+      console.log(id);
+      this.getInformacionNodoSeleccionado(tipo, nombre, id);
+    });
+  }
+
+
+
+     getInformacionNodoSeleccionado(tipo: String, nombre: String, id: number): void  {
+
+    switch (tipo) {
+      case 'usuario': {
+
+        let usuario: Usuario;
+        this.usuarioService.getUsuarioByUsername(nombre).subscribe(result => {
+          usuario = result;
+          console.log(usuario.nombre);
+        });
+        break;
+      }
+
+      case 'permiso': {
+        break;
+      }
+
+      case 'puentaMOnto': {
+        break;
+      }
+
+      case 'cuenta': {
+        break;
+      }
+      case 'grupo': {
+        break;
+      }
+
+      case 'compania': {
+        break;
+      }
+
+    }
   }
 
   public  generaGraph(json: Object) {
