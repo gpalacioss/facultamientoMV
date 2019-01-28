@@ -4,7 +4,6 @@ import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core
 import {ActivatedRoute} from '@angular/router';
 import {FacultadService} from '../../service/facultad/facultad.service';
 import {Usuario} from '../../models/usuario';
-import {element} from 'protractor';
 
 @Component({
   selector: 'app-graph',
@@ -57,7 +56,7 @@ export class GraphComponent implements OnInit {
   }
 
 
-  public getUsuariosByUsuarioAdministrador(nombreAdmin: String){
+  public getUsuariosByUsuarioAdministrador(nombreAdmin: String) {
     this.usuarioService.getUsuariosByUsuarioAdministrador(nombreAdmin).subscribe(result => {
       this.jsonGraph = result;
       this.generaGraph(this.jsonGraph);
@@ -99,12 +98,13 @@ export class GraphComponent implements OnInit {
       console.log(tipo);
       console.log(id);
       this.getInformacionNodoSeleccionado(tipo, nombre, id);
+
     });
   }
 
 
 
-     getInformacionNodoSeleccionado(tipo: String, nombre: String, id: number): void  {
+  public getInformacionNodoSeleccionado(tipo: String, nombre: String, id: number): void  {
 
     switch (tipo) {
       case 'usuario': {
@@ -146,8 +146,8 @@ export class GraphComponent implements OnInit {
 
        const config = {
           dataSource,
-         edgeTypes: {'edgeType':['MEMBER_OF', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
-         nodeTypes: {'nodeType':['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil']},
+         edgeTypes: {'edgeType': ['MEMBER_OF', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
+         nodeTypes: {'nodeType': ['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil']},
          directedEdges: true,
          forceLocked: false,
          nodeCaption: 'name',
