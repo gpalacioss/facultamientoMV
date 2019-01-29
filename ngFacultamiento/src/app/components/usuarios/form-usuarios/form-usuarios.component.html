@@ -20,6 +20,13 @@
                 <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre">
               </div>
             </div>
+
+            <div class="form-group row">
+              <label for="nombreUsuario" class="col-form-label col-sm-2">Username</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" [(ngModel)]="usuario.nombreUsuario" name="nombre">
+              </div>
+            </div>
       
             <div class="form-group row">
               <label for="telefono" class="col-form-label col-sm-2">Telefono</label>
@@ -52,9 +59,9 @@
               
               <div class="form-group row">
                 <div class="col-sm-8">
-                  <button class="btn btn-success" role="button" (click)="guardaUsuario(1)" *ngIf="!usuario.id else gButton">Guardar</button>
+                  <button class="btn btn-success" role="button" (click)="guardaUsuario(1, usuario)" *ngIf="!usuario.id else gButton">Guardar</button>
                   <ng-template #gButton>
-                    <button class="btn btn-success" role="button" (click)="guardaUsuario(2)">Editar</button>
+                    <button class="btn btn-success" role="button" (click)="guardaUsuario(2, usuario)">Editar</button>
                   </ng-template>
                 </div>
               </div>

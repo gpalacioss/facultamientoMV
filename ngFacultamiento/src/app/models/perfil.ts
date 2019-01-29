@@ -13,7 +13,7 @@ export class Perfil {
 
 	public  isPatron: Boolean;
 
-    public  isMaestro: Boolean;
+	public  isMaestro: Boolean;
     
 
 }

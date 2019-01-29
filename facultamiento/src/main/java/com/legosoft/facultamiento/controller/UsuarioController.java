@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.legosoft.facultamiento.models.nuevo.*;
 import com.legosoft.facultamiento.service.*;
 
-import org.neo4j.cypher.internal.compatibility.valueHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -81,7 +80,9 @@ public class UsuarioController {
 
 	@GetMapping(value = "/getUsuarioByUsername/{username}")
     public Usuario getusuarioByUsername(@PathVariable("username") String username){
-	        return usuarioService.findUsuarioByNombreUsuario(username);
+	    Usuario user = usuarioService.findUsuarioByNombreUsuario(username);
+        System.out.println(user.getNombreUsuario());
+	    return user;
 	}
 
 

@@ -8,10 +8,7 @@ import com.legosoft.facultamiento.service.PerfilService;
 import com.legosoft.facultamiento.service.RolService;
 import com.legosoft.facultamiento.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -107,5 +104,10 @@ public class PerfilController {
     public List<PerfilNM> getPerfilesNuevos(){
 
         return  perfilService.getAllperfilesNuevos();
+    }
+
+    @GetMapping(value = "/getPerfilByNombre/{nombrePerfil}")
+    public PerfilNM getPerfilByNombre(@PathVariable("nombrePerfil") String nombrePerfil){
+        return perfilService.findPerfilNMByNombre(nombrePerfil).get();
     }
 }

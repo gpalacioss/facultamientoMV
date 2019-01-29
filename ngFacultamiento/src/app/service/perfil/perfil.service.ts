@@ -8,11 +8,15 @@ import { Perfil } from 'src/app/models/perfil';
 })
 export class PerfilService {
 
+  private  url = 'http://localhost:8080/';
   constructor(private http: HttpClient) { }
 
-
   public getPerfiles(): Observable<Perfil[]> {
-    return this.http.get<Perfil[]>("http://localhost:8080/getPerfilesNuevos");
+    return this.http.get<Perfil[]>(this.url  + 'getPerfilesNuevos');
+  }
+
+  public getPerfilByNombre(nombrePerfil: string): Observable<Perfil> {
+    return this.http.get<Perfil>(this.url + 'getPerfilByNombre/' + nombrePerfil);
   }
 
 }

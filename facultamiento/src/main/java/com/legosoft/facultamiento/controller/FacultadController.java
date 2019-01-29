@@ -49,4 +49,14 @@ public class FacultadController {
         return permisoService.findPermisoByNombrePerfil(nombrePerfil);
     }
 
+    @GetMapping(value = "/getPermisoByNombre/{nombrePermiso}")
+    public Permiso findPermisoByNombre(@PathVariable("nombrePermiso") String nombrePermiso){
+        return permisoService.findPermisoByNombre(nombrePermiso);
+    }
+
+    @GetMapping(value = "/getPermisoCuentaById/{id}")
+    public UsuarioPermisoCuenta getPermisoCuentaMontobyId(@PathVariable("id") Long id){
+        return permisoService.findUsuarioPermisoCuentaById(id);
+    }
+
 }

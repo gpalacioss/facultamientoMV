@@ -1,4 +1,4 @@
-import { Permiso } from './../../models/Permiso';
+import { Permiso } from '../../models/permiso';
 import { FacultadService } from './../../service/facultad/facultad.service';
 import { Component, OnInit } from '@angular/core';
 

@@ -8,10 +8,7 @@ import com.legosoft.facultamiento.models.old.FacultadCuenta;
 import com.legosoft.facultamiento.models.old.Perfil;
 import com.legosoft.facultamiento.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -45,7 +42,10 @@ public class RolController {
         return rolService.getAllRoles();
     }
 
-
+    @GetMapping(value = "/getRolbyNombre/{nombreRol}")
+    public Rol getRolByNombre(@PathVariable("nombreRol") String nombreRol){
+        return rolService.findRolByNombre(nombreRol);
+    }
 
     @RequestMapping(value = "getPerfilesGroupByFacultad", method = RequestMethod.GET)
     public Map<List<String>, Set<String>> getPerfilesGroupByFacultad() {

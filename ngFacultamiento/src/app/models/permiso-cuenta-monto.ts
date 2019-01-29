@@ -1,5 +1,5 @@
 import {Usuario} from './usuario';
-import {Permiso} from './Permiso';
+import {Permiso} from './permiso';
 
 export class PermisoCuentaMonto {
 

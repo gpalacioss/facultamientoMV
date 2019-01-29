@@ -1,6 +1,6 @@
 import { UsuarioService } from './../../../service/usuario/usuario.service';
 import { Usuario } from './../../../models/usuario';
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 
 /**
  * El router sirve para navegar entre paginas
@@ -45,20 +45,20 @@ export class FormUsuariosComponent implements OnInit {
     });
   }
 
-  public guardaUsuario(accion: number): void {
+  public guardaUsuario(accion: number, usuario: Usuario): void {
 
     let mensaje: string;
     let titulo: string;
 
     if (accion === 1) {
-      mensaje = 'el Usuario ' + this.usuario.nombre + ' fue creador con exito';
+      mensaje = 'el Usuario ' + usuario.nombre + ' fue creador con exito';
       titulo = 'Usuario Guardado';
     } else {
-      mensaje = 'el Usuario ' + this.usuario.nombre + ' fue Actualizado con exito';
+      mensaje = 'el Usuario ' + usuario.nombre + ' fue Actualizado con exito';
       titulo = 'Usuario Actualizado';
     }
 
-    this.usuarioService.guardaUsuario(this.usuario).subscribe(result => {
+    this.usuarioService.guardaUsuario(usuario).subscribe(result => {
       this.router.navigate(['/user']);
       swal(titulo, mensaje, 'success');
     });
