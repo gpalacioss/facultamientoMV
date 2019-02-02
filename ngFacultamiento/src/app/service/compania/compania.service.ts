@@ -8,11 +8,17 @@ import {Compania} from '../../models/compania';
 })
 export class CompaniaService {
 
-  private  url = 'http://localhost:8080/';
+  private url = 'http://localhost:8080/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   public getCompaniaByNombre(nombreCompania: string): Observable<Compania> {
     return this.http.get<Compania>(this.url + 'getCompaniaByNombre/' + nombreCompania);
   }
+
+  public saveCompania(compania: Compania): Observable<Compania> {
+    return this.http.post<Compania>(this.url + 'saveCompania', compania);
+  }
+
 }

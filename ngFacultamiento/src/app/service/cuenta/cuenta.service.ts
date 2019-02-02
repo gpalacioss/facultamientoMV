@@ -16,5 +16,8 @@ export class CuentaService {
     return this.http.get<Cuenta>(this.url + 'getCuentaByNumerocuenta/' + numCuenta);
   }
 
+  public saveCuenta(cuenta: Cuenta): Observable<Cuenta> {
+    return this.http.post<Cuenta>(this.url + 'saveCuenta', cuenta);
+  }
 
 }

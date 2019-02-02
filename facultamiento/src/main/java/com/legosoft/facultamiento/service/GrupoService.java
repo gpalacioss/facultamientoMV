@@ -8,6 +8,8 @@ public interface GrupoService {
 
     public Grupo save(Grupo grupo);
 
+    public Grupo findGrupoById(Long idGrupo);
+
     public void deleteGrupo(Grupo grupo);
 
     /**

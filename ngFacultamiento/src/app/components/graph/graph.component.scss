@@ -1,0 +1,26 @@
+.parent-container {
+  border: 1px solid #000;
+  width: 1910px !important;
+  margin-left: -400px!important;
+  margin-top: 5px;
+}
+.container-form {
+  margin: 10px;
+}
+
+.border-red {
+  width: 60% !important;
+  float: left;
+  height: 780px !important; }
+.border-blue {
+  width: 35% !important;
+  height: 100px;
+  float: right;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+  clear: both;
+}

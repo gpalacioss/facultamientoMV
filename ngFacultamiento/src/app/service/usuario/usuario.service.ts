@@ -32,6 +32,10 @@ export class UsuarioService {
     return this.http.get<Usuario>('http://localhost:8080/getUsuarioByUsername/' + username);
   }
 
+  public getUsuarioByNombre(nombreUsuario: string): Observable<Usuario> {
+    return this.http.get<Usuario>('http://localhost:8080/getUsuarioByNombre/' + nombreUsuario);
+  }
+
   public deleteUsuario(id: number): Observable<Usuario> {
     return this.http.delete<Usuario>('http://localhost:8080/deleteUser/' + id);
   }

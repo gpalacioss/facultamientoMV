@@ -11,6 +11,10 @@ export class PerfilService {
   private  url = 'http://localhost:8080/';
   constructor(private http: HttpClient) { }
 
+  public savePerfil(perfil: Perfil): Observable<Perfil> {
+    return this.http.post<Perfil>(this.url + 'savePerfil', perfil);
+  }
+
   public getPerfiles(): Observable<Perfil[]> {
     return this.http.get<Perfil[]>(this.url  + 'getPerfilesNuevos');
   }

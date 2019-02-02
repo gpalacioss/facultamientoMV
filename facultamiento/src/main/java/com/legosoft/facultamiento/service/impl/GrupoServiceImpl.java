@@ -15,7 +15,9 @@ public class GrupoServiceImpl implements GrupoService {
     @Autowired
     private GrupoRepository grupoRepository;
 
-
+    public Grupo findGrupoById(Long idGrupo){
+        return grupoRepository.findByIdGrupo(idGrupo);
+    }
     public Grupo save(Grupo grupo){
         return grupoRepository.save(grupo);
     }
@@ -31,6 +33,5 @@ public class GrupoServiceImpl implements GrupoService {
     public Grupo findGrupoByNombre(String nombre){
         return grupoRepository.findByNombre(nombre);
     }
-
 
 }

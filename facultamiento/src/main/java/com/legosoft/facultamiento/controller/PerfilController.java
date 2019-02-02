@@ -27,6 +27,11 @@ public class PerfilController {
     @Autowired
     private RolService rolService;
 
+    @PostMapping("/savePerfil")
+    public PerfilNM savePerfil(@RequestBody PerfilNM perfilNM){
+        return perfilService.saveOrUpdate(perfilNM);
+    }
+
     @RequestMapping(value = "/getPerfiles", method = RequestMethod.GET)
     public List<Perfil> getPerfiles(){
         List<Perfil> result = perfilService.findAllPerfiles();

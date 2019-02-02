@@ -8,6 +8,8 @@ public interface CompaniaService {
 
     public Compania save(Compania compania);
 
+    public Compania getCompaniaById(Long idCompania);
+
     public void deleteCompania(Compania compania);
 
     /**

@@ -11,5 +11,5 @@ public interface GrupoRepository extends Neo4jRepository<Grupo, Long> {
 
     Grupo findByNombre(String nombre);
 
-
+    Grupo findByIdGrupo(Long idGrupo);
 }

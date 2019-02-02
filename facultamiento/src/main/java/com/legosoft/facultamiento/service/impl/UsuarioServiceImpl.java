@@ -171,7 +171,7 @@ public class UsuarioServiceImpl implements UsuarioService{
                 arrayEdges.add(generaRelacion(g.getIdGrupo(), c.getIdCompania(), "ALLOW"));
 
                 c.getUsuarios().forEach(em -> {
-                    arrayNode.add(generaNodo(em.getNombreUsuario(), "usuario", em.getId(), 4));
+                    arrayNode.add(generaNodo(em.getNombre(), "usuario", em.getId(), 4));
                     arrayEdges.add(generaRelacion(em.getId(), c.getIdCompania(), "WORKS_FOR"));
                 });
 

@@ -3,12 +3,11 @@ import {Permiso} from './permiso';
 
 export class PermisoCuentaMonto {
 
-
   public  idUsuarioPermisoCuenta: number;
 
-  public  limiteInferior: String;
+  public  limiteInferior: string;
 
-  public  limiteSuperior: String;
+  public  limiteSuperior: string;
 
   public  usuarios: Usuario;
 

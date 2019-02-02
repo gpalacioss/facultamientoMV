@@ -11,4 +11,6 @@ public interface CompaniaRepository extends Neo4jRepository<Compania, Long> {
     Compania findCompaniaByNombreCompania(String nombreCompania);
 
     List<Compania> findAll();
+
+    Compania findByIdCompania(Long idCompania);
 }

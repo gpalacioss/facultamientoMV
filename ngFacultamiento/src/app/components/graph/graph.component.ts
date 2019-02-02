@@ -1,21 +1,22 @@
 import {UsuarioService} from './../../service/usuario/usuario.service';
 import {Alchemy} from '../../../assets/alchemy/alchemy.js';
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FacultadService} from '../../service/facultad/facultad.service';
 import {Usuario} from '../../models/usuario';
-import {Permiso} from '../../models/permiso';
-import {PermisoCuentaMonto} from '../../models/permiso-cuenta-monto';
-import {Cuenta} from '../../models/cuenta';
 import {CuentaService} from '../../service/cuenta/cuenta.service';
 import {GrupoService} from '../../service/grupo/grupo.service';
 import {CompaniaService} from '../../service/compania/compania.service';
-import {Grupo} from '../../models/grupo';
-import {Compania} from '../../models/compania';
-import {Perfil} from '../../models/perfil';
 import {PerfilService} from '../../service/perfil/perfil.service';
 import {RolService} from '../../service/rol/rol.service';
-import {Rol} from '../../models/rol';
+import {FormUsuariosComponent} from '../usuarios/form-usuarios/form-usuarios.component';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormCompaniaComponent} from '../compania/form-compania/form-compania.component';
+import {FormGrupoComponent} from '../grupo/form-grupo/form-grupo.component';
+import {FormCuentaComponent} from '../cuenta/form-cuenta/form-cuenta.component';
+import {FormPerfilComponent} from '../perfil/form-perfil/form-perfil.component';
+import {FormRolComponent} from '../rol/form-rol/form-rol.component';
+import {FormPermisoComponent} from '../permiso/form-permiso/form-permiso.component';
+import {FormPermisoCuentaComponent} from '../permiso-cuenta-monto/form-permiso-cuenta/form-permiso-cuenta.component';
 
 @Component({
   selector: 'app-graph',
@@ -24,8 +25,17 @@ import {Rol} from '../../models/rol';
 })
 export class GraphComponent implements OnInit {
 
+  @ViewChild(FormUsuariosComponent) formUsuariosComponent: FormUsuariosComponent;
+  @ViewChild(FormCompaniaComponent) formCompaniaComponent: FormCompaniaComponent;
+  @ViewChild(FormGrupoComponent) formGrupoComponent: FormGrupoComponent;
+  @ViewChild(FormCuentaComponent)  formCuentaComponent: FormCuentaComponent;
+  @ViewChild(FormPerfilComponent) formPerfilComponent: FormPerfilComponent;
+  @ViewChild(FormRolComponent) formRolComponen: FormRolComponent;
+  @ViewChild(FormPermisoComponent) formPermisoComponent: FormPermisoComponent;
+  @ViewChild(FormPermisoCuentaComponent) formPermisoCuentaComponent: FormPermisoCuentaComponent;
+
   private jsonGraph: Object;
-  private tipo: string = 'opcion';
+  private tipo = 'opcion';
   private usuario: Usuario = new Usuario();
 
   constructor(
@@ -37,7 +47,6 @@ export class GraphComponent implements OnInit {
     private companiaService: CompaniaService,
     private perfilService: PerfilService,
     private rolService: RolService,
-    private renderer: Renderer2
 
   ) { }
 
@@ -46,10 +55,9 @@ export class GraphComponent implements OnInit {
 
     this.activateRoute.params.subscribe(params => {
       opcion = params['tipo'];
-    });
+
 
     console.log('valor de opcion ' + opcion);
-
     switch (opcion) {
       case 'usuarios': {
         this.getUsuariosByUsuarioAdministrador('Jorge Brant');
@@ -60,9 +68,19 @@ export class GraphComponent implements OnInit {
         break;
       }
       case 'permisoSimple': {
-        this.getPermisosusuarioGraphByNombre('Ricardo Legorreta');
+        this.getPermisosusuarioGraphByNombre('Herwin Toral');
         break;
       }
+
+      case 'permisoCuentaMontoop': {
+        this.getPermisoCuentaMontoByUsuario('Rogelio Zarate Mendez');
+        break;
+      }
+      case 'permisoSimpleop': {
+        this.getPermisosusuarioGraphByNombre('Zaira Casimiro');
+        break;
+      }
+
       case 'cuentas': {
         console.log('Poor');
         break;
@@ -72,6 +90,7 @@ export class GraphComponent implements OnInit {
         break;
       }
     }
+    });
   }
 
 
@@ -104,15 +123,12 @@ export class GraphComponent implements OnInit {
     const nvo_this = this;
     const node = $('g[id^="node-"]');
 
-    $(node).click(function() {
-
+    $(node).dblclick(function() {
       const nombre = $(this).text();
       const id = $(this).attr('id').split('-')[1];
       nvo_this.tipo = $(this).attr('class').split(' ')[1];
-
       nvo_this.getInformacionNodoSeleccionado(nvo_this.tipo, nombre, parseInt(id));
     });
-
   }
 
 
@@ -121,71 +137,55 @@ export class GraphComponent implements OnInit {
 
     switch (tipo) {
       case 'usuario': {
-        this.usuarioService.getUsuarioByUsername(nombre).subscribe(result => {
-          this.usuario = result;
-          console.log(this.usuario.nombre);
+        this.usuarioService.getUsuarioByNombre(nombre).subscribe(result => {
+          this.formUsuariosComponent.usuario = result;
         });
-
         break;
       }
-
       case 'permiso': {
-        let permiso: Permiso;
         this.facultadService.getPermisoByNombre(nombre).subscribe(result => {
-          permiso = result;
-          console.log(permiso.nombre);
+          this.formPermisoComponent.permiso = result;
         });
         break;
       }
 
       case 'perfil': {
-        let perfil: Perfil;
         this.perfilService.getPerfilByNombre(nombre).subscribe(result => {
-          perfil = result;
-          console.log(perfil.nombre);
+          this.formPerfilComponent.perfil = result;
         });
         break;
       }
 
       case 'rol': {
-        let rol: Rol;
         this.rolService.getRolByNombre(nombre).subscribe(result => {
-          rol = result;
-          console.log(rol.nombreRol);
+          this.formRolComponen.rol = result;
         });
         break;
       }
 
-      case 'permisCuentaMonto': {
-        let permisoCuentaMonto: PermisoCuentaMonto;
+      case 'permisoCuentaMonto': {
         this.facultadService.getPermisoCuentaMontoById(id).subscribe(result => {
-          permisoCuentaMonto = result;
-          console.log(permisoCuentaMonto.permiso.nombre);
+          this.formPermisoCuentaComponent.permisoCuentaMonto = result;
         });
         break;
       }
+
       case 'cuenta': {
-        let cuenta: Cuenta;
         this.cuentaService.getCuentaByNumCuenta(nombre).subscribe(result => {
-          cuenta = result;
-          console.log(cuenta.numeroCuenta);
+          this.formCuentaComponent.cuenta = result;
         });
         break;
       }
       case 'grupo': {
-        let grupo: Grupo;
         this.grupoService.getGrupoByNombre(nombre).subscribe(result => {
-          grupo = result;
-          console.log(grupo.nombre);
+          this.formGrupoComponent.grupo = result;
         });
         break;
       }
 
       case 'compania': {
-        let compania: Compania;
         this.companiaService.getCompaniaByNombre(nombre).subscribe(result => {
-          compania = result;
-          console.log(compania.nombreCompania);
+          this.formCompaniaComponent.compania = result;
         });
         break;
       }
@@ -200,9 +200,9 @@ export class GraphComponent implements OnInit {
        const config = {
           dataSource,
          edgeTypes: {'edgeType': ['MEMBER_OF', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
-         nodeTypes: {'nodeType': ['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil']},
+         nodeTypes: {'nodeType': ['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil', 'permisoCuentaMonto']},
          directedEdges: true,
-         forceLocked: true,
+         forceLocked: false,
          nodeCaption: 'name',
          edgeCaption: 'edgeType',
          nodeCaptionsOnByDefault: true,
@@ -224,6 +224,11 @@ export class GraphComponent implements OnInit {
            },
            'permiso': {
              'color'      : '#f7a204',
+             'radius'     : 20,
+             'borderWidth': 8
+           },
+           'permisoCuentaMonto': {
+             'color'      : '#28f416',
              'radius'     : 20,
              'borderWidth': 8
            },
@@ -263,11 +268,6 @@ export class GraphComponent implements OnInit {
             };
 
           const alchemy = new Alchemy(config);
-  }
-
-  public actualizainfoUsuario(usuario: Usuario) {
-    // this.formUsuario.guardaUsuario(2, usuario);
-    this.usuarioService.guardaUsuario(usuario);
   }
 
 }

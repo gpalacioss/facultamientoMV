@@ -11,9 +11,11 @@ export class RolService {
   private  url = 'http://localhost:8080/';
   constructor(private http: HttpClient) { }
 
+  public saveRol(rol: Rol): Observable<Rol> {
+    return this.http.post<Rol>(this.url + 'saveRol', rol);
+  }
 
   public getAllRoles(): Observable<Rol[]> {
-
     return this.http.get<Rol[]>("http://localhost:8080/getAllRolles");
   }
 

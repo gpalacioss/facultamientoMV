@@ -12,7 +12,15 @@ export class FacultadService {
 
   constructor(private http: HttpClient) { }
 
-  private  url: string = 'http://localhost:8080/';
+  private  url = 'http://localhost:8080/';
+
+  public savePermiso(permiso: Permiso): Observable<Permiso> {
+    return this.http.post<Permiso>(this.url + 'savePermiso', permiso);
+  }
+
+  public savePermisoCuentaMonto(permisoCuentaMonto: PermisoCuentaMonto): Observable<PermisoCuentaMonto> {
+    return this.http.post<PermisoCuentaMonto>(this.url + 'savePermisoCuentaMonto', permisoCuentaMonto);
+  }
 
   public  getPermisos(): Observable<Permiso[]> {
     return this.http.get<Permiso[]>('http://localhost:8080/getPermisos');
@@ -35,7 +43,7 @@ export class FacultadService {
     return this.http.get<Permiso>(this.url + 'getPermisoByNombre/' + nombrePermiso);
   }
 
-  public getPermisoCuentaMontoById(id: number): Observable<PermisoCuentaMonto>{
+  public getPermisoCuentaMontoById(id: number): Observable<PermisoCuentaMonto> {
     return this.http.get<PermisoCuentaMonto>(this.url + 'getPermisoCuentaById/' + id);
   }
 }

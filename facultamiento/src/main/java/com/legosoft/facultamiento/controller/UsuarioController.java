@@ -498,4 +498,9 @@ public class UsuarioController {
 
 	}
 
+	@GetMapping("getUsuarioByNombre/{nombreUsuario}")
+	public Usuario getUsuarioBynombre(@PathVariable("nombreUsuario") String nombreUsuario){
+		return usuarioService.findUsuarioBynombre(nombreUsuario).stream().findFirst().get();
+	}
+
 }

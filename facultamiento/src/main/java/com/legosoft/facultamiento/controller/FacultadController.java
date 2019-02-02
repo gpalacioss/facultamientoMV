@@ -30,6 +30,15 @@ public class FacultadController {
 
     }
 
+    @PostMapping(value = "/savePermiso")
+    public Permiso savePermiso(@RequestBody Permiso permiso){
+        return permisoService.savePermisoSimple(permiso);
+    }
+
+    @PostMapping(value = "/savePermisoCuentaMonto")
+    public UsuarioPermisoCuenta savePermisoCuentaMonto(@RequestBody UsuarioPermisoCuenta usuarioPermisoCuenta){
+        return permisoService.saveUsuarioPermisoCuenta(usuarioPermisoCuenta);
+    }
 
     @RequestMapping(value = "/getPermisos", method = RequestMethod.GET)
     public List<Permiso> getAllPermisos(){

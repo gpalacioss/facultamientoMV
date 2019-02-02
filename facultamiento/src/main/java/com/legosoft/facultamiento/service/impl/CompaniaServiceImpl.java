@@ -14,6 +14,9 @@ public class CompaniaServiceImpl implements CompaniaService {
     @Autowired
     private CompaniaRepository companiaRepository;
 
+    public Compania getCompaniaById(Long idCompania){
+        return companiaRepository.findByIdCompania(idCompania);
+    }
 
     public Compania save(Compania compania){
 

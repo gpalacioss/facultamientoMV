@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface CuentaNMRepository extends Neo4jRepository<CuentaNM, Long> {
 
-
     CuentaNM findByNumeroCuenta(String numeroCuenta);
 
     @Query("MATCH(c:CuentaNM) WHERE c.numeroCuenta IN {listNumeroCuenta} RETURN c")

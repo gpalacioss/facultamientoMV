@@ -35,6 +35,10 @@ public class RolController {
     private PermisoService permisoService;
 
 
+    @PostMapping(value = "/saveRol")
+    public Rol saveRol(@RequestBody Rol rol){
+        return rolService.save(rol);
+    }
 
     @RequestMapping(value = "/getAllRolles", method = RequestMethod.GET)
     public List<Rol> getAllRolles(){
