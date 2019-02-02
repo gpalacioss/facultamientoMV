@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<div class="card-body card bg-light text-black-50" id="div-form-compania">
+
+  <div class="card-header">
+    {{titulo}}
+  </div>
+
+  <form class="form-compania mt-5">
+
+    <div class="form-group row">
+      <label for="idCompania" class="col-form-label col-sm-3 ml-5">Id</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" [(ngModel)]="compania.idCompania" name="idCompania">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="nombreCompania" class="col-form-label col-sm-3 ml-5">Nombre Compania</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" [(ngModel)]="compania.nombreCompania" name="nombreCompania">
+      </div>
+    </div>
+
+    <div class="form-group  div-botones mt-5 ml-5">
+        <button class="btn btn-success form-btn-guardar" role="button" (click)="saveCompania(1, compania)" *ngIf="!compania.id else gButton">Guardar</button>
+        <ng-template #gButton>
+          <button class="btn btn-success form-btn-editar" role="button" (click)="saveCompania(2, compania)">Editar</button>
+        </ng-template>
+        <button class="btn btn-danger ml-5" role="button" [routerLink]="['/user']" routerLinkActive="router-link-active" >Cancelar</button>
+    </div>
+
+  </form>
+</div>
+</body>
+</html>

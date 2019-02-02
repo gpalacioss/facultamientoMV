@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<div class="card-body card bg-light text-black-50" id="div-form-usuario">
+
+  <div class="card-header">
+    Permiso cuenta
+  </div>
+
+  <form class="form-user">
+
+    <div class="form-group row">
+      <label for="nombre" class="col-form-label col-sm-2">nombre Permiso</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" [(ngModel)]="permisoCuenta.permiso.nombre" name="nombre">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="limiteInferior" class="col-form-label col-sm-2">Limite Inferior</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" [(ngModel)]="permisoCuenta.limiteInferior" name="limiteInferior">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="limiteSuperior" class="col-form-label col-sm-2">Limite Superior</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" [(ngModel)]="permisoCuenta.limiteSuperior" name="limiteSuperior">
+      </div>
+    </div>
+
+    <div class="divBotones">
+
+      <div class="form-group row">
+        <div class="col-sm-8">
+          <button class="btn btn-success" role="button" (click)="savePermisoCuentaMontoCuenta(1, permisoCuentaMonto)" *ngIf="!permisoCuenta.idUsuarioPermisoCuenta else gButton">Guardar</button>
+          <ng-template #gButton>
+            <button class="btn btn-success" role="button" (click)="savePermisoCuentaMontoCuenta(2, permisoCuentaMonto)">Editar</button>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-8">
+          <button class="btn btn-danger" role="button" [routerLink]="['/user']" routerLinkActive="router-link-active" >Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+</body>
+</html>
