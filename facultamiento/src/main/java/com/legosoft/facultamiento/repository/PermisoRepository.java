@@ -19,6 +19,6 @@ public interface PermisoRepository extends Neo4jRepository<Permiso, Long> {
     @Query("MATCH(p:Permiso)-[r:HAS_PERMISO_CUENTA]->(c:CuentaNM) RETURN p, r, c")
     List<Permiso> findPermisoConCuentas();
 
-    @Query("MATCH (p:Permiso)<-[:HAS_FACULTAD_ROL]-(r:Rol)<-[:HAS_ROL]-(pr:PerfilNM) where pr.nombre = {nombrePerfil} RETURN p")
+    @Query("MATCH (p:Permit)<-[:HAS_PERMIT]-(r:Role)<-[:HAS_ROLE]-(pr:Profile) where pr.nombre = {nombrePerfil} RETURN p")
     List<Permiso> findPermisosByNombrePerfil(@Param("nombrePerfil") String nombrePerfil);
 }

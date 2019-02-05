@@ -52,7 +52,7 @@ public class FacultadController {
         return result;
     }
 
-    @GetMapping(value = "/getPermisos/{nombrePerfil}")
+    @GetMapping(value = "/getPermisosByNombrePerfil/{nombrePerfil}")
     public List<Permiso> findPermisosByNombrePerfil(@PathVariable("nombrePerfil") String nombrePerfil){
         System.out.println(nombrePerfil);
         return permisoService.findPermisoByNombrePerfil(nombrePerfil);

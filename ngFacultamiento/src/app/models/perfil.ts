@@ -3,9 +3,9 @@ export class Perfil {
 
 	public idPerfil: number;
 
-	public  nombre: String;
+	public  nombre: string;
 
-	public  descripcion: String;
+	public  descripcion: string;
 
 	public  isActivo: Boolean;
 

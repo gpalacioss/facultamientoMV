@@ -31,8 +31,7 @@
               "src/assets/alchemy/alchemy.css",
               "src/assets/alchemy/alchemy.min.css",
               "src/assets/alchemy/alchemy-white.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "scr/assets/css/form-style.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "src/assets/js/d3.min.js",

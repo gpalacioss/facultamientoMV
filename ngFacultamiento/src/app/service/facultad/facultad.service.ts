@@ -46,4 +46,8 @@ export class FacultadService {
   public getPermisoCuentaMontoById(id: number): Observable<PermisoCuentaMonto> {
     return this.http.get<PermisoCuentaMonto>(this.url + 'getPermisoCuentaById/' + id);
   }
+
+  public getPermisosByNombrePerfil(nombrePerfil: string): Observable<Permiso[]> {
+    return this.http.get<Permiso[]>(this.url + 'getPermisosByNombrePerfil/' + nombrePerfil);
+  }
 }

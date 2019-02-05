@@ -15,6 +15,7 @@
       <app-form-usuarios *ngIf="tipo === 'usuario'"></app-form-usuarios>
       <app-form-compania *ngIf="tipo === 'compania'"></app-form-compania>
       <app-form-permiso *ngIf="tipo === 'permiso'"></app-form-permiso>
+      <button *ngIf="tipo === 'permiso'" class="btn btn-success" type="button" routerLink="/perfiles">Add Permiso</button>
       <app-form-perfil *ngIf="tipo === 'perfil'"></app-form-perfil>
       <app-form-rol *ngIf="tipo === 'rol'"></app-form-rol>
       <app-form-permiso-cuenta *ngIf="tipo === 'permisCuentaMonto'"></app-form-permiso-cuenta>

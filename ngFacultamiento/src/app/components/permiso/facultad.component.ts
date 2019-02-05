@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FacultadComponent implements OnInit {
 
-  private lstPermisos: Array<Permiso>;
+  public lstPermisos: Array<Permiso>;
 
   constructor(private facultadService: FacultadService) { }
 

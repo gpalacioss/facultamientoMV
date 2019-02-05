@@ -10,12 +10,12 @@
 <body>
 <div class="container margen">
 
-  <div class="my-2 text-left">
+  <div class="my-2 text-left" *ngIf="tblPerfil">
     <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/user/formUsuario']" routerLinkActive="router-link-active" >Agregar</button>
     <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/graph/','perfil']" routerLinkActive="router-link-active" >Grafos</button>
   </div>
 
-  <table class="table">
+  <table class="table" *ngIf="tblPerfil">
     <thead class="thead-dark">
     <tr>
       <th>idPerfil</th>
@@ -27,7 +27,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let p of lstPerfiles">
+    <tr *ngFor="let p of lstPerfiles" (click)="getPermisoByPerfil(p)">
       <td>{{p.idPerfil}}</td>
       <td>{{p.nombre}}</td>
       <td>{{p.isActivo}}</td>
@@ -37,9 +37,32 @@
     </tr>
     </tbody>
   </table>
-  <div class="form-group" >
-    <!--<button type="button" class="btn btn-success" (click) = "getUsuarios()" data-toggle="tooltip" >Aceptar</button>-->
+  <div>
+    <table *ngIf="!tblPerfil">
+      <tr>
+        <th>Nombre Permiso</th>
+        <th>Seleccionar</th>
+      </tr>
+      <tbody>
+      <tr *ngFor="let permiso of lstPermisos">
+        <td>{{permiso.nombre}}</td>
+        <td>
+          <div class="form-check-inline">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" (click)="getValorCheck(permiso)" value="">
+            </label>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+
+    <div>
+      <button class="btn btn-success" type="button" (click)="guardaPermisosNegados(lstPermisosNegados)">Aceptar</button>
+    </div>
   </div>
+
 </div>
 </body>
 </html>
