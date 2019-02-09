@@ -50,4 +50,8 @@ export class FacultadService {
   public getPermisosByNombrePerfil(nombrePerfil: string): Observable<Permiso[]> {
     return this.http.get<Permiso[]>(this.url + 'getPermisosByNombrePerfil/' + nombrePerfil);
   }
+
+  public eliminaPermiso(permiso: Permiso): Observable<Permiso> {
+    return this.http.post<Permiso>(this.url + 'eliminaPermiso', permiso);
+  }
 }

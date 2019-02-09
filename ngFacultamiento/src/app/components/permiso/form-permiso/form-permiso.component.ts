@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Permiso} from '../../../models/permiso';
-import {Grupo} from '../../../models/grupo';
 import swal from 'sweetalert2';
 import {FacultadService} from '../../../service/facultad/facultad.service';
 import {ActivatedRoute, Router} from '@angular/router';

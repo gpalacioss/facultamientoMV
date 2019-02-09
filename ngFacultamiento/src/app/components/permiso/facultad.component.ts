@@ -21,7 +21,7 @@ export class FacultadComponent implements OnInit {
 
     this.facultadService.getPermisos().subscribe(result => {
       this.lstPermisos = result;
-    })
+    });
   }
 
 }

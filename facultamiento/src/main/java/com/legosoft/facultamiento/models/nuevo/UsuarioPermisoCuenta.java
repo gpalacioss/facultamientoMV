@@ -12,7 +12,6 @@ public class UsuarioPermisoCuenta  implements Serializable {
 
     @Id
     @GeneratedValue()
-    @Property("idUsuarioPermisoCuenta")
     private Long idUsuarioPermisoCuenta;
 
     private BigDecimal limiteInferior;

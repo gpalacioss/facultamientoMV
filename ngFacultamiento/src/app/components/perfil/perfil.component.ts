@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
   private lstPermisos: Array<Permiso>;
   private tblPerfil = true;
   private perfil: Perfil;
-  private lstPermisosNegados: Permiso[];
+  private lstPermisosNegados: Array<Permiso> = new Array<Permiso>();
 
   @ViewChild(FacultadComponent) facultadComponent: FacultadComponent;
 
@@ -59,9 +59,20 @@ export class PerfilComponent implements OnInit {
     this.lstPermisosNegados.push(permiso);
   }
 
-  public guardaPermisosNegados(listaPermiso: Array<Permiso>): void {
-    this.lstPermisosNegados.forEach(p => {
-      console.log(p.nombre);
+
+  public guardaPermisosNegados(listaPermiso: Array<Permiso>, perfil: Perfil): void {
+    console.log(perfil.nombre);
+    console.log(listaPermiso);
+
+    this.perfilService.addPerfil(perfil).subscribe(result => {
+      console.log(result);
     });
+
+    this.perfilService.agregaPermisosNegados(listaPermiso).subscribe(result => {
+      console.log(result);
+    });
+
+    window.location.reload();
+
   }
 }

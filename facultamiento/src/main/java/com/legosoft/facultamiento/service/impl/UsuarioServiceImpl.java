@@ -160,7 +160,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         List<Usuario> lstrepoUsuario =repository.empleadosAndEmpresasByAdministradorGraph(nombreAdmin);
         Usuario repoUsuario = lstrepoUsuario.stream().findFirst().get();
 
-        arrayNode.add(generaNodo(repoUsuario.getNombre(),"usuario", repoUsuario.getId(), 1));
+        arrayNode.add(generaNodo(repoUsuario.getNombre(),"administrador", repoUsuario.getId(), 1));
 
         repoUsuario.getGrupos().forEach(g -> {
             arrayNode.add(generaNodo(g.getNombre(), "grupo", g.getIdGrupo(), 2));

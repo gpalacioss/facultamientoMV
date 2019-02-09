@@ -1,6 +1,7 @@
 import {UsuarioService} from './../../service/usuario/usuario.service';
 import {Alchemy} from '../../../assets/alchemy/alchemy.js';
-import {ActivatedRoute} from '@angular/router';
+import {NeoVis} from '../../../assets/js/neovis.js';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FacultadService} from '../../service/facultad/facultad.service';
 import {Usuario} from '../../models/usuario';
 import {CuentaService} from '../../service/cuenta/cuenta.service';
@@ -17,6 +18,7 @@ import {FormPerfilComponent} from '../perfil/form-perfil/form-perfil.component';
 import {FormRolComponent} from '../rol/form-rol/form-rol.component';
 import {FormPermisoComponent} from '../permiso/form-permiso/form-permiso.component';
 import {FormPermisoCuentaComponent} from '../permiso-cuenta-monto/form-permiso-cuenta/form-permiso-cuenta.component';
+import {Permiso} from '../../models/permiso';
 
 @Component({
   selector: 'app-graph',
@@ -25,6 +27,12 @@ import {FormPermisoCuentaComponent} from '../permiso-cuenta-monto/form-permiso-c
 })
 export class GraphComponent implements OnInit {
 
+  private jsonGraph: Object;
+  private tipo = 'opcion';
+  private usuario: Usuario = new Usuario();
+  private permiso: Permiso = new Permiso();
+
+  @ViewChild(FormPermisoCuentaComponent) frmCuentaMonto: FormPermisoCuentaComponent;
   @ViewChild(FormUsuariosComponent) formUsuariosComponent: FormUsuariosComponent;
   @ViewChild(FormCompaniaComponent) formCompaniaComponent: FormCompaniaComponent;
   @ViewChild(FormGrupoComponent) formGrupoComponent: FormGrupoComponent;
@@ -32,11 +40,6 @@ export class GraphComponent implements OnInit {
   @ViewChild(FormPerfilComponent) formPerfilComponent: FormPerfilComponent;
   @ViewChild(FormRolComponent) formRolComponen: FormRolComponent;
   @ViewChild(FormPermisoComponent) formPermisoComponent: FormPermisoComponent;
-  @ViewChild(FormPermisoCuentaComponent) formPermisoCuentaComponent: FormPermisoCuentaComponent;
-
-  private jsonGraph: Object;
-  private tipo = 'opcion';
-  private usuario: Usuario = new Usuario();
 
   constructor(
     private usuarioService: UsuarioService,
@@ -47,6 +50,7 @@ export class GraphComponent implements OnInit {
     private companiaService: CompaniaService,
     private perfilService: PerfilService,
     private rolService: RolService,
+    private router: Router
 
   ) { }
 
@@ -68,7 +72,7 @@ export class GraphComponent implements OnInit {
         break;
       }
       case 'permisoSimple': {
-        this.getPermisosusuarioGraphByNombre('Herwin Toral');
+        this.getPermisosusuarioGraphByNombre('Zaira Casimiro');
         break;
       }
 
@@ -77,7 +81,7 @@ export class GraphComponent implements OnInit {
         break;
       }
       case 'permisoSimpleop': {
-        this.getPermisosusuarioGraphByNombre('Zaira Casimiro');
+        this.getPermisosusuarioGraphByNombre('Herwin Toral');
         break;
       }
 
@@ -97,7 +101,7 @@ export class GraphComponent implements OnInit {
   public getUsuariosByUsuarioAdministrador(nombreAdmin: String) {
     this.usuarioService.getUsuariosByUsuarioAdministrador(nombreAdmin).subscribe(result => {
       this.jsonGraph = result;
-      this.generaGraph(this.jsonGraph);
+      this.generagraphNeovis(this.jsonGraph);
       this.getInfoClick();
     });
   }
@@ -106,7 +110,7 @@ export class GraphComponent implements OnInit {
 
     this.facultadService.permisoSimpleByUsuarioGraph(nombreUsuario).subscribe(result => {
         this.jsonGraph = result;
-        this.generaGraph(this.jsonGraph);
+        this.generagraphNeovis(this.jsonGraph);
         this.getInfoClick();
     });
   }
@@ -114,7 +118,7 @@ export class GraphComponent implements OnInit {
   public getPermisoCuentaMontoByUsuario(nombreUsuario: String): void {
     this.facultadService.getPermisoCuentaMontoByUsuarioGraph(nombreUsuario).subscribe(result => {
         this.jsonGraph = result;
-        this.generaGraph(this.jsonGraph);
+        this.generagraphNeovis(this.jsonGraph);
         this.getInfoClick();
     });
   }
@@ -142,9 +146,16 @@ export class GraphComponent implements OnInit {
         });
         break;
       }
+      case 'administrador': {
+        this.usuarioService.getUsuarioByNombre(nombre).subscribe(result => {
+          this.formUsuariosComponent.usuario = result;
+        });
+        break;
+      }
       case 'permiso': {
         this.facultadService.getPermisoByNombre(nombre).subscribe(result => {
           this.formPermisoComponent.permiso = result;
+          this.permiso = result;
         });
         break;
       }
@@ -165,7 +176,8 @@ export class GraphComponent implements OnInit {
 
       case 'permisoCuentaMonto': {
         this.facultadService.getPermisoCuentaMontoById(id).subscribe(result => {
-          this.formPermisoCuentaComponent.permisoCuentaMonto = result;
+          console.log(result);
+          this.frmCuentaMonto.permisCuentaMonto = result;
         });
         break;
       }
@@ -192,82 +204,118 @@ export class GraphComponent implements OnInit {
     }
   }
 
-  public  generaGraph(json: Object) {
-    const dataSource = json;
+  public eliminaPermiso(permiso: Permiso): void {
+      this.facultadService.eliminaPermiso(permiso).subscribe(result => {
+        const url = '/graph/permisoSimple';
+       this.router.navigate([url]);
+       window.location.reload();
+    });
+  }
 
-        console.log(dataSource);
+  // public  generaGraph(json: Object) {
+  //   const dataSource = json;
+  //
+  //       console.log(dataSource);
+  //
+  //      const config = {
+  //         dataSource,
+  //        edgeTypes: {'edgeType': ['MEMBER_OF', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
+  //        nodeTypes: {'nodeType': ['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil', 'permisoCuentaMonto', 'administrador']},
+  //        directedEdges: true,
+  //        forceLocked: true,
+  //        nodeCaption: 'name',
+  //        edgeCaption: 'edgeType',
+  //        nodeCaptionsOnByDefault: true,
+  //        nodeStyle: {
+  //          'usuario': {
+  //            'color'      : '#F6F',
+  //            'radius'     : 20,
+  //            'borderWidth': 8
+  //          },
+  //          'administrador': {
+  //            'color'      : '#f40c0f',
+  //            'radius'     : 20,
+  //            'borderWidth': 8
+  //          },
+  //          'compania': {
+  //            'color'      : '#f2eb29',
+  //            'radius'     : 20,
+  //            'borderWidth': 8
+  //          },
+  //          'grupo': {
+  //            'color'      : '#f7a204',
+  //            'radius'     : 20,
+  //            'borderWidth': 8
+  //          },
+  //          'permiso': {
+  //            'color'      : '#f7a204',
+  //            'radius'     : 20,
+  //            'borderWidth': 8
+  //          },
+  //          'cuenta': {
+  //            'color'      : '#7a49ed',
+  //            'radius'     : 20,
+  //            'borderWidth': 8
+  //          },
+  //          'rol': {
+  //            'color'      : '#28f416',
+  //            'radius'     : 20,
+  //            'borderWidth': 8
+  //          },
+  //          'perfil': {
+  //            'color'      : '#f7043d',
+  //            'radius'     : 20,
+  //            'borderWidth': 8
+  //          }},
+  //        edgeStyle: {
+  //          'MEMBER_OF': {
+  //            'width': 5,
+  //            'color': '#F6F'
+  //          },
+  //          'TRABAJA_EN': {
+  //            'width': 8,
+  //            'color': '#f2eb29'
+  //          },
+  //          'CHILD_OF': {
+  //            'width': 8,
+  //            'color': '#f2eb29'
+  //          },
+  //          'ALLOW': {
+  //            'width': 8,
+  //            'color': '#f7a204'
+  //          }
+  //        },
+  //           };
+  //
+  //         const alchemy = new Alchemy(config);
+  // }
 
-       const config = {
-          dataSource,
-         edgeTypes: {'edgeType': ['MEMBER_OF', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
-         nodeTypes: {'nodeType': ['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil', 'permisoCuentaMonto']},
-         directedEdges: true,
-         forceLocked: false,
-         nodeCaption: 'name',
-         edgeCaption: 'edgeType',
-         nodeCaptionsOnByDefault: true,
-         nodeStyle: {
-           'usuario': {
-             'color'      : '#F6F',
-             'radius'     : 20,
-             'borderWidth': 8
-           },
-           'compania': {
-             'color'      : '#f2eb29',
-             'radius'     : 20,
-             'borderWidth': 8
-           },
-           'grupo': {
-             'color'      : '#f7a204',
-             'radius'     : 20,
-             'borderWidth': 8
-           },
-           'permiso': {
-             'color'      : '#f7a204',
-             'radius'     : 20,
-             'borderWidth': 8
-           },
-           'permisoCuentaMonto': {
-             'color'      : '#28f416',
-             'radius'     : 20,
-             'borderWidth': 8
-           },
-           'cuenta': {
-             'color'      : '#7a49ed',
-             'radius'     : 20,
-             'borderWidth': 8
-           },
-           'rol': {
-             'color'      : '#28f416',
-             'radius'     : 20,
-             'borderWidth': 8
-           },
-           'perfil': {
-             'color'      : '#f7043d',
-             'radius'     : 20,
-             'borderWidth': 8
-           }},
-         edgeStyle: {
-           'MEMBER_OF': {
-             'width': 5,
-             'color': '#F6F'
-           },
-           'TRABAJA_EN': {
-             'width': 8,
-             'color': '#f2eb29'
-           },
-           'CHILD_OF': {
-             'width': 8,
-             'color': '#f2eb29'
-           },
-           'ALLOW': {
-             'width': 8,
-             'color': '#f7a204'
-           }
-         },
-            };
+  generagraphNeovis(json: Object) {
+    const config = {
+      container_id : 'viz' ,
+      server_url : 'bolt://localhost',
+      server_user : 'neo4j' ,
+      server_password : 'galletitas' ,
+      labels : {
+        // 'Carácter': 'nombre',
+        'Character' : {
+          'caption' :  'name' ,
+          'size' :  'pagerank' ,
+          'community' :  'community'
+          // 'sizeCypher': 'MATCH ( n) DONDE id (n) = {id} MATCH (n) - [r] - () RETURN sum (r.weight) AS c '
+        }
+      },
+      relationships : {
+        'INTERACTS' : {
+          'thickness' :  'weight' ,
+          'caption' :  false
+        }
+      }
+      // initial_cypher :  'MATCH (n) - [r: INTERACTS] -> (m) RETURN n, r, m'
+    };
 
-          const alchemy = new Alchemy(config);
+    viz =  new  NeoVis.default(config);
+    viz.render();
   }
 
 }

@@ -5,24 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Grafos</title>
+  <style type="text/css">
+    html, body {
+      font: 16pt arial;
+    }
+
+    #viz {
+      width: 900px;
+      height: 700px;
+      border: 1px solid lightgray;
+      font: 22pt arial;
+    }
+  </style>
 </head>
-<body >
+<body>
 
-  <div class="parent-container clearfix">
-    <div class="alchemy container-form border-red" id="alchemy"></div>
-
-    <div class="container border-blue">
-      <app-form-usuarios *ngIf="tipo === 'usuario'"></app-form-usuarios>
-      <app-form-compania *ngIf="tipo === 'compania'"></app-form-compania>
-      <app-form-permiso *ngIf="tipo === 'permiso'"></app-form-permiso>
-      <button *ngIf="tipo === 'permiso'" class="btn btn-success" type="button" routerLink="/perfiles">Add Permiso</button>
-      <app-form-perfil *ngIf="tipo === 'perfil'"></app-form-perfil>
-      <app-form-rol *ngIf="tipo === 'rol'"></app-form-rol>
-      <app-form-permiso-cuenta *ngIf="tipo === 'permisCuentaMonto'"></app-form-permiso-cuenta>
-      <app-form-grupo *ngIf="tipo === 'grupo'"></app-form-grupo>
-      <app-form-cuenta *ngIf="tipo === 'cuenta'"></app-form-cuenta>
-    </div>
-
+<div class="parent-container clearfix">
+      <!--<div class="alchemy container-form border-red" id="alchemy"></div>-->
+    <div id = "viz"> </div >
+      <div class="container border-blue">
+        <app-form-usuarios *ngIf="tipo === 'usuario'"></app-form-usuarios>
+        <app-form-usuarios *ngIf="tipo === 'administrador'"></app-form-usuarios>
+        <app-form-compania *ngIf="tipo === 'compania'"></app-form-compania>
+        <app-form-permiso *ngIf="tipo === 'permiso'"></app-form-permiso>
+        <button *ngIf="tipo === 'permiso'" class="btn btn-success" type="button" routerLink="/perfiles">Add Permiso</button>
+        <button *ngIf="tipo === 'permiso'" class="btn btn-success" type="button" (click)="eliminaPermiso(permiso)" [routerLink]="['/graph/','permisoSimple']">Eliminar Permiso</button>
+        <app-form-perfil *ngIf="tipo === 'perfil'"></app-form-perfil>
+        <app-form-rol *ngIf="tipo === 'rol'"></app-form-rol>
+        <app-form-permiso-cuenta *ngIf="tipo === 'permisCuentaMonto'"></app-form-permiso-cuenta>
+        <app-form-grupo *ngIf="tipo === 'grupo'"></app-form-grupo>
+        <app-form-cuenta *ngIf="tipo === 'cuenta'"></app-form-cuenta>
+      </div>
   </div>
 
 

@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class FormPermisoCuentaComponent implements OnInit {
 
-  public permisoCuentaMonto: PermisoCuentaMonto = new PermisoCuentaMonto();
+  public permisCuentaMonto: PermisoCuentaMonto = new PermisoCuentaMonto();
 
   constructor(
     private permisoService: FacultadService,
@@ -23,7 +23,7 @@ export class FormPermisoCuentaComponent implements OnInit {
   }
 
 
-  public savePermisoCuentaMontoCuenta(accion: number, permisoCuentaMonto: PermisoCuentaMonto): void {
+  public savePermisoCuentaMonto(accion: number, permisCuentaMonto: PermisoCuentaMonto): void {
 
     let mensaje: string;
     let tituloMensaje: string;
@@ -40,14 +40,14 @@ export class FormPermisoCuentaComponent implements OnInit {
       }
 
       if (accion === 1) {
-        mensaje = 'El permisoCuentaMonto' + permisoCuentaMonto.permiso.nombre + ' se guardo con exito';
+        mensaje = 'El permisoCuentaMonto' + permisCuentaMonto.permiso.nombre + ' se guardo con exito';
         tituloMensaje = 'permisoCuentaMonto Guardado';
       } else {
-        mensaje = 'El permisoCuentaMonto ' + permisoCuentaMonto.permiso.nombre + ' se Actualizo con exito';
+        mensaje = 'El permisoCuentaMonto ' + permisCuentaMonto.permiso.nombre + ' se Actualizo con exito';
         tituloMensaje = 'permisoCuentaMonto Actualizado';
       }
 
-      this.permisoService.savePermisoCuentaMonto(permisoCuentaMonto).subscribe(result => {
+      this.permisoService.savePermisoCuentaMonto(permisCuentaMonto).subscribe(result => {
         console.log(urlReturn);
         this.router.navigate([urlReturn]);
         swal(tituloMensaje, mensaje, 'success');

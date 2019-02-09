@@ -8,51 +8,41 @@
   <title>Document</title>
 </head>
 <body>
-<div class="card-body card bg-light text-black-50" id="div-form-usuario">
+<div class="card-body card bg-light text-black-50">
 
   <div class="card-header">
-    Permiso cuenta
+    Permiso cuenta Monto
   </div>
 
-  <form class="form-user">
+  <form class="form-user mt-5">
 
     <div class="form-group row">
-      <label for="nombre" class="col-form-label col-sm-2">nombre Permiso</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" [(ngModel)]="permisoCuenta.permiso.nombre" name="nombre">
+      <label for="nombre" class="col-form-label col-sm-3 ml-4">nombre Permiso</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" [(ngModel)]="permisCuentaMonto.permiso.nombre" name="nombre">
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="limiteInferior" class="col-form-label col-sm-2">Limite Inferior</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" [(ngModel)]="permisoCuenta.limiteInferior" name="limiteInferior">
+      <label for="limiteInferior" class="col-form-label col-sm-3 ml-4">Limite Inferior</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" [(ngModel)]="permisCuentaMonto.limiteInferior" name="limiteInferior">
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="limiteSuperior" class="col-form-label col-sm-2">Limite Superior</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" [(ngModel)]="permisoCuenta.limiteSuperior" name="limiteSuperior">
+      <label for="telefono" class="col-form-label col-sm-3 ml-4">Limite Superior</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" [(ngModel)]="permisCuentaMonto.limiteSuperior" name="limiteSuperior">
       </div>
     </div>
 
-    <div class="divBotones">
-
-      <div class="form-group row">
-        <div class="col-sm-8">
-          <button class="btn btn-success" role="button" (click)="savePermisoCuentaMontoCuenta(1, permisoCuentaMonto)" *ngIf="!permisoCuenta.idUsuarioPermisoCuenta else gButton">Guardar</button>
-          <ng-template #gButton>
-            <button class="btn btn-success" role="button" (click)="savePermisoCuentaMontoCuenta(2, permisoCuentaMonto)">Editar</button>
-          </ng-template>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="col-sm-8">
-          <button class="btn btn-danger" role="button" [routerLink]="['/user']" routerLinkActive="router-link-active" >Cancelar</button>
-        </div>
-      </div>
+    <div class="form-group  div-botones mt-5 ml-4">
+      <button class="btn btn-success form-btn-guardar" role="button" (click)="savePermisoCuentaMonto(1, permisCuentaMonto)" *ngIf="!permisCuentaMonto.idUsuarioPermisoCuenta else gButton">Guardar</button>
+      <ng-template #gButton>
+        <button class="btn btn-success form-btn-editar" role="button" (click)="savePermisoCuentaMonto(2, permisCuentaMonto)">Editar</button>
+      </ng-template>
+      <button class="btn btn-danger ml-5" role="button" [routerLink]="['/user']" routerLinkActive="router-link-active" >Cancelar</button>
     </div>
 
   </form>

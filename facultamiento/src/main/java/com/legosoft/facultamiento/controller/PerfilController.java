@@ -1,6 +1,7 @@
 package com.legosoft.facultamiento.controller;
 
 import com.legosoft.facultamiento.models.nuevo.PerfilNM;
+import com.legosoft.facultamiento.models.nuevo.Permiso;
 import com.legosoft.facultamiento.models.nuevo.Rol;
 import com.legosoft.facultamiento.models.old.Perfil;
 import com.legosoft.facultamiento.models.old.Usuario;
@@ -8,11 +9,11 @@ import com.legosoft.facultamiento.service.PerfilService;
 import com.legosoft.facultamiento.service.RolService;
 import com.legosoft.facultamiento.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import javax.ws.rs.Consumes;
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
@@ -29,7 +30,8 @@ public class PerfilController {
 
     @PostMapping("/savePerfil")
     public PerfilNM savePerfil(@RequestBody PerfilNM perfilNM){
-        return perfilService.saveOrUpdate(perfilNM);
+        return null;
+        //return perfilService.saveOrUpdate(perfilNM);
     }
 
     @RequestMapping(value = "/getPerfiles", method = RequestMethod.GET)
@@ -114,5 +116,21 @@ public class PerfilController {
     @GetMapping(value = "/getPerfilByNombre/{nombrePerfil}")
     public PerfilNM getPerfilByNombre(@PathVariable("nombrePerfil") String nombrePerfil){
         return perfilService.findPerfilNMByNombre(nombrePerfil).get();
+    }
+
+    @PostMapping(value = "/addPermisos")
+    @Consumes("application/json")
+    public void addPermisosAndPerfil(@RequestBody Set<Permiso> obj){
+       Usuario user =  usuarioService.findUsuarioBynombre("Zaira Casimiro").stream().findFirst().get();
+       user.setPermisosNegados(obj);
+       usuarioService.saveOrUpdate(user);
+        System.out.println(obj.size());
+    }
+
+    @PostMapping(value = "/addPerfil")
+    public void addPermisosAndPerfil(@RequestBody PerfilNM perfil){
+        Usuario user =  usuarioService.findUsuarioBynombre("Zaira Casimiro").stream().findFirst().get();
+        user.getPerfiles().add(perfil);
+        usuarioService.saveOrUpdate(user);
     }
 }

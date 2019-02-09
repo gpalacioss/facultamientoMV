@@ -3,8 +3,10 @@ package com.legosoft.facultamiento.controller;
 import com.legosoft.facultamiento.models.nuevo.Permiso;
 import com.legosoft.facultamiento.models.nuevo.UsuarioPermisoCuenta;
 import com.legosoft.facultamiento.models.old.Facultad;
+import com.legosoft.facultamiento.models.old.Usuario;
 import com.legosoft.facultamiento.service.FacultadSerivice;
 import com.legosoft.facultamiento.service.PermisoService;
+import com.legosoft.facultamiento.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,9 @@ public class FacultadController {
 
     @Autowired
     private PermisoService permisoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @RequestMapping(value = "/getFacultades", method = RequestMethod.GET)
     public List<Facultad> findAllFacultades(){
@@ -66,6 +71,13 @@ public class FacultadController {
     @GetMapping(value = "/getPermisoCuentaById/{id}")
     public UsuarioPermisoCuenta getPermisoCuentaMontobyId(@PathVariable("id") Long id){
         return permisoService.findUsuarioPermisoCuentaById(id);
+    }
+
+    @PostMapping("/eliminaPermiso")
+    public void eliminaPermiso(@RequestBody Permiso permiso){
+        Usuario user = usuarioService.findUsuarioBynombre("Zaira Casimiro").stream().findFirst().get();
+        user.getPermisosNegados().add(permiso);
+        usuarioService.saveOrUpdate(user);
     }
 
 }
