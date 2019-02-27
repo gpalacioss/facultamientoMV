@@ -39,7 +39,8 @@
               "src/assets/alchemy/alchemy.js",
               "src/assets/alchemy/alchemy.min.js",
               "src/assets/alchemy/scripts/vendor.js",
-              "src/assets/js/neovis.js"
+              "src/assets/js/neovis.js",
+              "src/assets/js/function-neovis.js"
 
             ]
           },

@@ -1,6 +1,6 @@
 import {UsuarioService} from './../../service/usuario/usuario.service';
 import {Alchemy} from '../../../assets/alchemy/alchemy.js';
-import {NeoVis} from '../../../assets/js/neovis.js';
+import {Neovisfunc} from '../../../assets/js/function-neovis.js';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FacultadService} from '../../service/facultad/facultad.service';
 import {Usuario} from '../../models/usuario';
@@ -101,7 +101,7 @@ export class GraphComponent implements OnInit {
   public getUsuariosByUsuarioAdministrador(nombreAdmin: String) {
     this.usuarioService.getUsuariosByUsuarioAdministrador(nombreAdmin).subscribe(result => {
       this.jsonGraph = result;
-      this.generagraphNeovis(this.jsonGraph);
+      this.generaGraph(this.jsonGraph);
       this.getInfoClick();
     });
   }
@@ -110,7 +110,7 @@ export class GraphComponent implements OnInit {
 
     this.facultadService.permisoSimpleByUsuarioGraph(nombreUsuario).subscribe(result => {
         this.jsonGraph = result;
-        this.generagraphNeovis(this.jsonGraph);
+        this.generaGraph(this.jsonGraph);
         this.getInfoClick();
     });
   }
@@ -118,7 +118,7 @@ export class GraphComponent implements OnInit {
   public getPermisoCuentaMontoByUsuario(nombreUsuario: String): void {
     this.facultadService.getPermisoCuentaMontoByUsuarioGraph(nombreUsuario).subscribe(result => {
         this.jsonGraph = result;
-        this.generagraphNeovis(this.jsonGraph);
+        this.generaGraph(this.jsonGraph);
         this.getInfoClick();
     });
   }
@@ -212,110 +212,82 @@ export class GraphComponent implements OnInit {
     });
   }
 
-  // public  generaGraph(json: Object) {
-  //   const dataSource = json;
-  //
-  //       console.log(dataSource);
-  //
-  //      const config = {
-  //         dataSource,
-  //        edgeTypes: {'edgeType': ['MEMBER_OF', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
-  //        nodeTypes: {'nodeType': ['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil', 'permisoCuentaMonto', 'administrador']},
-  //        directedEdges: true,
-  //        forceLocked: true,
-  //        nodeCaption: 'name',
-  //        edgeCaption: 'edgeType',
-  //        nodeCaptionsOnByDefault: true,
-  //        nodeStyle: {
-  //          'usuario': {
-  //            'color'      : '#F6F',
-  //            'radius'     : 20,
-  //            'borderWidth': 8
-  //          },
-  //          'administrador': {
-  //            'color'      : '#f40c0f',
-  //            'radius'     : 20,
-  //            'borderWidth': 8
-  //          },
-  //          'compania': {
-  //            'color'      : '#f2eb29',
-  //            'radius'     : 20,
-  //            'borderWidth': 8
-  //          },
-  //          'grupo': {
-  //            'color'      : '#f7a204',
-  //            'radius'     : 20,
-  //            'borderWidth': 8
-  //          },
-  //          'permiso': {
-  //            'color'      : '#f7a204',
-  //            'radius'     : 20,
-  //            'borderWidth': 8
-  //          },
-  //          'cuenta': {
-  //            'color'      : '#7a49ed',
-  //            'radius'     : 20,
-  //            'borderWidth': 8
-  //          },
-  //          'rol': {
-  //            'color'      : '#28f416',
-  //            'radius'     : 20,
-  //            'borderWidth': 8
-  //          },
-  //          'perfil': {
-  //            'color'      : '#f7043d',
-  //            'radius'     : 20,
-  //            'borderWidth': 8
-  //          }},
-  //        edgeStyle: {
-  //          'MEMBER_OF': {
-  //            'width': 5,
-  //            'color': '#F6F'
-  //          },
-  //          'TRABAJA_EN': {
-  //            'width': 8,
-  //            'color': '#f2eb29'
-  //          },
-  //          'CHILD_OF': {
-  //            'width': 8,
-  //            'color': '#f2eb29'
-  //          },
-  //          'ALLOW': {
-  //            'width': 8,
-  //            'color': '#f7a204'
-  //          }
-  //        },
-  //           };
-  //
-  //         const alchemy = new Alchemy(config);
-  // }
+  public  generaGraph(json: Object) {
+    const dataSource = json;
 
-  generagraphNeovis(json: Object) {
-    const config = {
-      container_id : 'viz' ,
-      server_url : 'bolt://localhost',
-      server_user : 'neo4j' ,
-      server_password : 'galletitas' ,
-      labels : {
-        // 'Carácter': 'nombre',
-        'Character' : {
-          'caption' :  'name' ,
-          'size' :  'pagerank' ,
-          'community' :  'community'
-          // 'sizeCypher': 'MATCH ( n) DONDE id (n) = {id} MATCH (n) - [r] - () RETURN sum (r.weight) AS c '
-        }
-      },
-      relationships : {
-        'INTERACTS' : {
-          'thickness' :  'weight' ,
-          'caption' :  false
-        }
-      }
-      // initial_cypher :  'MATCH (n) - [r: INTERACTS] -> (m) RETURN n, r, m'
-    };
+        console.log(dataSource);
 
-    viz =  new  NeoVis.default(config);
-    viz.render();
+       const config = {
+          dataSource,
+         edgeTypes: {'edgeType': ['MEMBER_OF', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
+         nodeTypes: {'nodeType': ['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil', 'permisoCuentaMonto', 'administrador']},
+         directedEdges: true,
+         forceLocked: true,
+         nodeCaption: 'name',
+         edgeCaption: 'edgeType',
+         nodeCaptionsOnByDefault: true,
+         nodeStyle: {
+           'usuario': {
+             'color'      : '#F6F',
+             'radius'     : 20,
+             'borderWidth': 8
+           },
+           'administrador': {
+             'color'      : '#f40c0f',
+             'radius'     : 20,
+             'borderWidth': 8
+           },
+           'compania': {
+             'color'      : '#f2eb29',
+             'radius'     : 20,
+             'borderWidth': 8
+           },
+           'grupo': {
+             'color'      : '#f7a204',
+             'radius'     : 20,
+             'borderWidth': 8
+           },
+           'permiso': {
+             'color'      : '#f7a204',
+             'radius'     : 20,
+             'borderWidth': 8
+           },
+           'cuenta': {
+             'color'      : '#7a49ed',
+             'radius'     : 20,
+             'borderWidth': 8
+           },
+           'rol': {
+             'color'      : '#28f416',
+             'radius'     : 20,
+             'borderWidth': 8
+           },
+           'perfil': {
+             'color'      : '#f7043d',
+             'radius'     : 20,
+             'borderWidth': 8
+           }},
+         edgeStyle: {
+           'MEMBER_OF': {
+             'width': 5,
+             'color': '#F6F'
+           },
+           'TRABAJA_EN': {
+             'width': 8,
+             'color': '#f2eb29'
+           },
+           'CHILD_OF': {
+             'width': 8,
+             'color': '#f2eb29'
+           },
+           'ALLOW': {
+             'width': 8,
+             'color': '#f7a204'
+           }
+         },
+            };
+
+          const alchemy = new Alchemy(config);
   }
 
 }
