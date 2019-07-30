@@ -1,6 +1,5 @@
 import {UsuarioService} from './../../service/usuario/usuario.service';
 import {Alchemy} from '../../../assets/alchemy/alchemy.js';
-import {Neovisfunc} from '../../../assets/js/function-neovis.js';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FacultadService} from '../../service/facultad/facultad.service';
 import {Usuario} from '../../models/usuario';
@@ -219,10 +218,11 @@ export class GraphComponent implements OnInit {
 
        const config = {
           dataSource,
-         edgeTypes: {'edgeType': ['MEMBER_OF', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
+         edgeTypes: {'edgeType': ['MEMBER_OF', 'WORKS_FOR', 'TRABAJA_EN', 'CHILD_OF', 'ALLOW']},
+         // tslint:disable-next-line:max-line-length
          nodeTypes: {'nodeType': ['usuario', 'compania', 'grupo', 'permiso', 'cuenta', 'rol', 'perfil', 'permisoCuentaMonto', 'administrador']},
          directedEdges: true,
-         forceLocked: true,
+         forceLocked: false,
          nodeCaption: 'name',
          edgeCaption: 'edgeType',
          nodeCaptionsOnByDefault: true,
@@ -271,6 +271,10 @@ export class GraphComponent implements OnInit {
            'MEMBER_OF': {
              'width': 5,
              'color': '#F6F'
+           },
+           'WORKS_FOR': {
+             'width': 8,
+             'color': '#f2eb29'
            },
            'TRABAJA_EN': {
              'width': 8,
