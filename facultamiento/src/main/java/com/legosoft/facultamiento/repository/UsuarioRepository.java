@@ -13,6 +13,9 @@ import com.legosoft.facultamiento.models.old.Usuario;
 import java.lang.String;
 import java.util.Optional;
 
+/**
+ * Todo: Repositorio usuario que hereda de Neo4jRepository, esta cinterfaz sirve para el acceso a datos de neo4j enlazado con spring data, el cual configura querys prehechos pero tambien se pueden hacer personalizados con la anotacion @Query
+ */
 public interface UsuarioRepository extends Neo4jRepository<Usuario, Long>{
 	
 	List<Usuario> findAll();

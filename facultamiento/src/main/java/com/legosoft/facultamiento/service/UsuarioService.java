@@ -27,14 +27,14 @@ public interface UsuarioService {
 	public List<Usuario> findUsuariosByNumeroCuenta(String numeroCuenta);
 
 	/**
-	 * Servicio que genera el json de forma grafica de los los perfiles, roles y permisos simples de un usuario
+	 * TODO: Servicio que genera el json de forma grafica de los los perfiles, roles y permisos simples de un usuario
 	 * @param nombreUsuario
 	 * @return
 	 */
 	public String getUsuarioAndPermisosGraph(String nombreUsuario);
 
 	/**
-	 * Servicio que genera el json de forma de graficos de las empresas que puede ver un usuario administrador
+	 * TODO: Servicio que genera el json de forma de graficos de las empresas que puede ver un usuario administrador
 	 * @param nombreAdmin
 	 * @return
 	 */
@@ -42,7 +42,7 @@ public interface UsuarioService {
 
 
 	/**
-	 * Servicio que genera el json de forma de graficos de las empresas que puede ver un usuario administrador incluyendo los empleados que trabajan en las empresas
+	 * TODO: Servicio que genera el json de forma de graficos de las empresas que puede ver un usuario administrador incluyendo los empleados que trabajan en las empresas
 	 * @param nombreAdmin
 	 * @return
 	 */
@@ -50,14 +50,14 @@ public interface UsuarioService {
 
 
 	/**
-	 * Servicio que genera el json ya en forma de grafos que muestra la empresas y sus cuentas de un administrador
+	 * TODO Servicio que genera el json ya en forma de grafos que muestra la empresas y sus cuentas de un administrador
 	 * @param nombreAdmin
 	 * @return
 	 */
 	public String getCuentasEmpresasByAdministrador(String nombreAdmin);
 
 	/**
-	 * Servicio que devuelve las cuentas y los permisos cuenta monto de un usuario
+	 * TODO: Servicio que devuelve las cuentas y los permisos cuenta monto de un usuario
 	 * @param nombreUsuario
 	 * @return
 	 */
@@ -65,7 +65,7 @@ public interface UsuarioService {
 
 
 	/**
-	 * Servicio que devuelve las cuentas y los permisos cuenta monto de un usuario incluyendo permisos ismples si tienen
+	 * TODO: Servicio que devuelve las cuentas y los permisos cuenta monto de un usuario incluyendo permisos ismples si tienen
 	 * @param usuario
 	 * @return
 	 */

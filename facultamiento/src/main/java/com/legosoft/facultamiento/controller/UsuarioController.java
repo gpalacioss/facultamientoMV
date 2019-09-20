@@ -93,30 +93,58 @@ public class UsuarioController {
     }
 
 
+	/**
+	 * Metodo Rest que consulta la informacion de un usuario en especifico y devuelve la informacion en formato json en tipos de nodos y relaciones para mostrarlo con alchemy
+	 * @param nombreUsuario
+	 * @return
+	 */
 	@GetMapping(value = "/usuariosAndPermisosGraph/{nombreUsuario}")
 	public String getUsuariosAndPermisosGraph(@PathVariable("nombreUsuario") String nombreUsuario){
 		String json = usuarioService.getUsuarioAndPermisosGraph(nombreUsuario);
 		return json;
 	}
 
+	/**
+	 * Metodo Rest que consulta la informacion de las empresas de un usuario administrador  en especifico y devuelve la informacion en formato json en tipos de nodos y relaciones para mostrarlo con alchemy
+	 * @param nombreUsuario
+	 * @return
+	 */
 	@GetMapping(value = "/getEmpresasbyAdministradorGraph/{nombreUsuario}")
 	public String getEmpresasbyAdministradorGraph(@PathVariable("nombreUsuario") String nombreUsuario){
 		String json = usuarioService.getEmpresasbyAdministradorGraph(nombreUsuario);
 		return json;
 	}
 
+	/**
+	 * Metodo Rest que consulta la informacion de las empresas empleados que estan a cargo  de un usuario administrador  en especifico y
+	 * devuelve la informacion en formato json en tipos de nodos y relaciones para mostrarlo con alchemy
+	 * @param nombreUsuario
+	 * @return
+	 */
 	@GetMapping(value = "/getEmpresaAndEmpleadosByAdministrador/{nombreUsuario}")
 	public String getEmpresaAndEmpleadosByAdministrador(@PathVariable("nombreUsuario") String nombreUsuario){
 		String json = usuarioService.getEmpresaAndEmpleadosByAdministrador(nombreUsuario);
 		return json;
 	}
 
+	/**
+	 * Metodo Rest que consulta la informacion de las cuentas de un usuario administrador  en especifico y
+	 * devuelve la informacion en formato json en tipos de nodos y relaciones para mostrarlo con alchemy
+	 * @param nombreUsuario
+	 * @return
+	 */
 	@GetMapping(value = "/getCuentasEmpresasByAdministrador/{nombreUsuario}")
 	public String getCuentasEmpresasByAdministrador(@PathVariable("nombreUsuario") String nombreUsuario){
 		String json = usuarioService.getCuentasEmpresasByAdministrador(nombreUsuario);
 		return json;
 	}
 
+	/**
+	 *  Metodo Rest que consulta la informacion de las cuentas monto  de un usuario  en especifico y
+	 * 	devuelve la informacion en formato json en tipos de nodos y relaciones para mostrarlo con alchemy
+	 * @param nombreUsuario
+	 * @return
+	 */
 	@GetMapping(value = "/getPermisosCuentaMontoByUsuario/{nombreUsuario}")
 	public String getPermisosCuentaMontoByUsuario(@PathVariable("nombreUsuario") String nombreUsuario){
 		System.out.println(nombreUsuario);
@@ -130,6 +158,12 @@ public class UsuarioController {
 		return json;
 	}
 
+
+	/**
+	 * Metodo que elimina un nodo, valida el tipo de nodo para saber de que table eliminar
+	 * @param info
+	 * @return
+	 */
 	@PostMapping(value = "/eliminaNodo")
 	public Response eliminaNodo(@RequestBody String info){
 
@@ -248,6 +282,11 @@ public class UsuarioController {
 		return response;
 	}
 
+
+	/**
+	 * Metodo que edita un nodo , igual que al eliminar valida el tipo de nodo para poder realizar la accion
+	 * @param info
+	 */
 	@PostMapping("/editaNodo")
 	public void editaNodo(@RequestBody String info){
 
